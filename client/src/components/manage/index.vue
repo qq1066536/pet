@@ -70,7 +70,7 @@
                                 <i class="el-icon-menu"></i>
                                 <span slot="title">供应商信息</span>
                             </el-menu-item>
-                            <el-menu-item index="">
+                            <el-menu-item index="/manage/supplier/products">
                                 <i class="el-icon-printer"></i>
                                 <span slot="title">商品信息</span>
                             </el-menu-item>

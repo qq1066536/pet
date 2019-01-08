@@ -26,6 +26,10 @@ export default new VueRouter({
             {
                 path: "/manage/platform/Statistics",
                 component: Statistics
+            },
+            {
+                path: "/manage/order",
+                component: Orders
             }
             ]
         }

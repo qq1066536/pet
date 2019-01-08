@@ -6,6 +6,7 @@ import PetmasterManage from "../components/platform/PetmasterManage"
 import StoreManage from "../components/platform/StoreManage"
 import Statistics from "../components/platform/Statistics"
 import Orders from "../components/Orders"
+import Products from "../components/shop/productsList"
 Vue.use(VueRouter);
 export default new VueRouter({
     routes: [
@@ -31,7 +32,11 @@ export default new VueRouter({
             {
                 path: "/manage/orders",
                 component: Orders
-            }
+            },
+            {
+                path: "/manage/products",
+                component: Products
+            },
             ]
         }
     ],

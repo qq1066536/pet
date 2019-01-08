@@ -38,39 +38,44 @@ router.get('/:id', async function (req, res) {
   let data = await client.get("/sop_procducts/" + id);
   res.send(data)
 });
-router.get("/:id", async function (req, res) {
-  let id = req.params.id;
-  let data = await client.get("/sop_procducts/" + id, {
-    submitType: "findJoin"
-    , ref: "shop"
-  });
-  res.send(data)
-})
-router.get("/", async function (req, res) {
-  let { page, rows, value, type } = req.query;
-  let data = await client.get("/sop_procducts", {
-    page,
-    rows,
-    findType: "exact",
-    submitType: "findJoin", ref: "sop_procducts",
-  });
-  console.log(type, value)
+
+router.get('/', async function (req, res) {
+  let { id, page, rows, type, value } = req.query;//获取页码,每页显示数,搜索类型,搜索框的值
+  let searchObj = {};//声明一个对象
   if (type) {
-    let isCludes;
-    for (let i = 0; i < data.rows.length; i++) {
-      isCludes = _.includes(data.rows[i].order[type], value); // 数据中是否包含value
-      if (!isCludes) {
-        data.rows.splice(i, 1);
-        i--;
-      }
-    }
-    // 总共的条数
-    if (value != '') {
-      data.total = data.rows.length;
-    }
-    // 当前页
-    data.curpage = parseInt(data.total / data.eachpage) || 1;
+    searchObj = { [type]: value }//如果name不等于null,将name值,输入框的值传入对象;
   }
+  let data = await client.get("/sop_procducts", { submitType: "findJoin", ref: "shop" })
+  data = data.filter(item => item.shop._id == id)
+  console.log("test")
   res.send(data);
-})
+});
+
+// router.get("/", async function (req, res) {
+//   let { page, rows, value, type } = req.query;
+//   let data = await client.get("/sop_procducts", {
+//     page,
+//     rows,
+//     findType: "exact",
+//     submitType: "findJoin", ref: "sop_procducts",
+//   });
+//   console.log(type, value)
+//   if (type) {
+//     let isCludes;
+//     for (let i = 0; i < data.rows.length; i++) {
+//       isCludes = _.includes(data.rows[i].order[type], value); // 数据中是否包含value
+//       if (!isCludes) {
+//         data.rows.splice(i, 1);
+//         i--;
+//       }
+//     }
+//     // 总共的条数
+//     if (value != '') {
+//       data.total = data.rows.length;
+//     }
+//     // 当前页
+//     data.curpage = parseInt(data.total / data.eachpage) || 1;
+//   }
+//   res.send(data);
+// })
 module.exports = router;

@@ -11,7 +11,8 @@
     "axios": "^0.18.0",
     "element-ui": "^2.4.11",
     "vue": "^2.5.21",
-    "vue-router": "^3.0.2"
+    "vue-router": "^3.0.2",
+    "vuex": "^3.0.1"
   },
   "proxy": "http://127.0.0.1:3000",
   "devDependencies": {

@@ -25,17 +25,18 @@
   </div>
 </template>
 <script>
-import axios from "axios";
 import { createNamespacedHelpers } from "vuex";
-const { mapActions, mapState, mapMutations } = createNamespacedHelpers("");
+const { mapState, mapMutations } = createNamespacedHelpers("productsMoudles");
 export default {
   props: [],
     computed: {
     ...mapState(["products"])
   },
+  created:function(){
+    this.setProducts()
+  },
   methods: {
     ...mapMutations(["setProducts"]),
-    ...mapActions()
   }
 };
 </script>

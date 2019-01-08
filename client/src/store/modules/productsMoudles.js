@@ -20,9 +20,6 @@ export default {
         setProducts(state, products) {
             state.products = products;
         },
-        setSearch(state, search) {
-            state.search = search
-        },
         setPagition(state, pagination) {
             state.pagination = pagination
         },
@@ -37,7 +34,6 @@ export default {
                 url: "/sopPropducts/" + id
             }).then(({ data }) => {
                 commit("setProduct", data);
-
             })
         },
         setProducts({ commit}, payloda = { page: 1, rows: 5}) {

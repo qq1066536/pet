@@ -30,7 +30,7 @@ router.get("/", async function (req, res) {
         findType: "exact",
         submitType: "findJoin", ref: "order",
     });
-    // console.log(type,value) undefined undefined
+    console.log(type,value)
     if (type) {
         let isCludes;
         for (let i = 0; i < data.rows.length; i++) {

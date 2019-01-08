@@ -1,3 +1,4 @@
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -9,7 +10,8 @@ var usersRouter = require('./routes/users');
 var ordersRouter = require('./routes/orders');
 var servicesRouter = require('./routes/services');
 
-
+var platformRouter = require('./routes/platform.js')
+var supplierRouter=require("./routes/supplier")
 var app = express();
 
 // view engine setup
@@ -27,13 +29,15 @@ app.use('/users', usersRouter);
 app.use('/orders', ordersRouter);
 app.use('/services', servicesRouter);
 
+app.use('/platform', platformRouter);
+app.use("/supplier",supplierRouter)
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

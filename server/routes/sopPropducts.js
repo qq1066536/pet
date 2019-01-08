@@ -32,4 +32,10 @@ router.delete('/:id', async function (req, res) {
   await client.delete("/sop_procducts/"+id);
   res.send({ status: 1 });
 });
+//id查询
+router.get('/:id', async function (req, res) {
+  let id = req.params.id;
+  let data = await client.get("/sop_procducts/" + id);
+  res.send(data)
+});
 module.exports = router;

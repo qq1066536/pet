@@ -12,7 +12,6 @@ import OrderList from "./OrderList";
 import OrderPage from "./OrderPage";
 import OrderUpdate from "./OrderUpdate";
 import OrderSearch from "./OrderSearch";
-import axios from "axios";
 export default {
   components: {
     OrderList,

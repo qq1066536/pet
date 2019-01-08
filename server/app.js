@@ -12,6 +12,8 @@ var platformRouter = require('./routes/platform.js')
 var ordersRouter = require('./routes/orders');
 var servicesRouter = require('./routes/services');
 
+var ordersRouter = require('./routes/orders');
+var servicesRouter = require('./routes/services');
 
 var platformRouter = require('./routes/platform.js')
 var supplierRouter=require("./routes/supplier")

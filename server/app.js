@@ -12,6 +12,7 @@ var platformRouter = require('./routes/platform.js')
 var ordersRouter = require('./routes/orders');
 
 
+var supplierRouter=require("./routes/supplier")
 var app = express();
 
 // view engine setup

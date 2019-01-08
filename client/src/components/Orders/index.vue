@@ -13,18 +13,13 @@ import OrderPage from "./OrderPage";
 import OrderUpdate from "./OrderUpdate";
 import OrderSearch from "./OrderSearch";
 import { createNamespacedHelpers } from 'vuex'
-const { mmapState,mapActions } = createNamespacedHelpers('orderModules')
+const { mapActions } = createNamespacedHelpers('orderModules')
 export default {
   components: {
     OrderList,
     OrderPage,
     OrderUpdate,
     OrderSearch
-  },
-  data() {
-    return {
-
-    }
   },
   created: function() {
     this.getOrders();

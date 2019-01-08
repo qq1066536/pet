@@ -49,7 +49,7 @@
                                 <i class="el-icon-printer"></i>
                                 <span slot="title">商品</span>
                             </el-menu-item>
-                            <el-menu-item index="">
+                            <el-menu-item index="/manage/services">
                                 <i class="el-icon-goods"></i>
                                 <span slot="title">服务</span>
                             </el-menu-item>

@@ -31,6 +31,10 @@ export default new VueRouter({
             {
                 path: "/manage/orders",
                 component: Orders
+            },
+            {
+                path: "/manage/services",
+                component: Services
             }
             ]
         }

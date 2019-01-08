@@ -53,7 +53,11 @@ router.get("/", async function (req, res) {
     }
     res.send(data);
 })
-
+router.get("/:id", async function(req,res){
+    let id = req.params.id;
+    let data = await client.get("/order/"+id);
+    res.send(data);
+})
 //修改
 router.put("/:id", async function (req, res) {
     let id = req.params.id; // 订单的id

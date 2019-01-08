@@ -6,6 +6,7 @@ import PetmasterManage from "../components/platform/PetmasterManage"
 import StoreManage from "../components/platform/StoreManage"
 import Statistics from "../components/platform/Statistics"
 import Orders from "../components/Orders"
+import Services from "../components/Services"
 Vue.use(VueRouter);
 export default new VueRouter({
     routes: [

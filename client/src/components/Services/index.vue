@@ -1,7 +1,7 @@
 <template>
   <div>
-    <OrderUpdate></OrderUpdate>
-    <OrderList></OrderList>
+    <ServiceUpdate></ServiceUpdate>
+    <ServiceList></ServiceList>
   </div>
 </template>
 
@@ -12,8 +12,8 @@ import { createNamespacedHelpers } from 'vuex'
 const { mapActions } = createNamespacedHelpers('serviceModules')
 export default {
   components: {
-    OrderList,
-    OrderUpdate,
+    ServiceUpdate,
+    ServiceList,
   },
   created: function() {
     this.getServices();

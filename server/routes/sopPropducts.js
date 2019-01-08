@@ -12,8 +12,24 @@ router.post('/', async function (req, res) {
     taste = taste && JSON.parse(taste);
     effect = effect && JSON.parse(effect);
     img = img && JSON.parse(img);
-    client.post('/sop_procducts', { name, type, makings, spec, suit, weight, taste, effect,addr, pro_date, valid_date, No,desc,price,img,shop:{ $ref:"shop",$id:shopId}})
-    res.send({ status: 1 });
+   await client.post('/sop_procducts', { name, type, makings, spec, suit, weight, taste, effect,addr, pro_date, valid_date, No,desc,price,img,shop:{ $ref:"shop",$id:shopId}})
+   let shopData=await client.get("/shop/"+shopId);
+   shopData.number++;
+   delete shopData._id;
+   await client.put("/shop/"+shopId,{...shopData});
+   res.send({ status: 1 });
   });
-
+//修改商品
+router.put('/:id', async function (req, res) {
+  let id = req.params.id;
+  let { name, type, makings, spec, suit, weight, taste, effect,addr, pro_date, valid_date, No,desc,price,img} = req.body;
+  await client.put("/sop_procducts/" + id, { name, type, makings, spec, suit, weight, taste, effect,addr, pro_date, valid_date, No,desc,price,img});
+  res.send({ status: 1 });
+});
+//删除
+router.delete('/:id', async function (req, res) {
+  let id = req.params.id;
+  await client.delete("/sop_procducts/"+id);
+  res.send({ status: 1 });
+});
 module.exports = router;

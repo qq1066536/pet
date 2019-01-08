@@ -17,6 +17,7 @@ var servicesRouter = require('./routes/services');
 
 var platformRouter = require('./routes/platform.js')
 var supplierRouter=require("./routes/supplier")
+
 var app = express();
 
 // view engine setup
@@ -38,6 +39,7 @@ app.use('/services', servicesRouter);
 
 app.use('/platform', platformRouter);
 app.use("/supplier",supplierRouter)
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

@@ -41,7 +41,7 @@
                             <span>门面管理</span>
                         </template>
                         <el-menu-item-group>
-                            <el-menu-item index="">
+                            <el-menu-item index="/manage/orders">
                                 <i class="el-icon-menu"></i>
                                 <span slot="title">订单</span>
                             </el-menu-item>

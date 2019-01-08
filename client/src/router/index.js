@@ -5,6 +5,7 @@ import UserManage from "../components/platform/UserManage"
 import PetmasterManage from "../components/platform/PetmasterManage"
 import StoreManage from "../components/platform/StoreManage"
 import Statistics from "../components/platform/Statistics"
+import Orders from "../components/Orders"
 Vue.use(VueRouter);
 export default new VueRouter({
     routes: [
@@ -28,7 +29,7 @@ export default new VueRouter({
                 component: Statistics
             },
             {
-                path: "/manage/order",
+                path: "/manage/orders",
                 component: Orders
             }
             ]

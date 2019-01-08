@@ -4,16 +4,16 @@ const client = require("ykt-http-client");
 client.url("127.0.0.1:8080");
 //上架
 router.post('/', async function (req, res) {
-    let { name, type, makings, spec, suit, weight, taste, effect,addr, pro_date, valid_date, No,desc,price,img,shop,services,user} = req.body;
-    location = location && JSON.parse(location);
-    stuff = stuff && JSON.parse(stuff);
-    client.post('/shop', { name, addr, tel, business_lic, desc, products, business_no, location, city, legal_person, tel, img_head,feature,vip,package,stuff,services,user})
+    let { name, type, makings, spec, suit, weight, taste, effect,addr, pro_date, valid_date, No,desc,price,img,shopId} = req.body;
+    makings = makings && JSON.parse(makings);
+    spec = spec && JSON.parse(spec);
+    suit = suit && JSON.parse(suit);
+    weight = weight && JSON.parse(weight);
+    taste = taste && JSON.parse(taste);
+    effect = effect && JSON.parse(effect);
+    img = img && JSON.parse(img);
+    client.post('/sop_procducts', { name, type, makings, spec, suit, weight, taste, effect,addr, pro_date, valid_date, No,desc,price,img,shop:{ $ref:"shop",$id:shopId}})
     res.send({ status: 1 });
   });
-  //查找门店
-  router.get('/:id', async function (req, res) {
-    let id = req.params.id;
-    let data = await client.get("/shop/" + id);
-    res.send(data);
-  })
+
 module.exports = router;

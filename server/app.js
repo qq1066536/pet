@@ -10,6 +10,7 @@ var usersRouter = require('./routes/users');
 var supplierRouter = require("./routes/supplier")
 var platformRouter = require('./routes/platform.js')
 var ordersRouter = require('./routes/orders');
+var servicesRouter = require('./routes/services');
 
 
 var supplierRouter=require("./routes/supplier")
@@ -30,6 +31,7 @@ app.use('/users', usersRouter);
 app.use("/supplier",supplierRouter)
 app.use('/platform', platformRouter);
 app.use('/orders', ordersRouter);
+app.use('/services', servicesRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

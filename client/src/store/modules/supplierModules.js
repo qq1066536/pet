@@ -53,13 +53,13 @@ export default {
         getProduct: function ({ commit, state }) {
             let id = state.id
             let proid = state.pid
-            console.log("getProduct",proid)
+            // console.log("getProduct",proid)
             axios({
                 method: "get",
                 url: `/supplier/${proid}`,
                 params: { id }
             }).then(({ data }) => {
-                console.log(data)
+                // console.log(data)
                 commit('getProduct', data)
             })
         }

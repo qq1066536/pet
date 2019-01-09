@@ -53,7 +53,7 @@ export default {
         ...mapMutations(["setDialogVisible", "getPid"]),
         ...mapActions(["setProducts", "getProduct"]),
         updateProduct(id) {
-            console.log(id);
+            // console.log(id);
             this.setDialogVisible(true);
             this.getPid(id);
             this.getProduct();
@@ -63,8 +63,8 @@ export default {
                 method: "delete",
                 url: `/supplier/${id}`
             }).then(({ data }) => {
-                console.log(id);
-                console.log("删除成功");
+                // console.log(id);
+                // console.log("删除成功");
                 this.setProducts()
             });
         }

@@ -7,8 +7,8 @@ client.url("127.0.0.1:8080");
 router.get("/:id", async function (req, res) {
     let id = req.params.id;
     let data = await client.get("/services/" + id, {
-        submitType: "findJoin"
-        , ref: "services"
+        submitType: "findJoin",
+        ref: "services",
     });
     res.send(data)
 })

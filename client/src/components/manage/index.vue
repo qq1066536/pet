@@ -9,7 +9,7 @@
         </el-header>
         <el-container class="aside">
             <el-aside width="200px" class="aside">
-                <el-menu :default-active="path" class="menu" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b" :router="true">
+                <el-menu class="menu" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b" :router="true">
                     <el-submenu index="1">
                         <template slot="title">
                             <i class="el-icon-setting"></i>
@@ -70,7 +70,7 @@
                                 <i class="el-icon-menu"></i>
                                 <span slot="title">供应商信息</span>
                             </el-menu-item>
-                            <el-menu-item index="">
+                            <el-menu-item index="/manage/supplier/products">
                                 <i class="el-icon-printer"></i>
                                 <span slot="title">商品信息</span>
                             </el-menu-item>

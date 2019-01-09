@@ -14,11 +14,11 @@
       </template>
     </el-table-column>
     <el-table-column label="宠物体重" width="100" prop="weight"></el-table-column>
-    <el-table-column label="服务规格" width="100" prop="serviceType"></el-table-column>
-    <el-table-column label="耗时" width="100" prop="time"></el-table-column>
-    <el-table-column label="员工等级" width="100" prop="stuffLevel"></el-table-column>
+    <el-table-column label="服务规格" width="80" prop="serviceType"></el-table-column>
+    <el-table-column label="耗时" width="80" prop="time"></el-table-column>
+    <el-table-column label="员工等级" width="80" prop="stuffLevel"></el-table-column>
     <el-table-column label="价格" width="100" prop="price"></el-table-column>
-    <el-table-column label="备注信息" width="100" prop="text"></el-table-column>
+    <el-table-column label="备注信息" width="180" prop="text"></el-table-column>
     <el-table-column label="操作">
       <template slot-scope="scope">
         <el-button size="mini" @click="updateService(scope.row._id)">修改</el-button>

@@ -11,18 +11,13 @@ var supplierRouter = require("./routes/supplier")
 var platformRouter = require('./routes/platform.js')
 var ordersRouter = require('./routes/orders');
 var servicesRouter = require('./routes/services');
-<<<<<<< HEAD
 
-var ordersRouter = require('./routes/orders');
-var servicesRouter = require('./routes/services');
 
 var platformRouter = require('./routes/platform.js')
 var supplierRouter=require("./routes/supplier")
 
 var shopRouter = require('./routes/shop');
 var sopPropductsRouter = require('./routes/sopPropducts');
-=======
->>>>>>> c8531e33db3e22bc1ec089d4b5cb9b658990d88f
 var app = express();
 
 // view engine setup

@@ -45,7 +45,7 @@
                                 <i class="el-icon-menu"></i>
                                 <span slot="title">订单</span>
                             </el-menu-item>
-                            <el-menu-item index="/manage/products">
+                            <el-menu-item index="/manage/shop">
                                 <i class="el-icon-printer"></i>
                                 <span slot="title">商品</span>
                             </el-menu-item>

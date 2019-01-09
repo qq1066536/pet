@@ -4,7 +4,7 @@ const client = require("ykt-http-client");
 client.url("127.0.0.1:8080");
 //上架
 router.post('/', async function (req, res) {
-  let { name, type, makings, spec, suit, weight, taste, effect, addr, pro_date, valid_date, No, desc, price, img, shopId } = req.body;
+  let { name, type, makings, spec, suit, weight, taste, effect, addr, pro_date, valid_date, No, desc, price, img,number, shopId } = req.body;
   makings = makings && JSON.parse(makings);
   spec = spec && JSON.parse(spec);
   suit = suit && JSON.parse(suit);
@@ -12,7 +12,10 @@ router.post('/', async function (req, res) {
   taste = taste && JSON.parse(taste);
   effect = effect && JSON.parse(effect);
   img = img && JSON.parse(img);
-  await client.post('/sop_procducts', { name, type, makings, spec, suit, weight, taste, effect, addr, pro_date, valid_date, No, desc, price, img, shop: { $ref: "shop", $id: shopId } })
+  await client.post('/sop_procducts', {
+    name, type, makings, spec, suit, weight, taste, effect, addr, pro_date, valid_date, No, desc, price, img,number,
+    shop: { $ref: "shop", $id:shopId}
+  })
   let shopData = await client.get("/shop/" + shopId);
   shopData.number++;
   delete shopData._id;
@@ -22,8 +25,8 @@ router.post('/', async function (req, res) {
 //修改商品
 router.put('/:id', async function (req, res) {
   let id = req.params.id;
-  let { name, type, makings, spec, suit, weight, taste, effect, addr, pro_date, valid_date, No, desc, price, img } = req.body;
-  await client.put("/sop_procducts/" + id, { name, type, makings, spec, suit, weight, taste, effect, addr, pro_date, valid_date, No, desc, price, img });
+  let { name, type, makings, spec, suit, weight, taste, effect, addr, pro_date, valid_date, No, desc, price, img,number } = req.body;
+  await client.put("/sop_procducts/" + id, { name, type, makings, spec, suit, weight, taste, effect, addr, pro_date, valid_date, No, desc, price, img,number });
   res.send({ status: 1 });
 });
 //删除
@@ -45,9 +48,14 @@ router.get('/', async function (req, res) {
   if (type) {
     searchObj = { [type]: value }//如果name不等于null,将name值,输入框的值传入对象;
   }
-  let data = await client.get("/sop_procducts", { submitType: "findJoin", ref: "shop" })
-  data = data.filter(item => item.shop._id == id)
-  console.log("test")
+  console.log(req.query)
+  let data = await client.get("/sop_procducts", {
+    page, rows, ...searchObj,
+    "submitType": "findJoin",
+    ref: "shop",
+    "shop.$id": id
+  });
+  console.log(data)
   res.send(data);
 });
 

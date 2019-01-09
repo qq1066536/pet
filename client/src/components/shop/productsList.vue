@@ -15,10 +15,12 @@
       <el-table-column prop="No" label="供应商编号"></el-table-column>
       <el-table-column prop="desc" label="特色说明"></el-table-column>
       <el-table-column prop="price" label="价格"></el-table-column>
+      <el-table-column prop="img" label="图片"></el-table-column>
+       <el-table-column prop="number" label="数量（袋）"></el-table-column>
       <el-table-column label="操作">
-        <template slot-scope="">
-          <el-button size="mini">修改</el-button>
-          <el-button size="mini" type="danger">删除</el-button>
+        <template slot-scope="scope">
+          <el-button size="mini" @click="showById(scope.row._id)">查看/编辑</el-button>
+          <el-button size="mini" type="danger" @click="delProducts(scope.row._id)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -26,17 +28,32 @@
 </template>
 <script>
 import { createNamespacedHelpers } from "vuex";
-const { mapState, mapMutations } = createNamespacedHelpers("productsMoudles");
+import axios from "axios"
+const { mapState, mapMutations, mapActions } = createNamespacedHelpers(
+  "productsMoudles"
+);
 export default {
   props: [],
-    computed: {
+  computed: {
     ...mapState(["products"])
   },
-  created:function(){
-    this.setProducts()
-  },
   methods: {
-    ...mapMutations(["setProducts"]),
+      ...mapMutations(["setupdateVisible"]),
+      ...mapActions(["setProducts","setProduct"]),
+    delProducts(id) {
+      console.log(id)
+      axios({
+        method: "delete",
+        url: "/sopPropducts/" + id
+      }).then(() => {
+        // this.show();
+          this.setProducts();
+      });
+    },
+        showById(id){
+         this.setupdateVisible(true)
+         this.setProduct(id);
+    }
   }
 };
 </script>

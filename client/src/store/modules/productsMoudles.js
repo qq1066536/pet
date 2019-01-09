@@ -10,7 +10,8 @@ export default {
         search: {
             type: "",
             value: ""
-        }
+        },
+        id: "5c32f1d56c9da2c6832b828f"
     },
     getters: {},
     mutations: {
@@ -33,15 +34,18 @@ export default {
                 method: "get",
                 url: "/sopPropducts/" + id
             }).then(({ data }) => {
+                console.log(data)
                 commit("setProduct", data);
             })
         },
-        setProducts({ commit}, payloda = { page: 1, rows: 5}) {
+        setProducts({ commit, state }, payloda = { page: 1, rows: 5 }) {
             axios({
                 method: "get",
                 url: "/sopPropducts",
-                params: { ...payloda }
+                params: { id: state.id, ...payloda }
             }).then(({ data }) => {
+                console.log(state.id)
+                console.log(data)
                 commit("setProducts", data.rows);
                 commit("setPagition", data)
             });

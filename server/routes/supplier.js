@@ -40,6 +40,10 @@ router.delete("/:id",async (req,res)=>{
     let id=req.params.id
     res.send(await client.delete("/sup_products/"+id))
 })
+router.get("/info/:id",async (req,res)=>{
+    let id =req.params.id
+    res.send(await client.get("/supplier/"+id))
+})
 router.put("/updateinfo/:id",async (req,res)=>{
     let id=req.params.id
     let data=await client.get("/supplier/"+id)

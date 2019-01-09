@@ -19,10 +19,10 @@ export default {
         setOrderInfo: function (state, data) {
             state.updateInfo = data;
         },
-        /* 
+        
         setSearch:function(state,search){
             state.search = search
-        },*/
+        },
         setUpdateVisible: function (state, bool) {
             state.dialogVisible = bool;
         },
@@ -39,6 +39,16 @@ export default {
                 params: {id,...payload}
             }).then(({ data }) => {
                 // console.log(data)
+                commit('getOrders', data.rows)
+                commit('setPagination', data)
+            })
+        },
+        getOrdersBy: function({ commit },payload={page:1,row:5}){
+            axios({
+                method: "get",
+                url: "/orders",
+                params: {...payload}
+            }).then((data) => {
                 commit('getOrders', data.rows)
                 commit('setPagination', data)
             })

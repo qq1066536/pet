@@ -5,18 +5,23 @@ client.url("127.0.0.1:8080");
 
 // 根据门店id查询服务
 router.get("/shop", async function (req, res) {
-    let { id, page, rows } = req.query;
-    console.log(id, page, rows)
+    let { id, page, rows, type, value } = req.query;
+    console.log(id, page, rows, type, value)
+    let searchObj = {};
+    if (type) {
+        searchObj = { type: value };
+    }
     let data = await client.get("/services", {
         page, rows,
         "submitType": "findJoin",
         ref: "shop",
         "shop.$id": id,
+        ...searchObj
     });
     res.send(data)
 })
 
-// 根据条件查询服务
+/* // 根据条件查询服务
 router.get('/', async function (req, res) {
     // 分页，调用函数的
     let { page, rows, type, value } = req.query;
@@ -26,12 +31,12 @@ router.get('/', async function (req, res) {
     }
     let data = await client.get("/services", { page, rows, submitType: "findJoin", ref: "services", ...searchObj });
     res.send(data);
-})
+}) */
 
 // 根据id查找数据
-router.get("/:id", async function(req,res){
+router.get("/:id", async function (req, res) {
     let id = req.params.id;
-    let data = await client.get("/services/" + id );
+    let data = await client.get("/services/" + id);
     res.send(data);
 })
 

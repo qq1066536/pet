@@ -20,10 +20,9 @@ export default {
         setServiceInfo: function (state, data) {
             state.updateInfo = data;
         },
-        /* 
         setSearch:function(state,search){
             state.search = search
-        },*/
+        },
         setUpdateVisible: function (state, bool) {
             state.dialogVisible = bool;
         },

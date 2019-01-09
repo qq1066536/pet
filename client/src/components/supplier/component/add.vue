@@ -78,7 +78,7 @@ export default {
         ...mapState(["dialogVisible", "product"])
     },
     created: function() {
-        console.log(this.product);
+        // console.log(this.product);
     },
     methods: {
         ...mapMutations(["setDialogVisible"]),

@@ -1,8 +1,8 @@
 <template>
   <el-table :data="data" style="width: 100%">
     <el-table-column label="服务名称" width="100" prop="name"></el-table-column>
-    <el-table-column label="服务类别" width="100" prop="type"></el-table-column>
-    <el-table-column label="服务时间" width="160">
+    <el-table-column label="服务类别" width="90" prop="type"></el-table-column>
+    <el-table-column label="服务时间" width="140">
       <template slot-scope="scope">
         <el-popover placement="top">
           <div slot="reference" class="name-wrapper">

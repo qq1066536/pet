@@ -28,6 +28,12 @@ router.get('/', async function (req, res) {
     res.send(data);
 })
 
+// 根据id查找数据
+router.get("/:id", async function(req,res){
+    let id = req.params.id;
+    let data = await client.get("/services/" + id );
+    res.send(data);
+})
 
 // 修改
 router.put("/:id", async function (req, res) {

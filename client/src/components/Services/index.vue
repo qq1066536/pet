@@ -1,5 +1,6 @@
 <template>
   <div>
+    <ServiceAdd></ServiceAdd>
     <ServiceUpdate></ServiceUpdate>
     <ServiceList></ServiceList>
   </div>
@@ -8,12 +9,14 @@
 <script>
 import ServiceList from "./ServiceList";
 import ServiceUpdate from "./ServiceUpdate";
+import ServiceAdd from "./ServiceAdd";
 import { createNamespacedHelpers } from 'vuex'
 const { mapActions } = createNamespacedHelpers('serviceModules')
 export default {
   components: {
-    ServiceUpdate,
+    ServiceAdd,
     ServiceList,
+    ServiceUpdate,
   },
   created: function() {
     this.getServices();

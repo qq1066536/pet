@@ -4,11 +4,14 @@ const client = require("ykt-http-client");
 client.url("127.0.0.1:8080");
 
 // 根据门店id查询服务
-router.get("/:id", async function (req, res) {
-    let id = req.params.id;
-    let data = await client.get("/services/" + id, {
-        submitType: "findJoin",
-        ref: "services",
+router.get("/shop", async function (req, res) {
+    let { id, page, rows } = req.query;
+    console.log(id, page, rows)
+    let data = await client.get("/services", {
+        page, rows,
+        "submitType": "findJoin",
+        ref: "shop",
+        "shop.$id": id,
     });
     res.send(data)
 })
@@ -29,17 +32,22 @@ router.get('/', async function (req, res) {
 // 修改
 router.put("/:id", async function (req, res) {
     let id = req.params.id;
-    let { name, type, work_time_start, work_time_end, spec, servie_type, time, stuff_level, price, } = req.body;
+    let { name, type, startTime, endTime, weight, serviceType, time, stuffLevel, price, text } = req.body;
     let data = await client.put("/services/" + id, {
-        name, type, work_time_start, work_time_end, spec, servie_type, time, stuff_level, price,
+        name, type, startTime, endTime, weight, serviceType, time, stuffLevel, price, text
     });
     res.send({ status: 1 });
 })
 
 // 增加
 router.post("/", async function (req, res) {
-    let { name, type, work_time_start, work_time_end, spec, servie_type, time, stuff_level, price, } = req.body;
-    let data = await client.post("/services", { name, type, work_time_start, work_time_end, spec, servie_type, time, stuff_level, price, });
+    let { name, type, startTime, endTime, weight, serviceType, time, stuffLevel, price, text, id } = req.body;
+    let data = await client.post("/services", {
+        name, type, startTime, endTime, weight, serviceType, time, stuffLevel, price, text, "shop": {
+            "$ref": "shop",
+            "$id": id
+        }
+    });
     res.send({
         status: 1
     })

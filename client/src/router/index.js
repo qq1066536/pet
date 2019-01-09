@@ -5,12 +5,9 @@ import UserManage from "../components/platform/UserManage"
 import PetmasterManage from "../components/platform/PetmasterManage"
 import StoreManage from "../components/platform/StoreManage"
 import Statistics from "../components/platform/Statistics"
-<<<<<<< HEAD
 import SupProducts from '../components/supplier/products'
-=======
 import Orders from "../components/Orders"
 import Services from "../components/Services"
->>>>>>> b6fe32d5b26307d865b57aa1989b11b1f67cb50c
 Vue.use(VueRouter);
 export default new VueRouter({
     routes: [
@@ -32,11 +29,9 @@ export default new VueRouter({
             {
                 path: "/manage/platform/Statistics",
                 component: Statistics
-<<<<<<< HEAD
             },{
                 path:"/manage/supplier/products",
                 component:SupProducts
-=======
             },
             {
                 path: "/manage/orders",
@@ -45,7 +40,6 @@ export default new VueRouter({
             {
                 path: "/manage/services",
                 component: Services
->>>>>>> b6fe32d5b26307d865b57aa1989b11b1f67cb50c
             }
             ]
         }

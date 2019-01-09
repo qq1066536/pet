@@ -12,12 +12,16 @@ client.url("127.0.0.1:8080");
     res.send(data);
 }) */
 // 根据门店id查询订单
-router.get("/:id", async function (req, res) {
-    let id = req.params.id;
-    let data = await client.get("/order/" + id, {
-        submitType: "findJoin"
-        , ref: "shop"
+router.get("/shop", async function (req, res) {
+    let id = req.query.id;
+    let {page ,rows}=req.query
+    let data = await client.get("/order",{ 
+        page,rows,
+        "submitType":"findJoin",
+        ref:"shop",
+        "shop.$id": id,
     });
+    // data=data.filter(item=>item.shop._id==id)
     res.send(data)
 })
 
@@ -49,7 +53,11 @@ router.get("/", async function (req, res) {
     }
     res.send(data);
 })
-
+router.get("/:id", async function(req,res){
+    let id = req.params.id;
+    let data = await client.get("/order/"+id);
+    res.send(data);
+})
 //修改
 router.put("/:id", async function (req, res) {
     let id = req.params.id; // 订单的id

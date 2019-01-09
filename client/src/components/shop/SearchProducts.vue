@@ -30,7 +30,7 @@ export default {
     ...mapActions(["setProducts"]),
 
     search() {
-      console.log(this);
+    //   console.log(this);
       this.setProducts({
         page: 1,
         rows: 5,

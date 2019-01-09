@@ -51,11 +51,10 @@
       <el-upload action="/upload"
       :on-success="handleAvatarSuccess"
       :on-preview="handlePictureCardPreview"
-      :on-remove="handleRemove"
        list-type="picture-card">
         <i class="el-icon-plus"></i>
       </el-upload>
-        <img v-if="product.img" v-for="item in product.img" :img="'http://127.0.0.1:3000'+item" :key="item" class="avatar">
+        <img v-for="item in product.img" :img="'http://127.0.0.1:3000'+item" :key="item" class="avatar">
       <span slot="footer" class="dialog-footer">
         <el-button @click="setupdateVisible(false)">取 消</el-button>
         <el-button type="primary" @click="updatePro">确 定</el-button>
@@ -109,7 +108,7 @@ export default {
         img,
         number
       } = this.product;
-      console.log("图片数组", this.product.img)
+    //   console.log("图片数组", this.product.img)
       axios({
         method: "put",
         url: "/sopPropducts/" + this.product._id,
@@ -136,16 +135,16 @@ export default {
         this.setupdateVisible(false);
       });
     },
-        handleRemove(file, fileList) {
-      console.log(file, fileList);
-    },
+    //     handleRemove(file, fileList) {
+    // //   console.log(file, fileList);
+    // },
     handlePictureCardPreview(file) {
       this.dialogImageUrl = file.url;
       this.dialogVisible = true;
     },
-    handleAvatarSuccess(res, file) {
+    handleAvatarSuccess(res) {
     this.img.push ("http://127.0.0.1:3000/upload/" + res);
-     console.log("tupian",this.img)
+    //  console.log("tupian",this.img)
     },
 
   }

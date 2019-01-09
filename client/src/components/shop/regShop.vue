@@ -11,45 +11,6 @@
           <el-form-item label="品类:" prop="type">
             <el-input type="text" v-model="addForm.type" autocomplete="off"></el-input>
           </el-form-item>
-          <el-form-item label="材质:" prop="makings">
-            <el-input type="text" v-model="addForm.makings" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="使用规格:" prop="spec">
-            <el-input type="text" v-model="addForm.spec" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="专属规格:" prop="suit">
-            <el-input type="text" v-model="addForm.suit" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="包装规格:" prop="weight">
-            <el-input type="text" v-model="addForm.weight" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="口味:" prop="taste">
-            <el-input type="text" v-model="addForm.taste" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="特殊功用:" prop="effect">
-            <el-input type="text" v-model="addForm.effect" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="产地:" prop="addr">
-            <el-input type="text" v-model="addForm.addr" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="生产日期:" prop="pro_date">
-            <el-input type="text" v-model="addForm.pro_date" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="保质期:" prop="valid_date">
-            <el-input type="text" v-model="addForm.valid_date" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="供应商编号:" prop="No">
-            <el-input type="text" v-model="addForm.age" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="特色说明:" prop="desc">
-            <el-input type="text" v-model="addForm.desc" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="价格:" prop="price">
-            <el-input type="text" v-model="addForm.price" autocomplete="off"></el-input>
-          </el-form-item>
-            <el-form-item label="数量（袋）:" prop="number">
-            <el-input type="text" v-model="addForm.number" autocomplete="off"></el-input>
-          </el-form-item>
         </el-form>
         <el-upload
           action="/upload"

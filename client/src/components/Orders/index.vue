@@ -12,6 +12,8 @@ import OrderList from "./OrderList";
 import OrderPage from "./OrderPage";
 import OrderUpdate from "./OrderUpdate";
 import OrderSearch from "./OrderSearch";
+import { createNamespacedHelpers } from 'vuex'
+const { mapActions } = createNamespacedHelpers('orderModules')
 export default {
   components: {
     OrderList,
@@ -19,9 +21,11 @@ export default {
     OrderUpdate,
     OrderSearch
   },
-  data() {},
   created: function() {
-    this.getOrder();
+    this.getOrders();
+  },
+  methods: {
+    ...mapActions(["getOrders"])
   }
 };
 </script>

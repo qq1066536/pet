@@ -10,17 +10,10 @@
       <el-form-item label="确认密码" prop="confrim">
         <el-input type="password" v-model.number="regForm.confrim"></el-input>
       </el-form-item>
-        <el-select v-model="value" placeholder="请选择">
-    <el-option
-      v-for="item in options"
-      :key="item.value"
-      :label="item.label"
-      :value="item.value">
-    </el-option><!--  -->
-  </el-select>
+      <el-radio v-model="radio" label="门店">门店</el-radio>
+      <el-radio v-model="radio" label="供货商">供货商</el-radio>
       <el-form-item>
-        <el-button type="primary" @click="submitForm()">提交</el-button>
-        <el-button @click="resetForm()">重置</el-button>
+        <el-button type="primary" @click="submitForm()">注册</el-button>
       </el-form-item>
     </el-form>
   </el-card>
@@ -52,7 +45,7 @@ export default {
       ]
       
     } 
-    ]
+    
 
   },
   //验证方法
@@ -93,24 +86,10 @@ export default {
       validatePwd(rule,value,callback){
         if(value ==this.regForm.pwd)
       }
-      
+       
     }
   }
 }
- export default {
-    data() {
-      return {
-        options: [{
-          value: '0',
-          label: '门店'
-        }, {
-          value: '1',
-          label: '供货商'
-        },
-       
-      }
-    }
-  }
 </script>
 
 <style scoped>

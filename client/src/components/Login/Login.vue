@@ -8,8 +8,8 @@
         <el-input type="password" v-model="lgForm.pwd" autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submitForm()">提交</el-button>
-        <el-button @click="resetForm()">重置</el-button>
+        <el-button type="primary" @click="submitForm()">登录</el-button>
+        <a class="gotoreg"><router-link to="register">没有账号，请注册</router-link></a>
       </el-form-item>
 </template>
 <script>
@@ -35,7 +35,48 @@ export default{
         }
     }
 }
+//验证方法
+  methods:{
+    validatePhone(rule, value, callback){
+      axios:({
+        method:"get",
+        url:"/users",
+        params:{
+          phone:value,
+        }
+      }).then(({data})=>{
+        if(data.status==0){
+          callback("手机号重复");
+        }else{
+          callback();
+        }
 
+      });
+       methods:{
+    validatePwd(rule, value, callback){
+      axios:({
+        method:"get",
+        url:"/users",
+        params:{
+          pwd:value,
+        }
+      }).then(({data})=>{
+        if(data.status==0){
+          callback("密码错误");
+        }else{
+          callback();
+        }
+
+      });
+
+      }
+      validatePwd(rule,value,callback){
+        if(value ==this.regForm.pwd)
+      }
+      
+    }
+  }
+}
 
 
 

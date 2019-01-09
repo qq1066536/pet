@@ -66,7 +66,7 @@
                             <span>供应商管理</span>
                         </template>
                         <el-menu-item-group>
-                            <el-menu-item index="">
+                            <el-menu-item index="/manage/producer">
                                 <i class="el-icon-menu"></i>
                                 <span slot="title">供应商信息</span>
                             </el-menu-item>

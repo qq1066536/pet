@@ -1,8 +1,8 @@
 <template>
-  <div>
+
     <span>
       <el-button type="primary" @click="dialogVisible = true">新增商品</el-button>
-      <el-dialog title="新增商品" :visible.sync="dialogVisible" width="40%">
+      <el-dialog title="新增门店商品" :visible.sync="dialogVisible" width="40%">
         <el-form status-icon ref="addForm" label-width="100px" class="demo-addForm">
           <el-form-item label="品牌:" prop="name">
             <el-input type="text" v-model="addForm.name" autocomplete="off"></el-input>
@@ -68,7 +68,7 @@
         </span>
       </el-dialog>
     </span>
-  </div>
+  
 </template>
 <script>
 import axios from "axios";

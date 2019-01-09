@@ -24,6 +24,9 @@ export default {
         setPagition(state, pagination) {
             state.pagination = pagination
         },
+        setSearch(state, search) {
+            state.search = search
+        },
         setupdateVisible(state, updateVisible) {
             state.updateVisible = updateVisible
         }

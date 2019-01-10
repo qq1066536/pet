@@ -45,16 +45,7 @@
                 <el-form-item label="图片">
                     <el-input autocomplete="off" v-model="product.img"></el-input>
                 </el-form-item>
-                <el-upload
-                    class="avatar-uploader"
-                    action="/upload"
-                    :show-file-list="false"
-                    :on-success="handleAvatarSuccess"
-                    :before-upload="beforeAvatarUpload"
-                >
-                    <img v-if="stu.src" :src="stu.src" class="avatar">
-                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                </el-upload>
+
                 <el-form-item label="库存">
                     <el-input autocomplete="off" v-model="product.inventory"></el-input>
                 </el-form-item>

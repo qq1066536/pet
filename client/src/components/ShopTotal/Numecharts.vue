@@ -1,5 +1,5 @@
 <template>
-    <div>销量统计</div>
+    <div id="main" style="width: 600px;height:400px;">销量统计</div>
 </template>
 
 <script>

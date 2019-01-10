@@ -1,13 +1,10 @@
 <template>
-    <div>销售额统计</div>
+  <div id="main" style="width: 600px;height:400px;">销量统计</div>
 </template>
 
 <script>
-export default {
-
-}
+export default {};
 </script>
 
 <style>
-
 </style>

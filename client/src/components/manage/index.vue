@@ -9,7 +9,7 @@
         </el-header>
         <el-container class="aside">
             <el-aside width="200px" class="aside">
-                <el-menu :default-active="path" class="menu" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b" :router="true">
+                <el-menu class="menu" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b" :router="true">
                     <el-submenu index="1">
                         <template slot="title">
                             <i class="el-icon-setting"></i>

@@ -6,9 +6,27 @@ client.url("http://127.0.0.1:8080")
 router.get("/", async (req, res) => {
     let { id, page, rows } = req.query
     console.log(id, page, rows)
-    let data = await client.get(`/sup_products`, { submitType: "findJoin", ref: "supplier" })
-    data = data.filter(item => item.supplier._id == id)
+    let data = await client.get(`/sup_products`, {
+        page, 
+        rows, 
+        "submitType": "findJoin",
+        ref: "supplier",
+        "supplier.$id": id,
+    })
+    // data = data.rows.filter(item => item.supplier._id == id)
     console.log(data)
+    res.send(data)
+})
+router.get("/:id", async (req, res) => {
+    let proid=req.params.id
+    let { id } = req.query
+    let data = await client.get(`/sup_products/`+proid, {
+        "submitType": "findJoin",
+        ref: "supplier",
+        "supplier.$id": id,
+    })
+    // data = data.rows.filter(item => item.supplier._id == id)
+    console.log("getProduct",data)
     res.send(data)
 })
 // 新增产品数据，id为供应商id
@@ -40,8 +58,19 @@ router.put("/:id", async (req, res) => {
 })
 router.delete("/:id", async (req, res) => {
     let id = req.params.id
+<<<<<<< HEAD
     res.send(await client.delete("/sup_products/" + id))
 })
+=======
+    console.log(123)
+    await client.delete("/sup_products/" + id)
+    res.send("ok")
+})
+router.get("/info/:id", async (req, res) => {
+    let id = req.params.id
+    res.send(await client.get("/supplier/" + id))
+})
+>>>>>>> 1abdebacc1a8eadf7ae63ada05dd33e003ccb5a8
 router.put("/updateinfo/:id", async (req, res) => {
     let id = req.params.id
     let data = await client.get("/supplier/" + id)

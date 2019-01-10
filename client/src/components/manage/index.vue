@@ -53,7 +53,7 @@
                                 <i class="el-icon-goods"></i>
                                 <span slot="title">服务</span>
                             </el-menu-item>
-                            <el-menu-item index="">
+                            <el-menu-item index="/manage/shoptotal">
                                 <i class="el-icon-tickets"></i>
                                 <span slot="title">统计</span>
                             </el-menu-item>

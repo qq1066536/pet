@@ -8,6 +8,7 @@ import Statistics from "../components/platform/Statistics"
 import SupProducts from '../components/supplier/products'
 import Orders from "../components/Orders"
 import Services from "../components/Services"
+import ShopTotal from "../components/ShopTotal"
 Vue.use(VueRouter);
 export default new VueRouter({
     routes: [
@@ -40,6 +41,10 @@ export default new VueRouter({
             {
                 path: "/manage/services",
                 component: Services
+            },
+            {
+                path: "/manage/shoptotal",
+                component: ShopTotal
             }
             ]
         }

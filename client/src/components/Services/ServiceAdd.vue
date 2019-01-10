@@ -17,34 +17,25 @@
         </el-form-item>
         <el-form-item label="服务类别" prop="type">
           <el-select v-model="addForm.type" placeholder="请选择服务类别">
-            <el-option label="洗" value="shower"></el-option>
-            <el-option label="剪" value="clip"></el-option>
-            <el-option label="吹" value="puff"></el-option>
-            <el-option label="护理" value="nurse"></el-option>
+            <el-option label="洗护" value="护理" name="type"></el-option>
+            <el-option label="寄养" value="寄养" name="type"></el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="服务时间" prop="work_time">
-          <el-time-select
-            placeholder="起始时间"
+        <el-form-item label="服务时间" prop="day">
+          <el-date-picker
+            prop="day"
             v-model="addForm.startTime"
-            :picker-options="{
-                start: '08:30',
-                step: '00:15',
-                end: '18:30'
-            }"
-          ></el-time-select>---
-          <el-time-select
-            placeholder="结束时间"
+            type="datetime"
+            placeholder="选择开始日期时间"
+          ></el-date-picker>
+          <el-date-picker
+            prop="day"
             v-model="addForm.endTime"
-            :picker-options="{
-                start: '08:30',
-                step: '00:15',
-                end: '18:30',
-                minTime: startTime
-            }"
-          ></el-time-select>
+            type="datetime"
+            placeholder="选择结束日期时间"
+          ></el-date-picker>
         </el-form-item>
-        <el-form-item label="耗费时间"  prop="time">
+        <el-form-item label="耗费时间" prop="time">
           <el-input-number v-model="addForm.time" :precision="2" :step="0.1" :max="10"></el-input-number>
         </el-form-item>
         <el-form-item label="不可取消">
@@ -95,12 +86,13 @@ const { mapState, mapActions } = createNamespacedHelpers("serviceModules");
 export default {
   data() {
     return {
-      startTime: "",
-      endTime: "",
+      day: "",
       dialogVisible: false,
       addForm: {
         name: "",
         type: "",
+        startTime: "",
+        endTime: "",
         time: "",
         delivery: "",
         weight: [],
@@ -112,7 +104,8 @@ export default {
       rules: {
         name: [{ required: true, message: "服务名称不能为空" }],
         type: [{ required: true, message: "服务类型不能为空" }],
-        workTime: [{ required: true, message: "预约时间不能为空" }],
+        startTime: [{ required: true, message: "开始时间不能为空" }],
+        endTime: [{ required: true, message: "结束时间不能为空" }],
         text: [{ required: true, message: "内容不能为空" }],
         time: [{ required: true, message: "耗费时间不能为空" }],
         price: [{ required: true, message: "价格不能为空" }]
@@ -120,7 +113,7 @@ export default {
     };
   },
   computed: {
-      ...mapState(["shopId"])
+    ...mapState(["shopId"])
   },
   methods: {
     ...mapActions(["getServices"]),

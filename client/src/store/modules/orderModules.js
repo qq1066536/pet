@@ -43,16 +43,6 @@ export default {
                 commit('setPagination', data)
             })
         },
-        getOrdersBy: function({ commit },payload={page:1,row:5}){
-            axios({
-                method: "get",
-                url: "/orders",
-                params: {...payload}
-            }).then((data) => {
-                commit('getOrders', data.rows)
-                commit('setPagination', data)
-            })
-        },
         setOrderInfo: function ({ commit }, id) {
             axios({
                 method: "get",

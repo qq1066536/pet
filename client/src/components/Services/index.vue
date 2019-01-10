@@ -1,7 +1,9 @@
 <template>
   <div>
-    <ServiceAdd></ServiceAdd>
-    <ServiceSearch></ServiceSearch>
+    <div class="order-head">
+      <ServiceAdd class="order-add"></ServiceAdd>
+      <ServiceSearch></ServiceSearch>
+    </div>
     <ServiceUpdate></ServiceUpdate>
     <ServiceList></ServiceList>
     <ServicePage></ServicePage>
@@ -14,15 +16,15 @@ import ServiceUpdate from "./ServiceUpdate";
 import ServiceAdd from "./ServiceAdd";
 import ServicePage from "./ServicePage";
 import ServiceSearch from "./ServiceSearch";
-import { createNamespacedHelpers } from 'vuex'
-const { mapActions } = createNamespacedHelpers('serviceModules')
+import { createNamespacedHelpers } from "vuex";
+const { mapActions } = createNamespacedHelpers("serviceModules");
 export default {
   components: {
     ServiceAdd,
     ServiceList,
     ServiceUpdate,
     ServicePage,
-    ServiceSearch,
+    ServiceSearch
   },
   created: function() {
     this.getServices();
@@ -33,5 +35,12 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.order-head {
+  display: flex;
+  align-items: flex-end;
+}
+.order-add {
+  margin-right: 10px;
+}
 </style>

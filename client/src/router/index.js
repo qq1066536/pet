@@ -6,6 +6,7 @@ import PetmasterManage from "../components/platform/PetmasterManage"
 import StoreManage from "../components/platform/StoreManage"
 import Statistics from "../components/platform/Statistics"
 import Producer from "../components/producer"
+import SupProducts from '../components/supplier/products'
 Vue.use(VueRouter);
 export default new VueRouter({
     routes: [
@@ -31,6 +32,9 @@ export default new VueRouter({
             {
                 path: "/manage/producer",
                 component: Producer
+            },{
+                path:"/manage/supplier/products",
+                component:SupProducts
             }
             ]
         }

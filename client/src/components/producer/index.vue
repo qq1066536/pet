@@ -1,17 +1,89 @@
 <template>
-  <producerList :producers="producers" :show="show"></producerList>
+  <div>
+    <el-button type="primary" plain @click="dialogVisible = true">修改信息</el-button>
+    <div class="mainLayout">
+      <el-form label-width="100px" style="width:400px">
+        <el-form-item label="公司名称:">{{producer.name}}</el-form-item>
+        <el-form-item label="公司简介:">{{producer.desc}}</el-form-item>
+        <el-form-item label="法定代表人:">{{producer.corporate}}</el-form-item>
+        <el-form-item label="成立日期:">{{producer.date}}</el-form-item>
+        <el-form-item label="登记机关:">{{producer.office}}</el-form-item>
+        <el-form-item label="经营范围:">{{producer.management}}</el-form-item>
+      </el-form>
+      <el-form label-width="100px" style="width:400px">
+        <el-form-item label="注册资本:">{{producer.capital}}</el-form-item>
+        <el-form-item label="信用代码:">{{producer.No}}</el-form-item>
+        <el-form-item label="所在地址:">{{producer.addr}}</el-form-item>
+        <el-form-item label="电话号码:">{{producer.tel}}</el-form-item>
+        <el-form-item label="公司网站:">{{producer.website}}</el-form-item>
+        <el-form-item label="营业执照:">
+          <img class="films-img" v-bind:src="'http://127.0.0.1:3000/upload/'+producer.license" style="width:240px;height:160px" alt=""/>
+        </el-form-item>
+      </el-form>
+    </div>
+<!-- 修改板块 -->
+    <el-dialog title="修改供应商信息" :visible.sync="dialogVisible" width="30%">
+      <el-form :model="producer" status-icon ref="updateForm" label-width="100px">
+        <el-form-item label="公司名称">
+          <el-input v-model="producer.name"></el-input>
+        </el-form-item>
+        <el-form-item label="公司简介">
+          <el-input v-model="producer.desc" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="法定代表人">
+          <el-input v-model="producer.corporate"></el-input>
+        </el-form-item>
+        <el-form-item label="成立日期">
+          <el-input v-model="producer.date"></el-input>
+        </el-form-item>
+        <el-form-item label="登记机关">
+          <el-input v-model="producer.office"></el-input>
+        </el-form-item>
+        <el-form-item label="经营范围">
+          <el-input v-model="producer.management"></el-input>
+        </el-form-item>
+        <el-form-item label="注册资本">
+          <el-input v-model="producer.capital"></el-input>
+        </el-form-item>
+        <el-form-item label="信用代码">
+          <el-input v-model="producer.No"></el-input>
+        </el-form-item>
+        <el-form-item label="所在地址">
+          <el-input v-model="producer.addr"></el-input>
+        </el-form-item>
+        <el-form-item label="电话号码">
+          <el-input v-model="producer.tel"></el-input>
+        </el-form-item>
+        <el-form-item label="公司网站">
+          <el-input v-model="producer.website"></el-input>
+        </el-form-item>
+        <el-form-item label="营业执照">
+          <el-upload
+            class="avatar-uploader"
+            action="/upload"
+            :show-file-list="false"
+            :on-success="handleAvatarSuccess"
+            :before-upload="beforeAvatarUpload"
+          >
+            <img v-if="producer.license" :src="'http://127.0.0.1:3000/upload/'+producer.license" class="avatar">
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          </el-upload>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="updateInformation">确 定</el-button>
+      </span>
+    </el-dialog>
+  </div>
 </template>
 <script>
-import ProducerList from "./producerList";
 import axios from "axios";
 export default {
-  components: {
-    ProducerList
-  },
   data() {
     return {
-      producers: [],
-      producer: {}
+      producer: {},
+      dialogVisible: false
     };
   },
   created() {
@@ -26,18 +98,94 @@ export default {
     show() {
       axios({
         method: "get",
-        url: "/supplier",
+        url: "/supplier/info/" + this.id,
         params: {
-          id: this.id,
-          page:1,
-          rows:3
+          page: 1,
+          rows: 3
         }
       }).then(({ data }) => {
-        this.producers = data
+        this.producer = data;
       });
+    },
+    updateInformation() {
+      this.dialogVisible = false;
+      let {
+        name,
+        desc,
+        corporate,
+        date,
+        office,
+        management,
+        capital,
+        No,
+        addr,
+        tel,
+        website,
+        license
+      } = this.producer;
+      axios({
+        method: "put",
+        url: "/supplier/updateinfo/" + this.producer._id,
+        data: {
+          name,
+          desc,
+          corporate,
+          date,
+          office,
+          management,
+          capital,
+          No,
+          addr,
+          tel,
+          website,
+          license
+        }
+      }).then(() => {
+        this.show();
+      });
+    },
+    handleAvatarSuccess(res, file) {
+  
+      this.producer.license =res;
+    },
+    beforeAvatarUpload(file) {
+      const isLt2M = file.size / 1024 / 1024 < 2;
+      if (!isLt2M) {
+        this.$message.error("上传头像图片大小不能超过 2MB!");
+      }
+      return isLt2M;
     }
   }
 };
 </script>
-<style>
+
+
+<style scoped>
+.mainLayout {
+  display: flex;
+}
+.avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .avatar-uploader .el-upload:hover {
+    border-color: #409EFF;
+  }
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    line-height: 178px;
+    text-align: center;
+  }
+  .avatar {
+    width: 178px;
+    height: 178px;
+    display: block;
+  }
 </style>
+

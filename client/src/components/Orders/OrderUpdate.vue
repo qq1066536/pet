@@ -10,16 +10,11 @@
       class="demo-ruleForm"
     >
       <el-form-item label="订单状态" prop="state">
-        <el-input type="text" v-model="updateInfo.state" autocomplete="off" :disabled="true"></el-input>
-        <!-- <div v-if="updateInfo.state == 2">
-          <el-select v-model="updateInfo.state" placeholder="请选择服务类别">
-            <el-option label="待发货" value="2" name="state"></el-option>
-            <el-option label="已发货" value="3" name="state"></el-option>
-          </el-select>
-        </div>
-        <div v-else>
-          
-        </div> -->
+          <el-input v-if="updateInfo.state == 0" type="text" value="未付款" autocomplete="off" :disabled="true"></el-input>
+          <el-input v-else-if="updateInfo.state == 1" type="text" value="已付款" autocomplete="off" :disabled="true"></el-input>
+          <el-input v-else-if="updateInfo.state == 2" type="text" value="待发货" autocomplete="off" :disabled="true"></el-input>
+          <el-input v-else-if="updateInfo.state == 3" type="text" value="已发货" autocomplete="off" :disabled="true"></el-input>
+          <el-input v-else-if="updateInfo.state == 4" type="text" value="已签收" autocomplete="off" :disabled="true"></el-input>
       </el-form-item>
       <el-form-item label="姓名" prop="user">
         <el-input type="text" v-model="updateInfo.user" autocomplete="off"></el-input>

@@ -12,15 +12,16 @@ router.get("/shop", async function (req, res) {
     let { id, page, rows, type, value } = req.query;
     let searchObj = {};
     if (type) {
-        searchObj = { type: value };
+        searchObj = { [type]: value };
     }
     let data = await client.get("/order", {
         page, rows,
+        ...searchObj,
         "submitType": "findJoin",
         ref: "shop",
         "shop.$id": id,
-        ...searchObj
     });
+    // console.log(data);
     res.send(data)
 })
 
@@ -33,9 +34,9 @@ router.get("/:id", async function (req, res) {
 //修改
 router.put("/:id", async function (req, res) {
     let id = req.params.id; // 订单的id
-    let { user, addr, phone } = req.body;
+    let { user, addr, phone, price, state } = req.body;
     let data = await client.put("/order/" + id, {
-        user, addr, phone
+        user, addr, phone, price, state
     });
     res.send({ status: 1 });
 })

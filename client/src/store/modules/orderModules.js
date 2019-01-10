@@ -31,7 +31,7 @@ export default {
         }, 
     },
     actions: {
-        getOrders: function ({ commit },payload={page:1,row:5}) {
+        getOrders: function ({ commit },payload={page:1,rows:5}) {
             let id = "5c32f1d56c9da2c6832b828f";
             axios({
                 methods: "get",

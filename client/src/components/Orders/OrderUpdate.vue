@@ -1,3 +1,5 @@
+
+/* eslint-disable */
 <template>
   <el-dialog title="修改" :visible.sync="closeDialogVisible" width="30%" :before-close="handleClose">
     <!-- 表单内容 -->
@@ -55,13 +57,6 @@ export default {
   methods: {
     ...mapMutations(["setUpdateVisible", "setOrderInfo"]),
     ...mapActions(["getOrders"]),
-    handleClose(done) {
-      this.$confirm("确认关闭？")
-        .then(_ => {
-          done();
-        })
-        .catch(_ => {});
-    },
     handleCancle() {
       this.setUpdateVisible(false);
     },

@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 import Vue from 'vue'
 import Vuex from 'vuex'
 import orderModules from "./modules/orderModules"

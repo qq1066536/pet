@@ -8,14 +8,22 @@ import Statistics from "../components/platform/Statistics"
 import SupProducts from '../components/supplier/products'
 import Orders from "../components/Orders"
 import Services from "../components/Services"
-import Register from "../components/Register"
-import Login from "../components/Login"
+import Register from "../components/Register/Register"
+import Login from "../components/Login/Login"
 Vue.use(VueRouter);
 export default new VueRouter({
     routes: [
         {
-            path:'/'
+            path:"/login",
+            component:Login
+
+        },   
+        {
+            path:"/Register",
+            component:Register
+
         },
+          
         {   
             path: '/manage',
             component: Manage,

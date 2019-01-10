@@ -25,7 +25,6 @@ export default {
                 method: "get",
                 url: "/platform/findAll"
             }).then(({ data }) => {
-                console.log("storesAndsuppliers", data)
                 commit("setStoresAndSuppliers", data)
             })
         },
@@ -39,7 +38,6 @@ export default {
                 //     rows: 3
                 // }
             }).then(({ data }) => {
-                console.log("supplier", data)
                 commit("setSuppliers", data);
             })
         },
@@ -53,7 +51,6 @@ export default {
                 //     rows: 3
                 // }
             }).then(({ data }) => {
-                console.log("data", data)
                 commit("setStores", data);
             })
         }

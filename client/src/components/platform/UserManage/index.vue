@@ -113,7 +113,7 @@ export default {
       }
     },
     //查看门店或供应商申请信息
-    see(id) {
+    see() {
       this.dialogDetailsVisible = true;
     },
     // 添加门店管理员或供应商管理员
@@ -129,7 +129,7 @@ export default {
               private: this.addForm.private,
               status: "待审核"
             }
-          }).then(({ data }) => {
+          }).then(( ) => {
             this.dialogVisible = false;
             this.resetForm();
           });

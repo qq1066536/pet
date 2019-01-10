@@ -91,7 +91,46 @@
 </template>
 
 <script>
-export default {};
+import axios from "axios";
+export default {  
+
+  data() {
+    return {
+      user: ""
+    };
+  },
+  computed: {
+    path() {
+      return this.$router.history.current.path;
+    }
+  },
+  created() {
+    this.getSession();
+  },
+  methods: {
+    getSession() {
+      axios({
+        method: "get",
+        url: "/getSession"
+      }).then(({ data }) => {
+        if (!data.phone) {
+          this.$router.history.push("/login");
+        } else {
+          this.user = data.phone;
+        }
+      });
+    },
+    removeSession() {
+      axios({
+        method: "get",
+        url: "/removeSession"
+      }).then(() => {
+        this.$router.history.push("/login");
+      });
+    }
+  }
+};
+
 </script>
 
 <style scoped>

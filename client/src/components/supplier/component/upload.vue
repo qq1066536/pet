@@ -1,28 +1,34 @@
 <template>
-    <el-upload
-        action="/upload/"
-        :on-preview="handlePreview"
-        :on-remove="handleRemove"
-        :file-list="product"
-        list-type="picture"
-    >
-        <el-button size="small" type="primary">点击上传</el-button>
-    </el-upload>
+    <div>
+        <el-upload
+            action="/upload"
+            list-type="picture-card"
+            :on-preview="handlePictureCardPreview"
+            :on-remove="handleRemove"
+        >
+            <i class="el-icon-plus"></i>
+        </el-upload>
+        <!-- <el-dialog :visible.sync="dialogVisible"> -->
+            <img width="100%" :src="dialogImageUrl" alt>
+        <!-- </el-dialog> -->
+    </div>
 </template>
 
 <script>
 import { mapState, mapMutations } from "vuex";
 export default {
-    name: "upload",
-    computed: {
-        ...mapState(["product"])
+    data() {
+        return {
+            dialogImageUrl: "",
+            // dialogVisible: false
+        };
     },
     methods: {
         handleRemove(file, fileList) {
             console.log(file, fileList);
         },
-        handlePreview(file) {
-            console.log(file);
+        handlePictureCardPreview(file) {
+            this.dialogImageUrl = file.url;
         }
     }
 };

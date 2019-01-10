@@ -68,9 +68,9 @@ export default {
     computed: {
         ...mapState(["dialogVisible", "product"])
     },
-    created: function() {
-        console.log(this.product);
-    },
+    // created: function() {
+    //     console.log(this.product);
+    // },
     methods: {
         ...mapMutations(["setDialogVisible"]),
         ...mapActions(["getProduct"]),

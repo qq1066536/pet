@@ -55,13 +55,7 @@ export default {
   methods: {
     ...mapMutations(["setUpdateVisible", "setOrderInfo"]),
     ...mapActions(["getOrders"]),
-    handleClose(done) {
-      this.$confirm("确认关闭？")
-        .then(_ => {
-          done();
-        })
-        .catch(_ => {});
-    },
+
     handleCancle() {
       this.setUpdateVisible(false);
     },

@@ -1,8 +1,9 @@
 <template>
   <div>
     <AddProducts></AddProducts>
+    <AddSuplierPro></AddSuplierPro>
+      <RegShop></RegShop>
     <SearchProducts></SearchProducts>
-    <RegShop></RegShop>
     <UpdateProducts></UpdateProducts>
     <ProductsList></ProductsList>
     <PageProducts></PageProducts>
@@ -14,6 +15,7 @@ import AddProducts from "./AddProducts";
 import UpdateProducts from "./UpdateProducts";
 import SearchProducts from "./SearchProducts";
 import PageProducts from "./PageProducts";
+import AddSuplierPro from "./AddSuplierPro";
 import RegShop from "./regShop";
 import { createNamespacedHelpers } from "vuex";
 const { mapActions } = createNamespacedHelpers("productsMoudles");
@@ -24,7 +26,8 @@ export default {
     UpdateProducts,
     SearchProducts,
     PageProducts,
-    RegShop
+    RegShop,
+    AddSuplierPro
   },
   data() {
     return {

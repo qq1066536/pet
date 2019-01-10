@@ -44,17 +44,27 @@
         <el-form-item label="价格:" prop="price">
           <el-input type="text" v-model="product.price" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="数量(袋):" prop="number">
+        <el-form-item label="数量:" prop="number">
           <el-input type="text" v-model="product.number" autocomplete="off"></el-input>
         </el-form-item>
       </el-form>
-      <el-upload action="/upload"
-      :on-success="handleAvatarSuccess"
-      :on-preview="handlePictureCardPreview"
-       list-type="picture-card">
+      <el-upload
+        action="/upload"
+        :show-file-list="true"
+        :on-success="handleAvatarSuccess"
+        :on-preview="handlePictureCardPreview"
+        list-type="picture-card"
+      >
         <i class="el-icon-plus"></i>
       </el-upload>
-        <img v-for="item in product.img" :img="'http://127.0.0.1:3000'+item" :key="item" class="avatar">
+      <div class="flex">
+        <img
+          v-for="item in product.img"
+          :src="'http://127.0.0.1:3000'+item"
+          :key="item"
+          class="avatar"
+        >
+      </div>
       <span slot="footer" class="dialog-footer">
         <el-button @click="setupdateVisible(false)">取 消</el-button>
         <el-button type="primary" @click="updatePro">确 定</el-button>
@@ -71,7 +81,9 @@ const { mapActions, mapMutations, mapState } = createNamespacedHelpers(
 );
 export default {
   data() {
-    return {};
+    return {
+      fileList: []
+    };
   },
   computed: {
     ...mapState(["product", "updateVisible"]),
@@ -108,7 +120,7 @@ export default {
         img,
         number
       } = this.product;
-    //   console.log("图片数组", this.product.img)
+      //   console.log("图片数组", this.product.img)
       axios({
         method: "put",
         url: "/sopPropducts/" + this.product._id,
@@ -143,10 +155,9 @@ export default {
       this.dialogVisible = true;
     },
     handleAvatarSuccess(res) {
-    this.img.push ("http://127.0.0.1:3000/upload/" + res);
-    //  console.log("tupian",this.img)
-    },
-
+      this.img.push("http://127.0.0.1:3000/upload/" + res);
+      //  console.log("tupian",this.img)
+    }
   }
 };
 </script>
@@ -177,5 +188,8 @@ export default {
   width: 178px;
   height: 178px;
   display: block;
+}
+.flex{
+  display: flex;
 }
 </style>

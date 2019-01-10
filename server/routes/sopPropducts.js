@@ -41,7 +41,7 @@ router.get('/:id', async function (req, res) {
   let data = await client.get("/sop_procducts/" + id);
   res.send(data)
 });
-
+//查找门店所有商品
 router.get('/', async function (req, res) {
   let { id, page, rows, type, value } = req.query;//获取页码,每页显示数,搜索类型,搜索框的值
   let searchObj = {};//声明一个对象
@@ -58,32 +58,6 @@ router.get('/', async function (req, res) {
   console.log(data)
   res.send(data);
 });
+//关联供应商商品
 
-// router.get("/", async function (req, res) {
-//   let { page, rows, value, type } = req.query;
-//   let data = await client.get("/sop_procducts", {
-//     page,
-//     rows,
-//     findType: "exact",
-//     submitType: "findJoin", ref: "sop_procducts",
-//   });
-//   console.log(type, value)
-//   if (type) {
-//     let isCludes;
-//     for (let i = 0; i < data.rows.length; i++) {
-//       isCludes = _.includes(data.rows[i].order[type], value); // 数据中是否包含value
-//       if (!isCludes) {
-//         data.rows.splice(i, 1);
-//         i--;
-//       }
-//     }
-//     // 总共的条数
-//     if (value != '') {
-//       data.total = data.rows.length;
-//     }
-//     // 当前页
-//     data.curpage = parseInt(data.total / data.eachpage) || 1;
-//   }
-//   res.send(data);
-// })
 module.exports = router;

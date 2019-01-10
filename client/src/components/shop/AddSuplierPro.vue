@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <span>
+    <el-button type="primary" @click="dialogVisible = true">添加供应商商品</el-button>
+     <el-dialog title="供应商商品" :visible.sync="dialogVisible" width="40%">
     <el-table :data="products" style="width: 100%;textalign:center;height:80">
       <el-table-column prop="name" label="品牌" width=100></el-table-column>
       <el-table-column prop="type" label="品类"></el-table-column>
@@ -24,7 +26,8 @@
         </template>
       </el-table-column>
     </el-table>
-  </div>
+    </el-dialog>
+  </span>
 </template>
 <script>
 import { createNamespacedHelpers } from "vuex";

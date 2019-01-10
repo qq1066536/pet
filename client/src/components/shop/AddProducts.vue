@@ -1,8 +1,6 @@
 <template>
-
-    <span>
+    <span class="left">
       <el-button type="primary" @click="dialogVisible = true">新增商品</el-button>
-       <el-button type="primary">新增供应商商品</el-button>
       <el-dialog title="新增门店商品" :visible.sync="dialogVisible" width="40%">
         <el-form status-icon ref="addForm" label-width="100px" class="demo-addForm">
           <el-form-item label="品牌:" prop="name">
@@ -47,7 +45,7 @@
           <el-form-item label="价格:" prop="price">
             <el-input type="text" v-model="addForm.price" autocomplete="off"></el-input>
           </el-form-item>
-            <el-form-item label="数量（袋）:" prop="number">
+            <el-form-item label="数量:" prop="number">
             <el-input type="text" v-model="addForm.number" autocomplete="off"></el-input>
           </el-form-item>
         </el-form>
@@ -194,5 +192,9 @@ export default {
   width: 178px;
   height: 178px;
   display: block;
+}
+.left{
+  display: inline-block;
+  margin-right: 20px;
 }
 </style>

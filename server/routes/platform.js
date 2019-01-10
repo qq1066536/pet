@@ -3,7 +3,7 @@ var router = express.Router();
 const client = require("ykt-http-client")
 client.url("127.0.0.1:8080");
 
-//查全部信息
+//查全部用户信息
 router.get('/', async function (req, res) {
     //type value 是页面搜索传过来的 
     let { page, rows, type, value } = req.query;
@@ -38,12 +38,12 @@ router.post('/', async function (req, res) {
     res.send(data);
 });
 //修改信息
-router.put('/:id', async function (req, res) {
-    let id = req.params.id;
-    let { status } = req.body;
-    let data = await client.put("/user/" + id, { status });
-    res.send(data);
-});
+// router.put('/:id', async function (req, res) {
+//     let id = req.params.id;
+//     let { status } = req.body;
+//     let data = await client.put("/user/" + id, { status });
+//     res.send(data);
+// });
 //删除信息
 router.delete('/:id', async function (req, res) {
     let id = req.params.id;
@@ -66,15 +66,24 @@ router.get('/shop', async function (req, res) {
 });
 
 
-//查询全部供货商和全部门店的集合
-router.get('/findAll', async function (req, res) {
-    let { page, rows, type, value } = req.query;
-    let shopData = await client.get("/shop", { submitType: 'findJoin', ref: 'user' });
-    let supplierData = await client.get("/supplier", { submitType: 'findJoin', ref: 'user' });
-    let data = shopData.concat(supplierData);
+
+//通过id查找是门店还是供货商
+router.get('/findShopOrSupplier', async function (req, res) {
+    let { id } = req.query;
+    let data = await client.get("/shop", { "submitType": "findJoin", ref: "user", "user.$id": id })
+    if (data.length == 0) {
+        data = await client.get("/supplier", { "submitType": "findJoin", ref: "user", "user.$id": id, })
+    }
     res.send(data)
 })
 
+//通过id修改权限
+router.put('/putStatus/:id', async function (req, res) {
+    let id = req.params.id;
+    let { phone, password, status, account } = req.body;
+    let data = await client.put("/user/" + id, { phone, password, status, account })
+    res.send({ status: 1 })
+})
 //验证手机号是否重复
 router.get('/findPhone', async function (req, res) {
     let { phone } = req.query;
@@ -91,8 +100,8 @@ router.get('/findPhone', async function (req, res) {
 });
 //注册门店账号或供应商账号
 router.post('/reg', async function (req, res) {
-    let { private, phone, password, status } = req.body;
-    let data = await client.post("/user", { private, phone, password, status });
+    let { private, phone, password, status, account } = req.body;
+    let data = await client.post("/user", { private, phone, password, status, account });
     res.send({ status: 1 });
 })
 module.exports = router;

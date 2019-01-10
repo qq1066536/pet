@@ -4,7 +4,7 @@ export default {
     state: {
         stores: [],
         suppliers: [],
-        storesAndsuppliers: []
+        users: []
     },
     getters: {},
     mutations: {
@@ -14,19 +14,18 @@ export default {
         setSuppliers(state, suppliers) {
             state.suppliers = suppliers;
         },
-        setStoresAndSuppliers(state, storesAndsuppliers) {
-            state.storesAndsuppliers = storesAndsuppliers;
+        setUsers(state, users) {
+            state.users = users;
         }
     },
     actions: {
-        // 查询所有门店和供应商的集合
-        setStoresAndSuppliers({ commit }) {
+        // 查寻所有用户
+        setUsers({ commit }) {
             axios({
                 method: "get",
-                url: "/platform/findAll"
+                url: "/platform"
             }).then(({ data }) => {
-                console.log("storesAndsuppliers", data)
-                commit("setStoresAndSuppliers", data)
+                commit("setUsers", data)
             })
         },
         //查询所有供应商

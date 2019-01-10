@@ -1,10 +1,13 @@
 <template>
-    <div>图形报表</div>
+    <Numecharts></Numecharts>
 </template>
 
 <script>
+import Numecharts from "./Numecharts";
 export default {
-
+    components: {
+        Numecharts,
+    }
 }
 </script>
 

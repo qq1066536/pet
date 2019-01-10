@@ -31,7 +31,6 @@
 </template>
 
 <script>
-import Axios from "axios";
 import { createNamespacedHelpers } from "vuex";
 const { mapState, mapActions, mapMutations } = createNamespacedHelpers(
     "SupProducts"
@@ -62,7 +61,7 @@ export default {
             axios({
                 method: "delete",
                 url: `/supplier/${id}`
-            }).then(({ data }) => {
+            }).then(() => {
                 // console.log(id);
                 // console.log("删除成功");
                 this.setProducts()

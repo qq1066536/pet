@@ -1,27 +1,13 @@
 <template>
   <div>
-    <el-button type="primary" icon="el-icon-circle-plus-outline">添加门店</el-button>
+    <el-button type="primary" icon="el-icon-circle-plus-outline" @click="openAddDialog">添加门店</el-button>
     <div>
-      <!-- <el-dialog title="添加门店" :visible.sync="close" width="30%">
-        <el-form :model="student" status-icon ref="updateForm"  label-width="100px">
-          <el-form-item label="门店名" prop="name">
-            <el-input v-model="name" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="营业地址" prop="addr">
-            <el-input v-model="age" autocomplete="off"></el-input>
-          </el-form-item>
-
-          <h3>上传头像</h3>
-          <el-upload class="avatar-uploader" action="/upload" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
-            <img v-if="student.src" :src="student.src" class="avatar">
-            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-          </el-upload>
-        </el-form>
+      <el-dialog title="添加门店" :visible.sync="addDialogVisible" width="30%">
         <span slot="footer" class="dialog-footer">
           <el-button @click="calcle">取 消</el-button>
           <el-button type="primary" @click="addStore">确 定</el-button>
         </span>
-      </el-dialog> -->
+      </el-dialog>
 
       <el-table :data="stores" style="width: 100%" max-height="180">
         <el-table-column width="120" prop="name" label="门店名"></el-table-column>
@@ -54,11 +40,24 @@ export default {
   computed: {
     ...mapState(["stores"])
   },
+  data() {
+    return {
+      addDialogVisible: false
+    };
+  },
   created() {
     this.setStores();
   },
   methods: {
-    ...mapActions(["setStores"])
+    ...mapActions(["setStores"]),
+    //打开增加门店面板
+    openAddDialog() {
+      this.addDialogVisible = true;
+    },
+    //关闭增加门店面板
+    calcle() {
+      this.addDialogVisible = false;
+    }
   }
 };
 </script>

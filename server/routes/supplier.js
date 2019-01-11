@@ -58,10 +58,6 @@ router.put("/:id", async (req, res) => {
 })
 router.delete("/:id", async (req, res) => {
     let id = req.params.id
-<<<<<<< HEAD
-    res.send(await client.delete("/sup_products/" + id))
-})
-=======
     console.log(123)
     await client.delete("/sup_products/" + id)
     res.send("ok")
@@ -70,7 +66,6 @@ router.get("/info/:id", async (req, res) => {
     let id = req.params.id
     res.send(await client.get("/supplier/" + id))
 })
->>>>>>> 1abdebacc1a8eadf7ae63ada05dd33e003ccb5a8
 router.put("/updateinfo/:id", async (req, res) => {
     let id = req.params.id
     let data = await client.get("/supplier/" + id)

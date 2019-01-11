@@ -20,8 +20,8 @@ router.get('/', async function (req, res) {
 
 // 注册
 router.post('/', async function (req, res) {
-  let { private, phone, pwd, status } = req.body;
-  let data = await client.post("/user", { private, phone, pwd, status });
+  let { private, phone, password, status, account } = req.body;
+  let data = await client.post("/user", { private, phone, password, status, account });
   res.send({ status: 1 });
 });
 //注册门店账号或供应商账号
@@ -33,8 +33,8 @@ router.post('/reg', async function (req, res) {
 
 // 登录
 router.post('/login', async function (req, res) {
-  let { phone, pwd } = req.body;
-  let data = await client.get("/user", { phone, pwd, findType: "exact" });
+  let { phone, password } = req.body;
+  let data = await client.get("/user", { phone, password, findType: "exact" });
   if (data.length > 0) {
     req.session.user = data[0]; // 设置用户session
     res.send({ status: 0 });

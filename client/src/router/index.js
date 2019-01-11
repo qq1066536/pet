@@ -11,11 +11,23 @@ import Services from "../components/Services"
 import shop from "../components/shop"
 import SaleNum from "../components/shop/SaleNum"
 import Sales from "../components/shop/Sales"
-
+import Register from "../components/Register/Register"
+import Login from "../components/Login/Login"
 Vue.use(VueRouter);
 export default new VueRouter({
     routes: [
         {
+            path:"/login",
+            component:Login
+
+        },   
+        {
+            path:"/Register",
+            component:Register
+
+        },
+          
+        {   
             path: '/manage',
             component: Manage,
             children: [{
@@ -57,6 +69,7 @@ export default new VueRouter({
                 }
                 ]
             }
+        
             ]
         }
     ],

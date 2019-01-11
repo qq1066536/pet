@@ -60,7 +60,6 @@ export default {
                 //     rows: 3
                 // }
             }).then(({ data }) => {
-                console.log("data", data)
                 commit("setStores", data);
             })
         }

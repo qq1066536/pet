@@ -1,5 +1,6 @@
 <template>
     <div>
+        <el-button plain @click="add">新增</el-button>
         <Add></Add>
         <el-table
             :data="products"
@@ -47,52 +48,29 @@ export default {
         this.setProducts();
     },
     computed: {
-        ...mapState(["id", "products"])
+        ...mapState(["id", "products","title"])
     },
     methods: {
-        ...mapMutations(["setDialogVisible", "getPid"]),
+        ...mapMutations(["setDialogVisible","setTitle", "getPid"]),
         ...mapActions(["setProducts", "getProduct"]),
         updateProduct(id) {
-            // console.log(id);
-            this.setDialogVisible(true);
+            this.setTitle("修改")
             this.getPid(id);
             this.getProduct();
+            this.setDialogVisible(true);
+        },
+        add(){
+            this.setTitle("新增")
+            this.setDialogVisible(true)
         },
         deleteProduct(id) {
             axios({
                 method: "delete",
                 url: `/supplier/${id}`
             }).then(({ data }) => {
-                // console.log(id);
-                // console.log("删除成功");
                 this.setProducts()
             });
         }
-
-        // getproducts() {
-        //     Axios({
-        //         url: "/supplier",
-        //         method: "get",
-        //         params: {
-        //             id: this.id,
-        //             page: 1,
-        //             rows: 5
-        //         }
-        //     }).then(({ data }) => {
-        //         data=data.rows
-        //         console.log(data)
-
-        //         for (let i = 0; i < data.length; i++) {
-        //             for (let key in data[i]) {
-        //                 if(Array.isArray(data[i][key])){
-        //                     data[i][key]=data[i][key].join(",")
-        //                 }
-        //             }
-        //         }
-
-        //         this.products = data;
-        //     });
-        // }
     }
 };
 </script>

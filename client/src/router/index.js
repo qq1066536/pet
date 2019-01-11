@@ -9,7 +9,6 @@ import Orders from "../components/Orders"
 import Products from "../components/shop/index.vue"
 import SupProducts from '../components/supplier/products'
 import Services from "../components/Services"
-import addtest from "../components/supplier/component/upload"
 Vue.use(VueRouter);
 export default new VueRouter({
     routes: [
@@ -34,10 +33,6 @@ export default new VueRouter({
             }, {
                 path: "/manage/supplier/products",
                 component: SupProducts
-            },
-            {
-                path:"/manage/supplier/upload",
-                component:addtest
             },
             {
                 path: "/manage/orders",

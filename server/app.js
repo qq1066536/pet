@@ -18,6 +18,7 @@ var supplierRouter=require("./routes/supplier")
 
 var shopRouter = require('./routes/shop');
 var sopPropductsRouter = require('./routes/sopPropducts');
+var baidu =require("./routes/baiduapi")
 var app = express();
 
 // view engine setup
@@ -42,6 +43,7 @@ app.use("/supplier",supplierRouter)
 
 app.use('/shop',shopRouter);
 app.use('/sopPropducts',sopPropductsRouter);
+app.use("/baiduapi",baidu)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

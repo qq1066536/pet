@@ -82,10 +82,6 @@
                                 <i class="el-icon-printer"></i>
                                 <span slot="title">商品信息</span>
                             </el-menu-item>
-                            <el-menu-item index="/manage/supplier/upload">
-                                <i class="el-icon-printer"></i>
-                                <span slot="title">上传测试</span>
-                            </el-menu-item>
                             <el-menu-item index>
                                 <i class="el-icon-tickets"></i>
                                 <span slot="title">统计</span>

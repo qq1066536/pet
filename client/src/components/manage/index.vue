@@ -67,11 +67,11 @@
                   <span>报表展示</span>
                 </template>
                 <el-menu-item-group>
-                  <el-menu-item index="/manage/shop/salenum">
+                  <el-menu-item index="/manage/report/salenum">
                     <i class="el-icon-menu"></i>
                     <span slot="title">销售量统计</span>
                   </el-menu-item>
-                  <el-menu-item index="/manage/shop/sales">
+                  <el-menu-item index="/manage/report/sales">
                     <i class="el-icon-menu"></i>
                     <span slot="title">销售额统计</span>
                   </el-menu-item>
@@ -130,18 +130,6 @@ export default {
   computed:{...mapState(["session"])},
   methods: {
     ...mapActions(["getSession"]),
-    // getSession() {
-    //   axios({
-    //     method: "get",
-    //     url: "/users/getSession"
-    //   }).then(({ data }) => {
-    //     if (!data) {
-    //       this.$router.history.push("/login");
-    //     } else {
-    //       this.user = data.phone;
-    //     }
-    //   });
-    // },
     removeSession() {
       axios({
         method: "get",

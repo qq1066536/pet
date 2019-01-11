@@ -9,9 +9,9 @@ import Orders from "../components/Orders"
 import Products from "../components/shop/index.vue"
 import SupProducts from '../components/supplier/products'
 import Services from "../components/Services"
-import shop from "../components/shop"
-import SaleNum from "../components/shop/SaleNum"
-import Sales from "../components/shop/Sales"
+import report from "../components/report"
+import SaleNum from "../components/report/SaleNum"
+import Sales from "../components/report/Sales"
 import Register from "../components/Register/Register"
 import Login from "../components/Login/Login"
 Vue.use(VueRouter);
@@ -65,13 +65,13 @@ export default new VueRouter({
                 component: Services
             },
             {
-                path: "/manage/shop",
-                component: shop,
+                path: "/manage/report",
+                component: report,
                 children: [{
-                    path: "/manage/shop/salenum",
+                    path: "/manage/report/salenum",
                     component: SaleNum
                 }, {
-                    path: "/manage/shop/sales",
+                    path: "/manage/report/sales",
                     component: Sales
                 }
                 ]

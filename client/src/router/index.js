@@ -5,8 +5,9 @@ import UserManage from "../components/platform/UserManage"
 import PetmasterManage from "../components/platform/PetmasterManage"
 import StoreManage from "../components/platform/StoreManage"
 import Statistics from "../components/platform/Statistics"
-import SupProducts from '../components/supplier/products'
 import Orders from "../components/Orders"
+import Products from "../components/shop/index.vue"
+import SupProducts from '../components/supplier/products'
 import Services from "../components/Services"
 import shop from "../components/shop"
 import SaleNum from "../components/shop/SaleNum"
@@ -54,6 +55,12 @@ export default new VueRouter({
                 component: Orders
             },
             {
+                path: "/manage/shop",
+                component: Products
+            }, {
+                path: "/manage/supplier/products",
+                component: SupProducts
+            }, {
                 path: "/manage/services",
                 component: Services
             },

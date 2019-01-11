@@ -1,7 +1,7 @@
 
 /* eslint-disable */
 <template>
-  <el-dialog title="修改" :visible.sync="closeDialogVisible" width="30%" :before-close="handleClose">
+  <el-dialog title="修改" :visible.sync="closeDialogVisible" width="30%">
     <!-- 表单内容 -->
     <el-form
       :model="updateInfo"

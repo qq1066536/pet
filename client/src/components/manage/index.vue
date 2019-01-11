@@ -4,7 +4,7 @@
       <h1>
         宠物管理系统
         <span class="el-icon-service user">
-          欢迎你：
+          {{session.phone}},欢迎你：
           <span class="el-icon-error"></span>
         </span>
       </h1>
@@ -17,9 +17,8 @@
           text-color="#fff"
           active-text-color="#ffd04b"
           :router="true"
-          :collapse="isCollapse"
         >
-          <el-submenu index="1">
+          <el-submenu index="1" v-if="session.private=='管理员'">
             <template slot="title">
               <i class="el-icon-setting"></i>
               <span>平台管理</span>
@@ -44,7 +43,7 @@
             </el-menu-item-group>
           </el-submenu>
 
-          <el-submenu index="2">
+          <el-submenu index="2"  v-if="session.private=='门店'">
             <template slot="title">
               <i class="el-icon-setting"></i>
               <span>门面管理</span>
@@ -62,7 +61,7 @@
                 <i class="el-icon-goods"></i>
                 <span slot="title">服务</span>
               </el-menu-item>
-              <el-submenu>
+              <el-submenu index="4">
                 <template slot="title">
                   <i class="el-icon-tickets"></i>
                   <span>报表展示</span>
@@ -81,7 +80,7 @@
             </el-menu-item-group>
           </el-submenu>
 
-          <el-submenu index="3">
+          <el-submenu index="3"  v-if="session.private=='供应商'">
             <template slot="title">
               <i class="el-icon-setting"></i>
               <span>供应商管理</span>
@@ -112,6 +111,7 @@
 
 <script>
 import axios from "axios";
+import {mapState, mapActions} from "vuex"
 export default {  
 
   data() {
@@ -127,19 +127,21 @@ export default {
   created() {
     this.getSession();
   },
+  computed:{...mapState(["session"])},
   methods: {
-    getSession() {
-      axios({
-        method: "get",
-        url: "/getSession"
-      }).then(({ data }) => {
-        if (!data) {
-          this.$router.history.push("/login");
-        } else {
-          this.user = data.phone;
-        }
-      });
-    },
+    ...mapActions(["getSession"]),
+    // getSession() {
+    //   axios({
+    //     method: "get",
+    //     url: "/users/getSession"
+    //   }).then(({ data }) => {
+    //     if (!data) {
+    //       this.$router.history.push("/login");
+    //     } else {
+    //       this.user = data.phone;
+    //     }
+    //   });
+    // },
     removeSession() {
       axios({
         method: "get",

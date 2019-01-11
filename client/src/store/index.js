@@ -4,6 +4,7 @@ import orderModules from "./modules/orderModules"
 import platformModule from "./modules/platformModule.js"
 import serviceModules from "./modules/serviceModules"
 import SupProducts from "./modules/supplierModules"
+import axios from "axios"
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -14,6 +15,25 @@ export default new Vuex.Store({
         platformModule
     },
     state: {
+        session:{}
     },
-    mutations: {}
+    mutations: {
+        getsession:function(state,data){
+            state.session=data
+        }
+    },
+    actions:{
+        getSession:function({commit}) {
+            axios({
+              method: "get",
+              url: "/users/getSession"
+            }).then(({ data }) => {
+                commit("getsession",data)
+                window.localStorage.setItem("session",JSON.stringify(data))
+            });
+          }
+    },
+    mounted(){
+        console.log()
+    }
 })

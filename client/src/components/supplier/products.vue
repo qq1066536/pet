@@ -63,6 +63,7 @@ export default {
                 method: "delete",
                 url: `/supplier/${id}`
             }).then(() => {
+            }).then(({ data }) => {
                 // console.log(id);
                 // console.log("删除成功");
                 this.setProducts()

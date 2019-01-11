@@ -9,10 +9,23 @@ import Orders from "../components/Orders"
 import Products from "../components/shop/index.vue"
 import SupProducts from '../components/supplier/products'
 import Services from "../components/Services"
+import Register from "../components/Register/Register"
+import Login from "../components/Login/Login"
 Vue.use(VueRouter);
 export default new VueRouter({
     routes: [
         {
+            path:"/login",
+            component:Login
+
+        },   
+        {
+            path:"/Register",
+            component:Register
+
+        },
+          
+        {   
             path: '/manage',
             component: Manage,
             children: [{
@@ -48,6 +61,7 @@ export default new VueRouter({
                 path: "/manage/services",
                 component: Services
             }
+        
             ]
         }
     ],

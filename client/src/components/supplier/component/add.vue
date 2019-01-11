@@ -80,6 +80,9 @@ export default {
     // created: function() {
     //     console.log(this.product);
     // },
+    created: function() {
+        // console.log(this.product);
+    },
     methods: {
         ...mapMutations(["setDialogVisible"]),
         ...mapActions(["getProduct"]),

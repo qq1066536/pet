@@ -11,6 +11,7 @@ export default {
             type: "",
             value: "",
         },
+        shopId: "5c32f1d56c9da2c6832b828f"
     },
     mutations: {
         getServices: function (state, data) {
@@ -19,10 +20,9 @@ export default {
         setServiceInfo: function (state, data) {
             state.updateInfo = data;
         },
-        /* 
         setSearch:function(state,search){
             state.search = search
-        },*/
+        },
         setUpdateVisible: function (state, bool) {
             state.dialogVisible = bool;
         },
@@ -31,7 +31,7 @@ export default {
         }, 
     },
     actions: {
-        getServices: function ({ commit },payload={page:1,row:5}) {
+        getServices: function ({ commit },payload={page:1,rows:5}) {
             let id = "5c32f1d56c9da2c6832b828f";
             axios({
                 methods: "get",

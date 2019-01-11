@@ -1,7 +1,11 @@
+
 import Vue from 'vue'
 import Vuex from 'vuex'
 import orderModules from "./modules/orderModules"
 import productsMoudles from "./modules/productsMoudles"
+import platformModule from "./modules/platformModule.js"
+import serviceModules from "./modules/serviceModules"
+
 import SupProducts from "./modules/supplierModules"
 import shopModule from "./modules/shopModule"
 Vue.use(Vuex)
@@ -11,10 +15,12 @@ export default new Vuex.Store({
         orderModules,
         productsMoudles,
         SupProducts,
-        shopModule
+        shopModule,
+        platformModule,
+        serviceModules,
+        SupProducts
     },
     state: {
     },
-    mutations: {
-    }
+    mutations: {}
 })

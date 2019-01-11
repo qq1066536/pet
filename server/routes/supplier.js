@@ -6,14 +6,8 @@ client.url("http://127.0.0.1:8080")
 router.get("/", async (req, res) => {
     let { id, page, rows } = req.query
     console.log(id, page, rows)
-    let data = await client.get(`/sup_products`, {
-        page, 
-        rows, 
-        "submitType": "findJoin",
-        ref: "supplier",
-        "supplier.$id": id,
-    })
-    // data = data.rows.filter(item => item.supplier._id == id)
+    let data = await client.get(`/sup_products`, { submitType: "findJoin", ref: "supplier" })
+    data = data.filter(item => item.supplier._id == id)
     console.log(data)
     res.send(data)
 })
@@ -58,13 +52,7 @@ router.put("/:id", async (req, res) => {
 })
 router.delete("/:id", async (req, res) => {
     let id = req.params.id
-    console.log(123)
-    await client.delete("/sup_products/" + id)
-    res.send("ok")
-})
-router.get("/info/:id", async (req, res) => {
-    let id = req.params.id
-    res.send(await client.get("/supplier/" + id))
+    res.send(await client.delete("/sup_products/" + id))
 })
 router.put("/updateinfo/:id", async (req, res) => {
     let id = req.params.id

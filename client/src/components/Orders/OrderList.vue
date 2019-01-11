@@ -12,7 +12,7 @@
     <el-table-column label="订单编号" width="220" prop="_id"></el-table-column>
     <el-table-column label="价格" width="60" prop="price"></el-table-column>
     <el-table-column label="数量" width="60" prop="number"></el-table-column>
-    <el-table-column label="购买人" width="80" prop="user"></el-table-column>
+    <el-table-column label="购买人" width="70" prop="user"></el-table-column>
     <el-table-column label="联系电话" width="120" prop="phone"></el-table-column>
     <el-table-column label="商品详情" width="80" prop="goods">
       <template slot-scope="scope">

@@ -26,10 +26,7 @@ export default {
       ...mapMutations(['setSearch']),
       searchBtn(){
           let {type,value} = this;
-<<<<<<< HEAD
-=======
         // console.log(type,value)
->>>>>>> 482c2cbad1a6b188daceb1638938c32a72f77400
           this.setSearch({type,value});
           this.getServices({page:1,rows: 5,type,value});
       }

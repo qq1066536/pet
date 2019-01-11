@@ -66,7 +66,6 @@ export default {
     // console.log(123);
   }
 };
-export default {};
 </script>
 
 <style scoped>

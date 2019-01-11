@@ -53,7 +53,7 @@
                 <i class="el-icon-menu"></i>
                 <span slot="title">订单</span>
               </el-menu-item>
-              <el-menu-item index>
+              <el-menu-item index="/manage/shop">
                 <i class="el-icon-printer"></i>
                 <span slot="title">商品</span>
               </el-menu-item>
@@ -66,16 +66,6 @@
                   <i class="el-icon-tickets"></i>
                   <span>报表展示</span>
                 </template>
-                <el-menu-item-group>
-                  <el-menu-item index="/manage/shop/salenum">
-                    <i class="el-icon-menu"></i>
-                    <span slot="title">销售量统计</span>
-                  </el-menu-item>
-                  <el-menu-item index="/manage/shop/sales">
-                    <i class="el-icon-menu"></i>
-                    <span slot="title">销售额统计</span>
-                  </el-menu-item>
-                </el-menu-item-group>
               </el-submenu>
             </el-menu-item-group>
           </el-submenu>

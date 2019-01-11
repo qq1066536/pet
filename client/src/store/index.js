@@ -5,12 +5,8 @@ import orderModules from "./modules/orderModules"
 import productsMoudles from "./modules/productsMoudles"
 import platformModule from "./modules/platformModule.js"
 import serviceModules from "./modules/serviceModules"
-
-import platformModule from "./modules/platformModule.js"
-import serviceModules from "./modules/serviceModules"
 import SupProducts from "./modules/supplierModules"
 import axios from "axios"
-import productsMoudles from "./modules/productsMoudles"
 import shopModule from "./modules/shopModule"
 Vue.use(Vuex)
 

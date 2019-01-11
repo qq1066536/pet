@@ -3,18 +3,23 @@ export default {
     namespaced: true,
     state: {
         stores: [],
+        store: {},
         users: [],
         user: {},
         pagination: {},
         search: {
             type: "",
             value: "",
-        }
+        },
+        updateShopVisible: false,
     },
     getters: {},
     mutations: {
         setStores(state, stores) {
             state.stores = stores;
+        },
+        setStore(state, store) {
+            state.store = store;
         },
         setUsers(state, users) {
             state.users = users;
@@ -27,7 +32,10 @@ export default {
         },
         setSearch(state, search) {
             state.search = search
-        }
+        },
+        setUpdateShopVisible(state, updateShopVisible) {
+            state.updateShopVisible = updateShopVisible;
+        },
     },
     actions: {
         // 查寻所有用户
@@ -55,13 +63,17 @@ export default {
             axios({
                 method: "get",
                 url: "/platform/shop",
-                // params: {
-                //     page: 1,
-                //     rows: 3
-                // }
             }).then(({ data }) => {
-                console.log("data", data)
                 commit("setStores", data);
+            })
+        },
+        //通过id查门店
+        setStore({ commit }, id) {
+            axios({
+                method: "get",
+                url: "/platform/findShop/" + id
+            }).then(({ data }) => {
+                commit("setStore", data)
             })
         }
     }

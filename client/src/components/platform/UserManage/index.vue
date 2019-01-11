@@ -48,36 +48,47 @@
     <el-dialog title="详情" :visible.sync="dialogDetailsVisible" width="30%">
       <div v-if="userPrivate == '门店'">
         <p v-if="shopOrsupplier.status == '已审核'">
-          <el-button type="success">已审核</el-button>
+          <el-button type="success">门店申请已审核</el-button>
         </p>
         <p v-if="shopOrsupplier.status == '已拒绝'">
-          <el-button type="info">已拒绝</el-button>
+          <el-button type="info">门店申请已拒绝</el-button>
         </p>
         <p>注册人：{{shopOrsupplier.username}}</p>
         <p>营业地址：{{shopOrsupplier.addr}}</p>
-        <p>门店标号：{{shopOrsupplier.No}}</p>
+        <!-- <p>门店标号：{{shopOrsupplier.No}}</p> -->
         <p>网址：{{shopOrsupplier.website}}</p>
-        <p>营业执照图片：{{shopOrsupplier.business_lic}}</p>
-        <p>店名：{{shopOrsupplier.desc}}</p>
+        <p>营业执照图片：
+
+          <el-upload disabled="false" :show-file-list="false">
+            <img v-if="shopOrsupplier.business_lic" :src="shopOrsupplier.business_lic" class="shoperImg">
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          </el-upload>
+        </p>
+        <p>店名：{{shopOrsupplier.name}}</p>
         <p>营业执照号码：{{shopOrsupplier.business_no}}</p>
         <p>所在城市：{{shopOrsupplier.city}}</p>
         <p>法人：{{shopOrsupplier.legal_person}}</p>
         <p>联系电话：{{shopOrsupplier.tel}}</p>
-        <p>头图：{{shopOrsupplier.img_head}}</p>
+        <p>门店图：
+          <el-upload disabled="false" :show-file-list="false">
+            <img v-if="shopOrsupplier.img_head" :src="shopOrsupplier.img_head" class="shoperImg">
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          </el-upload>
+        </p>
         <p>特色：{{shopOrsupplier.feature}}</p>
         <p>VIP等级：{{shopOrsupplier.vip}}</p>
-        <p>佣金比例：{{shopOrsupplier.package}}</p>
+        <p>佣金比例：{{shopOrsupplier.commission_rate}}</p>
         <p v-if="shopOrsupplier.status == '待审核'">
-          <el-button type="primary" @click="agreeShopTwice(shopOrsupplier._id)">通过审核</el-button>
+          <el-button type="primary" @click="agreeShopTwice(shopOrsupplier._id)">通过门店申请审核</el-button>
           <el-button type="danger" @click="refuseShopTwice(shopOrsupplier._id)">拒绝</el-button>
         </p>
       </div>
       <div v-if="userPrivate == '供应商'">
         <p v-if="shopOrsupplier.status == '已审核'">
-          <el-button type="success">已审核</el-button>
+          <el-button type="success">供应商申请已审核</el-button>
         </p>
         <p v-if="shopOrsupplier.status == '已拒绝'">
-          <el-button type="info">已拒绝</el-button>
+          <el-button type="info">供应商申请已拒绝</el-button>
         </p>
         <p>供应商名字：{{shopOrsupplier.username}}</p>
         <p>供应商编号：{{shopOrsupplier.No}}</p>
@@ -88,9 +99,12 @@
         <p>供应商营业执照：{{shopOrsupplier.business_lic}}</p>
         <p>供应商备注：{{shopOrsupplier.desc}}</p>
         <p v-if="shopOrsupplier.status == '待审核'">
-          <el-button type="primary" @click="agreeSupplierTwice(shopOrsupplier._id)">通过审核</el-button>
+          <el-button type="primary" @click="agreeSupplierTwice(shopOrsupplier._id)">通过供应商申请审核</el-button>
           <el-button type="danger" @click="refuseSupplierTwice(shopOrsupplier._id)">拒绝</el-button>
         </p>
+      </div>
+      <div v-if="shopOrsupplier.status == ''">
+        <p>暂无审核消息。</p>
       </div>
     </el-dialog>
     <div>
@@ -223,11 +237,11 @@ export default {
       }).then(({ data }) => {
         // console.log("data", data.length);
         // console.log("private", data[0].user.private);
+        this.dialogDetailsVisible = true;
         if (data.length == 0) {
           this.shopOrsupplier = {};
           this.userPrivate = "";
         } else {
-          this.dialogDetailsVisible = true;
           this.shopOrsupplier = data[0];
           this.userPrivate = data[0].user.private;
         }
@@ -602,5 +616,9 @@ export default {
 .el-search {
   margin-top: 15px;
   width: 500px;
+}
+.shoperImg {
+  width: 300px;
+  height: 200px;
 }
 </style>

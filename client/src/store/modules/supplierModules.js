@@ -12,9 +12,6 @@ export default {
         dialogImageUrls: [{
             url: "1.png"
         }],
-        dialogVisible: {
-            visible: false
-        },
         dialogImageUrl: "",
         title: {
             name: ""
@@ -50,7 +47,6 @@ export default {
         },
         // 上传图片时，添加到数据库
         adddialogImageUrls: function (state, data) {
-            console.log(data)
             if (!Array.isArray(state.product.img)) {
                 state.product.img = []
                 state.product.img.push({ url: data })
@@ -104,7 +100,7 @@ export default {
                 url: "/supplier/" + id,
                 method: "put",
                 data: { ...state.product }
-            }).then(res => {
+            }).then(() => {
                 commit("setProduct", {})
                 dispatch("setProducts")
 
@@ -115,8 +111,8 @@ export default {
             axios({
                 url: "/supplier/" + state.id,
                 method: "post",
-                data: { ...product }
-            }).then(res => {
+                data: { ...state.product }
+            }).then(() => {
                 commit("setProduct", {})
                 dispatch("setProducts")
             })

@@ -1,6 +1,12 @@
 <template>
   <div>
-    <el-button type="primary" plain @click="dialogVisible = true" >修改信息</el-button>
+    <el-button
+      type="primary"
+      v-bind:class="{upBtn:isActive,'upBtnTo': hasError}"
+      plain
+      @click="dialogVisible = true"
+    >修改信息</el-button>
+    <span v-if="producer.status == 0" class="red">【信息审核中...】</span>
     <div class="mainLayout">
       <el-form label-width="100px" style="width:400px">
         <el-form-item label="公司名称:">{{producer.name}}</el-form-item>
@@ -88,8 +94,7 @@
     <el-dialog title="提示" :visible.sync="centerDialogVisible" width="30%" center>
       <span style="color:red;font-size: 20px;">资料待平台管理员审核中······</span>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="centerDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="centerDialogVisible = false">确 定</el-button>
+        <el-button type="primary" @click="update">确 定</el-button>
       </span>
     </el-dialog>
   </div>
@@ -103,7 +108,7 @@ export default {
       dialogVisible: false,
       isActive: true,
       hasError: false,
-      centerDialogVisible:false,
+      centerDialogVisible: false,
       userId: ""
     };
   },
@@ -127,13 +132,18 @@ export default {
         method: "get",
         url: "/supplier/info/" + this.id //(this.userId)
       }).then(({ data }) => {
-        if (data.status == "已审核") {
+        this.show();
+        /* if (data.status == "已审核") {
           this.show();
         } else {
-          // (this.isActive = false), (this.hasError = true);
-            this.centerDialogVisible=true
-        }
+          this.centerDialogVisible = true;
+        } */
       });
+    },
+    update() {
+      (this.centerDialogVisible = false),
+        (this.isActive = false),
+        (this.hasError = true);
     },
     show() {
       axios({
@@ -175,11 +185,12 @@ export default {
           addr,
           tel,
           website,
-          status: "待审核",
+          status: "0",
           license
         }
       }).then(() => {
-        this.show();
+        // this.show();
+        this.auditor();
       });
     },
     handleAvatarSuccess(res, file) {
@@ -224,14 +235,16 @@ export default {
   height: 178px;
   display: block;
 }
-.auditor {
+.upBtnTo {
   font-size: 30px;
   display: none;
 }
-.auditoring {
-  font-size: 30px;
+.upBtn {
   display: block;
   color: red;
+}
+.red {
+  color: tomato;
 }
 </style>
 

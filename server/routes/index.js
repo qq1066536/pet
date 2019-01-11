@@ -27,7 +27,7 @@ router.post('/upload', function (req, res) {
     uploadDir: "./public/upload"
   });
   form.parse(req, function (err, fields, files) {
-    console.log("files",files);
+  
     let key = Object.keys(files)[0];
     if (err) {
       res.send(err);

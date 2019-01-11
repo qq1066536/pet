@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-button type="primary" plain @click="dialogVisible = true">修改信息</el-button>
+    <el-button type="primary" plain @click="dialogVisible = true" >修改信息</el-button>
     <div class="mainLayout">
       <el-form label-width="100px" style="width:400px">
         <el-form-item label="公司名称:">{{producer.name}}</el-form-item>
@@ -26,7 +26,7 @@
         </el-form-item>
       </el-form>
     </div>
-    <p v-bind:class="{auditor:isActive,'auditoring': hasError}">资料待平台管理员审核中······</p>
+    <!-- <p v-bind:class="{auditor:isActive,'auditoring': hasError}">资料待平台管理员审核中······</p> -->
     <!-- 修改板块 -->
     <el-dialog title="修改供应商信息" :visible.sync="dialogVisible" width="30%">
       <el-form :model="producer" status-icon ref="updateForm" label-width="100px">
@@ -85,6 +85,13 @@
         <el-button type="primary" @click="updateInformation">确 定</el-button>
       </span>
     </el-dialog>
+    <el-dialog title="提示" :visible.sync="centerDialogVisible" width="30%" center>
+      <span style="color:red;font-size: 20px;">资料待平台管理员审核中······</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="centerDialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="centerDialogVisible = false">确 定</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -94,9 +101,10 @@ export default {
     return {
       producer: {},
       dialogVisible: false,
-      isActive:true,
-    hasError:false,
-      userId: "",
+      isActive: true,
+      hasError: false,
+      centerDialogVisible:false,
+      userId: ""
     };
   },
   created() {
@@ -120,10 +128,10 @@ export default {
         url: "/supplier/info/" + this.id //(this.userId)
       }).then(({ data }) => {
         if (data.status == "已审核") {
-          this.show()
-        }else{
-          this.isActive=false,
-           this.hasError=true
+          this.show();
+        } else {
+          // (this.isActive = false), (this.hasError = true);
+            this.centerDialogVisible=true
         }
       });
     },
@@ -216,14 +224,14 @@ export default {
   height: 178px;
   display: block;
 }
-.auditor{
+.auditor {
   font-size: 30px;
   display: none;
 }
-.auditoring{
+.auditoring {
   font-size: 30px;
   display: block;
-  color:red;
+  color: red;
 }
 </style>
 

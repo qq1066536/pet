@@ -29,8 +29,10 @@
         <el-form-item label="产地:" prop="addr">
           <el-input type="text" v-model="product.addr" autocomplete="off"></el-input>
         </el-form-item>
+
         <el-form-item label="生产日期:" prop="pro_date">
-          <el-input type="text" v-model="product.pro_date" autocomplete="off"></el-input>
+          <el-date-picker v-model="product.pro_date" type="date" placeholder="选择日期"></el-date-picker>
+          <!-- <el-input type="text" v-model="product.pro_date" autocomplete="off"></el-input> -->
         </el-form-item>
         <el-form-item label="保质期:" prop="valid_date">
           <el-input type="text" v-model="product.valid_date" autocomplete="off"></el-input>
@@ -44,17 +46,23 @@
         <el-form-item label="价格:" prop="price">
           <el-input type="text" v-model="product.price" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="数量(袋):" prop="number">
+        <el-form-item label="数量:" prop="number">
           <el-input type="text" v-model="product.number" autocomplete="off"></el-input>
         </el-form-item>
       </el-form>
-      <el-upload action="/upload"
-      :on-success="handleAvatarSuccess"
-      :on-preview="handlePictureCardPreview"
-       list-type="picture-card">
+      <el-upload
+        action="/upload"
+        :file-list="this.product.img"
+        :on-success="handleAvatarSuccess"
+        :on-preview="handlePictureCardPreview"
+        :on-remove="handleRemove"
+        list-type="picture-card"
+      >
         <i class="el-icon-plus"></i>
       </el-upload>
-        <img v-for="item in product.img" :img="'http://127.0.0.1:3000'+item" :key="item" class="avatar">
+      <el-dialog :visible.sync="dialogVisible">
+        <img width="100%" :src="this.product.img" alt>
+      </el-dialog>
       <span slot="footer" class="dialog-footer">
         <el-button @click="setupdateVisible(false)">取 消</el-button>
         <el-button type="primary" @click="updatePro">确 定</el-button>
@@ -62,7 +70,6 @@
     </el-dialog>
   </div>
 </template>
-
 <script>
 import axios from "axios";
 import { createNamespacedHelpers } from "vuex";
@@ -71,7 +78,10 @@ const { mapActions, mapMutations, mapState } = createNamespacedHelpers(
 );
 export default {
   data() {
-    return {};
+    return {
+      dialogImageUrl: "",
+      dialogVisible: false
+    };
   },
   computed: {
     ...mapState(["product", "updateVisible"]),
@@ -108,7 +118,7 @@ export default {
         img,
         number
       } = this.product;
-    //   console.log("图片数组", this.product.img)
+      //   console.log("图片数组", this.product.img)
       axios({
         method: "put",
         url: "/sopPropducts/" + this.product._id,
@@ -142,11 +152,24 @@ export default {
       this.dialogImageUrl = file.url;
       this.dialogVisible = true;
     },
-    handleAvatarSuccess(res) {
-    this.img.push ("http://127.0.0.1:3000/upload/" + res);
-    //  console.log("tupian",this.img)
+    handleRemove(file, fileList) {
+      console.log(file, fileList);
+      let arr = this.img;
+      for (let i in arr) {
+        if (arr[i].uid == file.uid) {
+          arr.splice(i, 1);
+          break;
+        }
+      }
+      this.img = arr;
     },
-
+    handlePreview(file) {
+      console.log(file);
+    },
+    handleAvatarSuccess(res) {
+      this.img.push("http://127.0.0.1:3000/upload/" + res);
+      //  console.log("tupian",this.img)
+    }
   }
 };
 </script>
@@ -177,5 +200,8 @@ export default {
   width: 178px;
   height: 178px;
   display: block;
+}
+.flex {
+  display: flex;
 }
 </style>

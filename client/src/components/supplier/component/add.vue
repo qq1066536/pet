@@ -75,6 +75,9 @@ export default {
     // created: function() {
     //     console.log(this.product);
     // },
+    created: function() {
+        // console.log(this.product);
+    },
     methods: {
         ...mapMutations(["setDialogVisible","setProduct"]),
         ...mapActions(["getProduct","updateProduct","addProduct","setProducts"]),

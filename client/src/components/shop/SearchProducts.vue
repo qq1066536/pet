@@ -1,5 +1,5 @@
 <template>
-  <span>
+  <div class="margin">
     <el-input placeholder="请输入内容" v-model="value" class="input-with-select">
       <el-select v-model="type" slot="prepend" placeholder="请选择" class="select">
         <el-option label="品牌" value="name"></el-option>
@@ -8,7 +8,7 @@
       </el-select>
       <el-button slot="append" icon="el-icon-search" @click="search"></el-button>
     </el-input>
-  </span>
+  </div>
 </template>
 <script>
 import { createNamespacedHelpers } from "vuex";
@@ -54,5 +54,8 @@ export default {
 }
 .select {
   width: 100px;
+}
+.margin{
+  margin-top: 10px;
 }
 </style>

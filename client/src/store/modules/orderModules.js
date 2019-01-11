@@ -10,7 +10,7 @@ export default {
         search: {
             type: "",
             value: "",
-        },
+        }
     },
     mutations: {
         getOrders: function (state, data) {
@@ -19,24 +19,26 @@ export default {
         setOrderInfo: function (state, data) {
             state.updateInfo = data;
         },
-        /* 
-        setSearch:function(state,search){
+
+        setSearch: function (state, search) {
             state.search = search
-        },*/
+        },
         setUpdateVisible: function (state, bool) {
             state.dialogVisible = bool;
         },
         setPagination: function (state, data) {
             state.pagination = data;
-        }, 
+        },
     },
     actions: {
-        getOrders: function ({ commit },payload={page:1,row:5}) {
-            let id = "5c32f1d56c9da2c6832b828f";
+        getOrders: function ({ state,commit,rootState }, payload = { page: 1, rows: 5 }) {
+            // console.log(rootState,rootState.session)
+            let id = rootState.session._id||JSON.parse(window.localStorage.getItem("session"))._id;
+            // console.log(id)
             axios({
                 methods: "get",
                 url: "/orders/shop",
-                params: {id,...payload}
+                params: { id, ...payload }
             }).then(({ data }) => {
                 // console.log(data)
                 commit('getOrders', data.rows)

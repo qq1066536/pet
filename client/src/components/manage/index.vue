@@ -157,12 +157,8 @@ export default {
 
 <style scoped>
 .headerBgc {
-<<<<<<< HEAD
   background-color: #545c64;
   color: #fff;
-=======
-    background-color: skyblue;
->>>>>>> 4eba77c5cb374e9440fc54ce3731000d1e5e4754
 }
 .container {
     height: 100%;

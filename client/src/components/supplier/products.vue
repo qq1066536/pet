@@ -32,10 +32,7 @@
 </template>
 
 <script>
-<<<<<<< HEAD
-=======
 // import Axios from "axios";
->>>>>>> 4eba77c5cb374e9440fc54ce3731000d1e5e4754
 import { createNamespacedHelpers } from "vuex";
 const { mapState, mapActions, mapMutations } = createNamespacedHelpers(
     "SupProducts"

@@ -12,11 +12,13 @@ var platformRouter = require('./routes/platform.js')
 var ordersRouter = require('./routes/orders');
 var servicesRouter = require('./routes/services');
 
-var ordersRouter = require('./routes/orders');
-var servicesRouter = require('./routes/services');
 
 var platformRouter = require('./routes/platform.js')
 var supplierRouter=require("./routes/supplier")
+
+var shopRouter = require('./routes/shop');
+var sopPropductsRouter = require('./routes/sopPropducts');
+var baidu =require("./routes/baiduapi")
 var app = express();
 
 // view engine setup
@@ -38,6 +40,11 @@ app.use('/services', servicesRouter);
 
 app.use('/platform', platformRouter);
 app.use("/supplier",supplierRouter)
+
+app.use('/shop',shopRouter);
+app.use('/sopPropducts',sopPropductsRouter);
+app.use("/baiduapi",baidu)
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

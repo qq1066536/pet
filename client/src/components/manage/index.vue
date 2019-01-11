@@ -113,7 +113,7 @@ export default {
         method: "get",
         url: "/getSession"
       }).then(({ data }) => {
-        if (!data.phone) {
+        if (!data) {
           this.$router.history.push("/login");
         } else {
           this.user = data.phone;

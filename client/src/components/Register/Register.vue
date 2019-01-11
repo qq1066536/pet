@@ -13,12 +13,12 @@
       <el-form-item label="确认密码" prop="confrim">
         <el-input type="password" v-model="regForm.confrim"></el-input>
       </el-form-item>
-      <el-form-item label="类型：" class="regadministrators" prop="private">
+      <el-form-item label="类型：" prop="private">
         <el-radio label="门店" v-model="regForm.private" border>门店</el-radio>
         <el-radio label="供应商" v-model="regForm.private" border>供应商</el-radio>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="submitForm(regForm)">注册</el-button>
+        <el-button type="primary" @click="reg()">注册</el-button>
       </el-form-item>
     </el-form>
   </el-card>
@@ -39,15 +39,12 @@ export default {
         private: [{ required: true, message: "请选择注册类型" }],
         phone: [
           { required: true, message: "请输入电话号码" },
-          {
-            pattern: /^1([38]\d|5[0-35-9]|7[3678])\d{8}$/,
-            message: "手机号格式不正确"
-          },
+          { pattern: /^1\d{10}$/, message: "手机号格式不正确" },
           { validator: this.validatePhone }
         ],
         pwd: [
           { required: true, message: "请输入密码" },
-          { pattern: /^\d{6,20}$/, message: "密码至少6位最多20位" }
+          { min: 6, message: "密码至少6位" }
         ],
         confrim: [
           { required: true, message: "确认密码" },
@@ -57,23 +54,20 @@ export default {
     };
   },
   methods: {
-    validatePhone(rule, value, callback) {     
-      axios(
-        {
-          method: "get",
-          url: "/users",
-
-          params: {
-            phone: value
-          }
-        }).then(({ data }) => {
-          if (data.status == 0) {
-            callback(new Error("手机号重复"));
-          } else {
-            callback();
-          }
-        })
-      ;
+    validatePhone(rule, value, callback) {
+      axios({
+        method: "get",
+        url: "/users",
+        params: {
+          phone: value
+        }
+      }).then(({ data }) => {
+        if (data.status == 0) {
+          callback("手机号重复");
+        } else {
+          callback();
+        }
+      });
     },
     validatePwd(rule, value, callback) {
       if (value == this.regForm.pwd) {
@@ -82,27 +76,7 @@ export default {
         callback(new Error("两次密码不一致，请重新输入"));
       }
     },
-    regadministrators() {
-      this.$refs.regForm.validate(valid => {
-        if (valid) {
-          axios({
-            method: "post",
-            url: "/uesrs",
-            data: {
-              phone: this.regFrom.phone,
-              pwd: this.regForm.pwd,
-              private: this.regForm.ptivate,
-              status: "未审核"
-            }
-          }).then(({ data }) => {
-            this.resetForm();
-          });
-        } else {
-          this.$alert("注册失败，请重新注册");
-        }
-      });  
-    },
-      submitForm() {
+    reg() {
       this.$refs.regForm.validate(valid => {
         if (valid) {
           axios({
@@ -110,16 +84,19 @@ export default {
             url: "/users",
             data: {
               phone: this.regForm.phone,
-              pwd: this.regForm.pwd
+              password: this.regForm.pwd,
+              private: this.regForm.private,
+              status: "待审核",
+              account: "正常"
             }
-          }).then(() => {
+          }).then(({ data }) => {
             this.$router.push("login");
           });
         } else {
-          this.$alert("注册失败，输入有误！！", "消息");
+          this.$alert("注册失败，请重新注册");
         }
       });
-    },
+    }
   }
 };
 </script>

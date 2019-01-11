@@ -17,6 +17,7 @@
           text-color="#fff"
           active-text-color="#ffd04b"
           :router="true"
+          :collapse="isCollapse"
         >
           <el-submenu index="1">
             <template slot="title">
@@ -110,12 +111,24 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      collapsed: "false"
+    };
+  },
+  methods: {
+    onCollapse() {
+      this.collapsed = true;
+    }
+  }
+};
 </script>
 
 <style scoped>
 .headerBgc {
-  background-color: skyblue;
+  background-color: #545c64;
+  color: #fff;
 }
 .container {
   height: 100%;

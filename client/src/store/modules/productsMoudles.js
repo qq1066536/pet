@@ -5,18 +5,23 @@ export default {
     state: {
         product: {},
         products: [],
+        supProducts:[],
         pagination: {},
         updateVisible: false,
         search: {
             type: "",
             value: ""
         },
-        id: "5c32f1d56c9da2c6832b828f"
+        id: "5c32f1d56c9da2c6832b828f",
+        supId:"5c32ef8a6c9da2c6832b81fe"
     },
     getters: {},
     mutations: {
         setProduct(state, product) {
             state.product = product;
+        },
+        setSupProducts(state, supProducts) {
+            state.supProducts = supProducts;
         },
         setProducts(state, products) {
             state.products = products;
@@ -50,6 +55,18 @@ export default {
                 console.log(state.id)
                 console.log(data)
                 commit("setProducts", data.rows);
+                commit("setPagition", data)
+            });
+        },
+        setSupProducts({ commit, state }, payloda = { page: 1, rows: 5 }) {
+            axios({
+                method: "get",
+                url: "/sopPropducts/productsAll",
+                params: { ...payloda }
+            }).then(({ data }) => {
+                console.log(state.supId)
+                console.log(data)
+                commit("setSupProducts", data.rows);
                 commit("setPagition", data)
             });
         },

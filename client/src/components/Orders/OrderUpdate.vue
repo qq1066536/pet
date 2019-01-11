@@ -1,5 +1,7 @@
+
+/* eslint-disable */
 <template>
-  <el-dialog title="修改" :visible.sync="closeDialogVisible" width="30%" :before-close="handleClose">
+  <el-dialog title="修改" :visible.sync="closeDialogVisible" width="30%">
     <!-- 表单内容 -->
     <el-form
       :model="updateInfo"
@@ -9,6 +11,13 @@
       label-width="100px"
       class="demo-ruleForm"
     >
+      <el-form-item label="订单状态" prop="state">
+          <el-input v-if="updateInfo.state == 0" type="text" value="未付款" autocomplete="off" :disabled="true"></el-input>
+          <el-input v-else-if="updateInfo.state == 1" type="text" value="已付款" autocomplete="off" :disabled="true"></el-input>
+          <el-input v-else-if="updateInfo.state == 2" type="text" value="待发货" autocomplete="off" :disabled="true"></el-input>
+          <el-input v-else-if="updateInfo.state == 3" type="text" value="已发货" autocomplete="off" :disabled="true"></el-input>
+          <el-input v-else-if="updateInfo.state == 4" type="text" value="已签收" autocomplete="off" :disabled="true"></el-input>
+      </el-form-item>
       <el-form-item label="姓名" prop="user">
         <el-input type="text" v-model="updateInfo.user" autocomplete="off"></el-input>
       </el-form-item>
@@ -16,7 +25,10 @@
         <el-input type="text" v-model="updateInfo.addr" autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item label="电话" prop="phone">
-        <el-input v-model.number="updateInfo.phone"></el-input>
+        <el-input v-model="updateInfo.phone"></el-input>
+      </el-form-item>
+      <el-form-item label="价格" prop="price">
+        <el-input v-model="updateInfo.price"></el-input>
       </el-form-item>
     </el-form>
 
@@ -28,15 +40,18 @@
 </template>
 
 <script>
-import axios from "axios"
+import axios from "axios";
 import { createNamespacedHelpers } from "vuex";
-const { mapState, mapActions, mapMutations } = createNamespacedHelpers("orderModules");
+const { mapState, mapActions, mapMutations } = createNamespacedHelpers(
+  "orderModules"
+);
 export default {
   data() {
     return {
       rules: {
         user: [{ required: true, message: "姓名不能为空" }],
         addr: [{ required: true, message: "地址不能为空" }],
+        price: [{ required: true, message: "价格不能为空" }],
         phone: [{ required: true, message: "电话不能为空" }]
       }
     };
@@ -55,12 +70,11 @@ export default {
   methods: {
     ...mapMutations(["setUpdateVisible", "setOrderInfo"]),
     ...mapActions(["getOrders"]),
-
     handleCancle() {
       this.setUpdateVisible(false);
     },
     handleSubmit(updateFrom) {
-        // console.log(this.updateInfo.user)
+      // console.log(this.updateInfo.user)
       this.$refs[updateFrom].validate(valid => {
         if (valid) {
           axios({
@@ -69,6 +83,7 @@ export default {
             data: {
               user: this.updateInfo.user,
               addr: this.updateInfo.addr,
+              price: this.updateInfo.price,
               phone: this.updateInfo.phone
             }
           }).then(() => {

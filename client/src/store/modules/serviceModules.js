@@ -11,6 +11,7 @@ export default {
             type: "",
             value: "",
         },
+        shopId: "",
     },
     mutations: {
         getServices: function (state, data) {
@@ -19,24 +20,27 @@ export default {
         setServiceInfo: function (state, data) {
             state.updateInfo = data;
         },
-        /* 
-        setSearch:function(state,search){
+        setSearch: function (state, search) {
             state.search = search
-        },*/
+        },
         setUpdateVisible: function (state, bool) {
             state.dialogVisible = bool;
         },
         setPagination: function (state, data) {
             state.pagination = data;
-        }, 
+        },
+        setShopId: function(state,id) {
+            state.shopId = id;
+        }
     },
     actions: {
-        getServices: function ({ commit },payload={page:1,row:5}) {
-            let id = "5c32f1d56c9da2c6832b828f";
+        getServices: function ({ commit,rootState }, payload = { page: 1, rows: 5 }) {
+            let id = rootState.session._id || JSON.parse(window.localStorage.getItem("session"))._id;
+            commit('setShopId', id)
             axios({
                 methods: "get",
                 url: "/services/shop",
-                params: {id,...payload}
+                params: { id, ...payload }
             }).then(({ data }) => {
                 // console.log(data)
                 commit('getServices', data.rows)

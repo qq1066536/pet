@@ -1,6 +1,6 @@
 <template>
   <span class="regCard">
-    <el-button type="primary" @click="dialogVisible = true">完善门店信息</el-button>
+    <el-button type="info" @click="dialogVisible = true">完善门店信息</el-button>
     <el-dialog title="门店信息" :visible.sync="dialogVisible" width="50%">
       <el-form
         :model="regForm"
@@ -11,19 +11,34 @@
         class="demo-regForm"
       >
         <el-form-item label="名称:" prop="name">
-          <el-input type="text" v-model="regForm.name" autocomplete="off" ></el-input>
+          <el-input type="text" v-model="regForm.name" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="营业执照号码:" prop="business_no">
           <el-input v-model="regForm.business_no" autocomplete="off"></el-input>
         </el-form-item>
+        <el-form-item label="营业执照图片"  prop="business_lic">
+          <el-upload
+            class="avatar-uploader"
+            action="/upload"
+            :show-file-list="false"
+            :on-success="handleAvatarSuccess"
+          >
+            <img v-if="regForm.business_lic" :src="regForm.business_lic" class="avatar">
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          </el-upload>
+        </el-form-item>
         <el-form-item label="营业地址:" prop="addr">
-          <el-input v-model="regForm.addr"></el-input>
+          <el-input v-model="regForm.addr" @blur="getLocation"></el-input>
         </el-form-item>
-        <el-form-item label="定位:" prop="location">
-          <el-input v-model="regForm.location"></el-input>
+        <el-form-item label="经纬度:" prop="location">
+          <el-input v-model="regForm.location" disabled="true"></el-input>
         </el-form-item>
-        <el-form-item label="所在城市:" prop="city">
+        <!-- <el-form-item label="所在城市:" prop="city">
           <el-input v-model="regForm.city"></el-input>
+        </el-form-item>-->
+        <el-form-item label="所在城市" prop="city">
+          <!-- <el-input v-model="addForm.city" clearable :disabled="false"></el-input> -->
+          <el-cascader expand-trigger="hover" :options="citys" v-model="regForm.city"></el-cascader>
         </el-form-item>
         <el-form-item label="法人:" prop="legal_person">
           <el-input v-model="regForm.legal_person"></el-input>
@@ -40,8 +55,30 @@
         <el-form-item label="佣金比例:" prop="commission_rate">
           <el-input v-model="regForm.commission_rate"></el-input>
         </el-form-item>
-        <el-form-item label="店员:" prop="stuff">
-          <el-input v-model="regForm.stuff"></el-input>
+        <el-form-item
+          v-for="(item, index) in regForm.stuff"
+          :label="'店员' + (index+1)"
+          :key="index"
+          :prop="'stuff.' + index"
+        >
+          <el-input v-model="item.name" placeholder="店员姓名"></el-input>
+          <el-input v-model="item.title" placeholder="店员职位"></el-input>
+          <el-input v-model="item.phone" placeholder="联系电话"></el-input>
+          <el-button @click.prevent="removeItem(item)">删除</el-button>
+        </el-form-item>
+        <el-form-item>
+          <el-button @click="addItem">添加店员</el-button>
+        </el-form-item>
+        <el-form-item label="门店头像">
+          <el-upload
+            class="avatar-uploader"
+            action="/upload"
+            :show-file-list="false"
+            :on-success="handleAvatarSuccess1"
+          >
+            <img v-if="regForm.img_head" :src="regForm.img_head" class="avatar">
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          </el-upload>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="regBtn('regForm')">确定</el-button>
@@ -58,26 +95,26 @@ const { mapActions, mapState } = createNamespacedHelpers("shopModule");
 export default {
   data() {
     return {
+      account:"正常",
       regForm: {
         name: "",
         business_no: "",
         addr: "",
-        location: "",
-        city: "",
+        city: [],
         legal_person: "",
-        tel:"",
+        tel: "",
         feature: "",
         vip: "",
         commission_rate: "",
-        stuff: "",
+        stuff: [],
         business_lic: "",
-        img_head: ""
+        img_head: "",
+        location:""
       },
       dialogVisible: false,
       rules: {
         name: [
           { required: true, message: "门店名称不能为空", trigger: "blur" },
-     
           { validator: this.validatephone, trigger: "blur" }
         ],
         business_no: [
@@ -85,9 +122,6 @@ export default {
         ],
         addr: [
           { required: true, message: "营业地址不能为空", trigger: "blur" }
-        ],
-        location: [
-          { required: true, message: "经纬度不能为空", trigger: "blur" }
         ],
         city: [
           { required: true, message: "所在城市不能为空", trigger: "blur" }
@@ -102,67 +136,124 @@ export default {
         commission_rate: [
           { required: true, message: "佣金比例不能为空", trigger: "blur" }
         ],
-        stuff: [
-          { required: true, message: "店员信息不能为空", trigger: "blur" }
-        ],
-         tel: [
+        // stuff: [
+        //   { required: true, message: "店员信息不能为空", trigger: "blur" }
+        // ],
+        tel: [
           { required: true, message: "联系电话不能为空", trigger: "blur" },
-               {
+          {
             pattern: /^[1]{1}[3,5,7,8,9]{1}[0-9]{9}$/,
             message: "请输入正确的手机号",
             trigger: "blur"
-          },
+          }
         ],
-      }
+        business_lic: [
+          { required: true, message: "请上传营业执照", trigger: "blur" }
+        ]
+      },
+      citys: [
+        {
+          value: "四川省",
+          label: "四川省",
+          children: [
+            {
+              value: "成都",
+              label: "成都"
+            },
+            {
+              value: "德阳",
+              label: "德阳"
+            }
+          ]
+        }
+      ]
     };
   },
   computed: {
     ...mapState(["id"])
   },
   methods: {
+    getLocation(){
+      axios({
+        method: "get",
+        url: "/shop/addr",
+        params:{
+          addr:this.regForm.addr
+        }
+      }).then(({data})=>{
+        let lng=`${data.result.location.lng}`
+        let lat=`${data.result.location.lat}`
+        // this.location=data.result.location
+        this.regForm.location=lng+","+lat
+        console.log(this.regForm.location)
+        console.log(typeof data.result)
+        console.log("定位",data.result.location)
+      })
+    },
+    removeItem(item) {
+      var index = this.regForm.stuff.indexOf(item);
+      if (index !== -1) {
+        this.regForm.stuff.splice(index, 1);
+      }
+    },
+    addItem() {
+      this.regForm.stuff.push({
+        name: "",
+        phone: "",
+        title: ""
+      });
+    },
+    handleAvatarSuccess(res, file) {
+      this.regForm.business_lic="/upload/" + res;
+      console.log(res, file);
+    },
+    handleAvatarSuccess1(res, file) {
+       this.regForm.img_head="/upload/" + res;
+      console.log(res, file);
+    },
     ...mapActions([""]),
     regBtn(regForm) {
-      console.log("提交成功");
       console.log("id", this.id);
       let {
         name,
         business_no,
         addr,
-        location,
         city,
         legal_person,
         tel,
         feature,
         vip,
-        packcommission_ratea,
+        commission_rate,
         stuff,
         business_lic,
-        img_head
+        img_head,
+        location
       } = this.regForm;
-        axios({
+      axios({
         method: "post",
         url: "/shop",
         data: {
-        name:name,
-        business_no:business_no,
-        addr:addr,
-        location:JSON.stringify(location),
-        city:city,
-        legal_person:legal_person,
-        tel:tel,
-        feature:feature,
-        vip:vip,
-        packcommission_ratea:packcommission_ratea,
-        stuff:JSON.stringify(stuff),
-        business_lic,
-        img_head,
-        userId:this.id,
-        status:0
+          name: name,
+          business_no: business_no,
+          addr: addr,
+          location: JSON.stringify(location),
+          city: JSON.stringify(city),
+          legal_person: legal_person,
+          tel: tel,
+          feature: feature,
+          vip: vip,
+          commission_rate: commission_rate,
+          stuff: JSON.stringify(stuff),
+          business_lic,
+          img_head,
+          userId: this.id,
+          status: "待审核",
+          account:this.account,
         }
       }).then(() => {
         // this.$emit("show")
         this.dialogVisible = false;
-        this.regForm.reset();
+        this.regForm.reset('regForm');
       });
     }
   }
@@ -196,7 +287,7 @@ export default {
   height: 178px;
   display: block;
 }
-.regCard{
-    margin-left:500px;
+.regCard {
+  margin-left: 20px;
 }
 </style>

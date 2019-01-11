@@ -14,7 +14,7 @@
 
 <script>
 import { createNamespacedHelpers } from "vuex";
-const { mapState, mapActions } = createNamespacedHelpers("orderModules");
+const { mapState, mapActions } = createNamespacedHelpers("serviceModules");
 export default {
   data(){
     return{
@@ -25,10 +25,10 @@ export default {
     ...mapState(["pagination", "search"])
   },
   methods: {
-    ...mapActions(["getOrders"]),
+    ...mapActions(["getServices"]),
     handleSizeChange(size) {
       // console.log(`每页 ${val} 条`);
-      this.getOrders({
+      this.getServices({
         page: 1,
         rows: size,
         type: this.search.type,
@@ -37,8 +37,9 @@ export default {
       this.currentSize = size;
     },
     handleCurrentChange(page) {
+    // console.log(page,this.search.type,this.search.value);
       //   console.log(`当前页: ${val}`);
-      this.getOrders({page,rows:this.currentSize,type:this.search.type,value:this.search.value});
+      this.getServices({page,rows:this.currentSize,type:this.search.type,value:this.search.value});
     }
   },
 };

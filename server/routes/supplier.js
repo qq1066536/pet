@@ -5,16 +5,8 @@ client.url("http://127.0.0.1:8080")
 //获取某供应商数据
 router.get("/", async (req, res) => {
     let { id, page, rows } = req.query
-    console.log(id, page, rows)
-    let data = await client.get(`/sup_products`, {
-        page, 
-        rows, 
-        "submitType": "findJoin",
-        ref: "supplier",
-        "supplier.$id": id,
-    })
-    // data = data.rows.filter(item => item.supplier._id == id)
-    console.log(data)
+    let data = await client.get(`/sup_products`, { submitType: "findJoin", ref: "supplier" })
+    data = data.filter(item => item.supplier._id == id)
     res.send(data)
 })
 router.get("/:id", async (req, res) => {
@@ -33,7 +25,6 @@ router.get("/:id", async (req, res) => {
 router.post("/:id", async (req, res) => {
     let id = req.params.id;
     let reqdata = req.body
-    console.log(reqdata)
     let data = await client.post("/sup_products", {
         ...reqdata, supplier: {
             "$ref": "supplier",
@@ -45,10 +36,8 @@ router.post("/:id", async (req, res) => {
 })
 // 修改产品数据
 router.put("/:id", async (req, res) => {
-    let id = req.params.id
-    console.log(id)
+    let id = req.params._id
     let data = await client.get("/sup_products/" + id)
-    console.log(data)
     let reqdata = req.body
     delete data._id
     data = { ...data, ...reqdata }
@@ -56,14 +45,9 @@ router.put("/:id", async (req, res) => {
     let resdata = await client.put("/sup_products/" + id, { ...data })
     res.send(resdata)
 })
-router.delete("/:id",async(req,res)=>{
-    let id=req.params.id
-    res.send(await client.delete("/sup_products/"+id))
-})
-router.get("/info/:id",async (req,res)=>{
-    let id = req.params.id;
-    // let data=await client.get("/supplier/"+id)
-    res.send(await client.get("/supplier/"+id))
+router.delete("/:id", async (req, res) => {
+    let id = req.params.id
+    res.send(await client.delete("/sup_products/" + id))
 })
 router.put("/updateinfo/:id", async (req, res) => {
     let id = req.params.id

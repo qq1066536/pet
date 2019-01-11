@@ -31,7 +31,8 @@
             <el-input type="text" v-model="addForm.addr" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item label="生产日期:" prop="pro_date">
-            <el-input type="text" v-model="addForm.pro_date" autocomplete="off"></el-input>
+             <el-date-picker v-model="addForm.pro_date" type="date" placeholder="选择日期"></el-date-picker>
+            <!-- <el-input type="text" v-model="addForm.pro_date" autocomplete="off"></el-input> -->
           </el-form-item>
           <el-form-item label="保质期:" prop="valid_date">
             <el-input type="text" v-model="addForm.valid_date" autocomplete="off"></el-input>
@@ -145,7 +146,6 @@ export default {
           shopId: this.id
         }
       }).then(() => {
-        // this.$emit("show")
         this.dialogVisible = false;
         this.setProducts();
         this.addForm.reset();

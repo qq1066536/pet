@@ -95,6 +95,7 @@ const { mapActions, mapState } = createNamespacedHelpers("shopModule");
 export default {
   data() {
     return {
+      account:"正常",
       regForm: {
         name: "",
         business_no: "",
@@ -246,12 +247,13 @@ export default {
           business_lic,
           img_head,
           userId: this.id,
-          status: "待审核"
+          status: "待审核",
+          account:this.account,
         }
       }).then(() => {
         // this.$emit("show")
         this.dialogVisible = false;
-        this.regForm.reset();
+        this.regForm.reset('regForm');
       });
     }
   }

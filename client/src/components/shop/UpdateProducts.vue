@@ -29,8 +29,10 @@
         <el-form-item label="产地:" prop="addr">
           <el-input type="text" v-model="product.addr" autocomplete="off"></el-input>
         </el-form-item>
+
         <el-form-item label="生产日期:" prop="pro_date">
-          <el-input type="text" v-model="product.pro_date" autocomplete="off"></el-input>
+          <el-date-picker v-model="product.pro_date" type="date" placeholder="选择日期"></el-date-picker>
+          <!-- <el-input type="text" v-model="product.pro_date" autocomplete="off"></el-input> -->
         </el-form-item>
         <el-form-item label="保质期:" prop="valid_date">
           <el-input type="text" v-model="product.valid_date" autocomplete="off"></el-input>
@@ -50,21 +52,17 @@
       </el-form>
       <el-upload
         action="/upload"
-        :show-file-list="true"
+        :file-list="this.product.img"
         :on-success="handleAvatarSuccess"
         :on-preview="handlePictureCardPreview"
+        :on-remove="handleRemove"
         list-type="picture-card"
       >
         <i class="el-icon-plus"></i>
       </el-upload>
-      <div class="flex">
-        <img
-          v-for="item in product.img"
-          :src="'http://127.0.0.1:3000'+item"
-          :key="item"
-          class="avatar"
-        >
-      </div>
+      <el-dialog :visible.sync="dialogVisible">
+        <img width="100%" :src="this.product.img" alt>
+      </el-dialog>
       <span slot="footer" class="dialog-footer">
         <el-button @click="setupdateVisible(false)">取 消</el-button>
         <el-button type="primary" @click="updatePro">确 定</el-button>
@@ -72,7 +70,6 @@
     </el-dialog>
   </div>
 </template>
-
 <script>
 import axios from "axios";
 import { createNamespacedHelpers } from "vuex";
@@ -82,7 +79,8 @@ const { mapActions, mapMutations, mapState } = createNamespacedHelpers(
 export default {
   data() {
     return {
-      fileList: []
+      dialogImageUrl: "",
+      dialogVisible: false
     };
   },
   computed: {
@@ -154,6 +152,20 @@ export default {
       this.dialogImageUrl = file.url;
       this.dialogVisible = true;
     },
+    handleRemove(file, fileList) {
+      console.log(file, fileList);
+      let arr = this.img;
+      for (let i in arr) {
+        if (arr[i].uid == file.uid) {
+          arr.splice(i, 1);
+          break;
+        }
+      }
+      this.img = arr;
+    },
+    handlePreview(file) {
+      console.log(file);
+    },
     handleAvatarSuccess(res) {
       this.img.push("http://127.0.0.1:3000/upload/" + res);
       //  console.log("tupian",this.img)
@@ -189,7 +201,7 @@ export default {
   height: 178px;
   display: block;
 }
-.flex{
+.flex {
   display: flex;
 }
 </style>

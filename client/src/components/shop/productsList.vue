@@ -15,7 +15,7 @@
       <el-table-column prop="No" label="供应商编号" width=120></el-table-column>
       <el-table-column prop="desc" label="特色说明"></el-table-column>
       <el-table-column prop="price" label="价格"></el-table-column>
-      <el-table-column prop="img" label="图片" width=120></el-table-column>
+      <!-- <el-table-column prop="img" label="图片" width=120></el-table-column> -->
        <el-table-column prop="number" label="数量" width=120></el-table-column>
       <el-table-column label="操作" width=200>
         <template slot-scope="scope">

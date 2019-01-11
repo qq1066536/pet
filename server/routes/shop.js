@@ -6,13 +6,12 @@ client.url("127.0.0.1:8080");
 //注册门店
 router.post('/', async function (req, res) {
   console.log(123)
-  let { name, addr, business_lic, desc, business_no, location, city, legal_person, tel, img_head, feature, vip, package, stuff, status, userId } = req.body;
+  let { name, addr, business_lic, desc, business_no, location, city, legal_person, tel, img_head, feature, vip, package, stuff, status,account, userId } = req.body;
   location = location && JSON.parse(location);
   stuff = stuff && JSON.parse(stuff);
-  // let { name, addr, business_lic, desc, business_no, location, city, legal_person, tel, img_head, feature, vip, package, stuff, status, userId } = req.body;
   await client.post('/shop', {
     name, addr, business_lic, desc, business_no, location, city,
-    legal_person, tel, img_head, feature, vip, package, stuff, status, user: { $ref: "user", $id: userId }
+    legal_person, tel, img_head, feature, vip, package, stuff, status,account, user: { $ref: "user", $id: userId }
   })
   res.send({ status: 1 });
 });

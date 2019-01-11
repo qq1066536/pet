@@ -17,11 +17,17 @@
         <el-form-item label="电话号码:">{{producer.tel}}</el-form-item>
         <el-form-item label="公司网站:">{{producer.website}}</el-form-item>
         <el-form-item label="营业执照:">
-          <img class="films-img" v-bind:src="'http://127.0.0.1:3000/upload/'+producer.license" style="width:240px;height:160px" alt=""/>
+          <img
+            class="films-img"
+            v-bind:src="'http://127.0.0.1:3000/upload/'+producer.license"
+            style="width:240px;height:160px"
+            alt
+          >
         </el-form-item>
       </el-form>
     </div>
-<!-- 修改板块 -->
+    <p v-bind:class="{auditor:isActive,'auditoring': hasError}">资料待平台管理员审核中······</p>
+    <!-- 修改板块 -->
     <el-dialog title="修改供应商信息" :visible.sync="dialogVisible" width="30%">
       <el-form :model="producer" status-icon ref="updateForm" label-width="100px">
         <el-form-item label="公司名称">
@@ -65,7 +71,11 @@
             :on-success="handleAvatarSuccess"
             :before-upload="beforeAvatarUpload"
           >
-            <img v-if="producer.license" :src="'http://127.0.0.1:3000/upload/'+producer.license" class="avatar">
+            <img
+              v-if="producer.license"
+              :src="'http://127.0.0.1:3000/upload/'+producer.license"
+              class="avatar"
+            >
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>
         </el-form-item>
@@ -83,11 +93,20 @@ export default {
   data() {
     return {
       producer: {},
-      dialogVisible: false
+      dialogVisible: false,
+      isActive:true,
+    hasError:false,
+      userId: "",
     };
   },
   created() {
-    this.show();
+    // axios({
+    //   method:"get",
+    //   url:"/getSession"
+    // }).then(({data})=>{
+    //   this.userId=data._id
+    // })
+    this.auditor();
   },
   computed: {
     id: function() {
@@ -95,14 +114,23 @@ export default {
     }
   },
   methods: {
+    auditor() {
+      axios({
+        method: "get",
+        url: "/supplier/info/" + this.id //(this.userId)
+      }).then(({ data }) => {
+        if (data.status == "已审核") {
+          this.show()
+        }else{
+          this.isActive=false,
+           this.hasError=true
+        }
+      });
+    },
     show() {
       axios({
         method: "get",
-        url: "/supplier/info/" + this.id,
-        params: {
-          page: 1,
-          rows: 3
-        }
+        url: "/supplier/info/" + this.id //(this.userId)
       }).then(({ data }) => {
         this.producer = data;
       });
@@ -121,6 +149,7 @@ export default {
         addr,
         tel,
         website,
+
         license
       } = this.producer;
       axios({
@@ -138,6 +167,7 @@ export default {
           addr,
           tel,
           website,
+          status: "待审核",
           license
         }
       }).then(() => {
@@ -145,8 +175,7 @@ export default {
       });
     },
     handleAvatarSuccess(res, file) {
-  
-      this.producer.license =res;
+      this.producer.license = res;
     },
     beforeAvatarUpload(file) {
       const isLt2M = file.size / 1024 / 1024 < 2;
@@ -165,27 +194,36 @@ export default {
   display: flex;
 }
 .avatar-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-  }
-  .avatar-uploader .el-upload:hover {
-    border-color: #409EFF;
-  }
-  .avatar-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
-    width: 178px;
-    height: 178px;
-    line-height: 178px;
-    text-align: center;
-  }
-  .avatar {
-    width: 178px;
-    height: 178px;
-    display: block;
-  }
+  border: 1px dashed #d9d9d9;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.avatar-uploader .el-upload:hover {
+  border-color: #409eff;
+}
+.avatar-uploader-icon {
+  font-size: 28px;
+  color: #8c939d;
+  width: 178px;
+  height: 178px;
+  line-height: 178px;
+  text-align: center;
+}
+.avatar {
+  width: 178px;
+  height: 178px;
+  display: block;
+}
+.auditor{
+  font-size: 30px;
+  display: none;
+}
+.auditoring{
+  font-size: 30px;
+  display: block;
+  color:red;
+}
 </style>
 

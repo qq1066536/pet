@@ -17,11 +17,7 @@
         </el-form-item>
         <el-form-item label="服务类别" prop="type">
           <el-select v-model="addForm.type" placeholder="请选择服务类别">
-<<<<<<< HEAD
             <el-option label="洗护" value="护理" name="type"></el-option>
-=======
-            <el-option label="洗护" value="洗护" name="type"></el-option>
->>>>>>> 482c2cbad1a6b188daceb1638938c32a72f77400
             <el-option label="寄养" value="寄养" name="type"></el-option>
           </el-select>
         </el-form-item>

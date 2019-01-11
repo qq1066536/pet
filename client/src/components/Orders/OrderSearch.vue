@@ -3,7 +3,7 @@
     <el-input placeholder="请输入内容" v-model="value" class="input-with-select">
       <el-select v-model="type" slot="prepend" placeholder="请选择">
         <el-option label="手机号" value="phone"></el-option>
-        <el-option label="姓名" value="name"></el-option>
+        <el-option label="姓名" value="user"></el-option>
         <el-option label="订单编号" value="_id"></el-option>
       </el-select>
       <el-button slot="append" icon="el-icon-search" @click="searchBtn"></el-button>
@@ -26,6 +26,7 @@ export default {
       ...mapMutations(['setSearch']),
       searchBtn(){
           let {type,value} = this;
+          // console.log(type,value)
           this.setSearch({type,value});
           this.getOrders({page:1,rows: 5,type,value});
       }

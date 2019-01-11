@@ -37,6 +37,10 @@ export default {
       this.currentSize = size;
     },
     handleCurrentChange(page) {
+<<<<<<< HEAD
+=======
+    // console.log(page,this.search.type,this.search.value);
+>>>>>>> 482c2cbad1a6b188daceb1638938c32a72f77400
       //   console.log(`当前页: ${val}`);
       this.getServices({page,rows:this.currentSize,type:this.search.type,value:this.search.value});
     }

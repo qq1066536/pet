@@ -21,6 +21,7 @@
 </template>
 <script>
 import axios from "axios";
+import { mapActions } from "vuex";
 export default {
   data() {
     return {
@@ -37,7 +38,9 @@ export default {
       }
     };
   },
+
   methods: {
+    ...mapActions(["getSession"]),
     lg() {
       this.$refs.lgForm.validate(valid => {
         if (valid) {
@@ -51,7 +54,7 @@ export default {
           }).then(({ data }) => {
             if (data.status == 0) {
               this.$router.push("manage");
-              this.getSession()
+              // this.setSession();
             } else {
               this.$alert("登录失败，账号或密码错误！！", "消息");
             }
@@ -59,14 +62,6 @@ export default {
         } else {
           this.$alert("登录失败，输入有误！！", "消息");
         }
-      });
-    },
-    getSession() {
-      axios({
-        method: "get",
-        url: "/users/getSession"
-      }).then(({ data }) => {
-        console.log(data);
       });
     }
   }

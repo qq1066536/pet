@@ -3,42 +3,51 @@ export default {
     namespaced: true,
     state: {
         stores: [],
-        suppliers: [],
-        storesAndsuppliers: []
+        users: [],
+        user: {},
+        pagination: {},
+        search: {
+            type: "",
+            value: "",
+        }
     },
     getters: {},
     mutations: {
         setStores(state, stores) {
             state.stores = stores;
         },
-        setSuppliers(state, suppliers) {
-            state.suppliers = suppliers;
+        setUsers(state, users) {
+            state.users = users;
         },
-        setStoresAndSuppliers(state, storesAndsuppliers) {
-            state.storesAndsuppliers = storesAndsuppliers;
+        setUser(state, user) {
+            state.user = user;
+        },
+        setPagination(state, pagination) {
+            state.pagination = pagination;
+        },
+        setSearch(state, search) {
+            state.search = search
         }
     },
     actions: {
-        // 查询所有门店和供应商的集合
-        setStoresAndSuppliers({ commit }) {
+        // 查寻所有用户
+        setUsers({ commit }, payLoad = { page: 1, rows: 5 }) {
             axios({
                 method: "get",
-                url: "/platform/findAll"
+                url: "/platform",
+                params: payLoad
             }).then(({ data }) => {
-                commit("setStoresAndSuppliers", data)
+                commit("setUsers", data.rows)
+                commit("setPagination", data)
             })
         },
-        //查询所有供应商
-        setSuppliers({ commit }) {
+        //通过id查询用户
+        setUser({ commit }, id) {
             axios({
                 method: "get",
-                url: "/platform/supplier",
-                // params: {
-                //     page: 1,
-                //     rows: 3
-                // }
+                url: "/platform/findUser/" + id
             }).then(({ data }) => {
-                commit("setSuppliers", data);
+                commit("setUser", data)
             })
         },
         //查询所有门面信息

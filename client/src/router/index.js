@@ -9,6 +9,12 @@ import Orders from "../components/Orders"
 import Products from "../components/shop/index.vue"
 import SupProducts from '../components/supplier/products'
 import Services from "../components/Services"
+<<<<<<< HEAD
+=======
+import shop from "../components/shop"
+import SaleNum from "../components/shop/SaleNum"
+import Sales from "../components/shop/Sales"
+>>>>>>> 482c2cbad1a6b188daceb1638938c32a72f77400
 import Register from "../components/Register/Register"
 import Login from "../components/Login/Login"
 Vue.use(VueRouter);
@@ -60,6 +66,18 @@ export default new VueRouter({
             }, {
                 path: "/manage/services",
                 component: Services
+            },
+            {
+                path: "/manage/shop",
+                component: shop,
+                children: [{
+                    path: "/manage/shop/salenum",
+                    component: SaleNum
+                }, {
+                    path: "/manage/shop/sales",
+                    component: Sales
+                }
+                ]
             }
         
             ]

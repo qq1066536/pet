@@ -6,17 +6,17 @@ client.url("127.0.0.1:8080");
 // 根据门店id查询服务
 router.get("/shop", async function (req, res) {
     let { id, page, rows, type, value } = req.query;
-    console.log(id, page, rows, type, value)
+    // console.log(id, page, rows, type, value)
     let searchObj = {};
     if (type) {
-        searchObj = { type: value };
+        searchObj = { [type]: value };
     }
     let data = await client.get("/services", {
         page, rows,
+        ...searchObj,
         "submitType": "findJoin",
         ref: "shop",
         "shop.$id": id,
-        ...searchObj
     });
     res.send(data)
 })

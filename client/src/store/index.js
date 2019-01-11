@@ -6,21 +6,43 @@ import productsMoudles from "./modules/productsMoudles"
 import platformModule from "./modules/platformModule.js"
 import serviceModules from "./modules/serviceModules"
 
+import platformModule from "./modules/platformModule.js"
+import serviceModules from "./modules/serviceModules"
 import SupProducts from "./modules/supplierModules"
+import axios from "axios"
+import productsMoudles from "./modules/productsMoudles"
 import shopModule from "./modules/shopModule"
 Vue.use(Vuex)
 
 export default new Vuex.Store({
     modules: {
         orderModules,
-        productsMoudles,
+        serviceModules,
         SupProducts,
         shopModule,
         platformModule,
         serviceModules,
-        SupProducts
+        SupProducts,
+        productsMoudles
     },
     state: {
+        session:{}
     },
-    mutations: {}
+    mutations: {},
+    mutations: {
+        getsession:function(state,data){
+            state.session=data
+        }
+    },
+    actions:{
+        getSession:function({commit}) {
+            axios({
+              method: "get",
+              url: "/users/getSession"
+            }).then(({ data }) => {
+                commit("getsession",data)
+                window.localStorage.setItem("session",JSON.stringify(data))
+            });
+          }
+    }
 })

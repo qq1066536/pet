@@ -21,6 +21,7 @@ var supplierRouter=require("./routes/supplier")
 var shopRouter = require('./routes/shop');
 var sopPropductsRouter = require('./routes/sopPropducts');
 var supProRouter = require('./routes/supPro');
+var baidu =require("./routes/baiduapi")
 var app = express();
 
 
@@ -47,13 +48,11 @@ app.use("/supplier", supplierRouter)
 app.use('/platform', platformRouter);
 app.use('/orders', ordersRouter);
 app.use('/services', servicesRouter);
-
-app.use('/platform', platformRouter);
-app.use("/supplier",supplierRouter)
-
 app.use('/shop',shopRouter);
 app.use('/sopPropducts',sopPropductsRouter);
 app.use('/supPro',supProRouter);
+app.use("/baiduapi",baidu)
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

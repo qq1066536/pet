@@ -8,7 +8,10 @@ import Statistics from "../components/platform/Statistics"
 import SupProducts from '../components/supplier/products'
 import Orders from "../components/Orders"
 import Services from "../components/Services"
-import ShopTotal from "../components/ShopTotal"
+import shop from "../components/shop"
+import SaleNum from "../components/shop/SaleNum"
+import Sales from "../components/shop/Sales"
+
 Vue.use(VueRouter);
 export default new VueRouter({
     routes: [
@@ -30,9 +33,9 @@ export default new VueRouter({
             {
                 path: "/manage/platform/Statistics",
                 component: Statistics
-            },{
-                path:"/manage/supplier/products",
-                component:SupProducts
+            }, {
+                path: "/manage/supplier/products",
+                component: SupProducts
             },
             {
                 path: "/manage/orders",
@@ -43,8 +46,16 @@ export default new VueRouter({
                 component: Services
             },
             {
-                path: "/manage/shoptotal",
-                component: ShopTotal
+                path: "/manage/shop",
+                component: shop,
+                children: [{
+                    path: "/manage/shop/salenum",
+                    component: SaleNum
+                }, {
+                    path: "/manage/shop/sales",
+                    component: Sales
+                }
+                ]
             }
             ]
         }

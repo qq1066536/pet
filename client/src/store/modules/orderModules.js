@@ -10,8 +10,7 @@ export default {
         search: {
             type: "",
             value: "",
-        },
-        id:""
+        }
     },
     mutations: {
         getOrders: function (state, data) {
@@ -35,7 +34,7 @@ export default {
         getOrders: function ({ state,commit,rootState }, payload = { page: 1, rows: 5 }) {
             // console.log(rootState,rootState.session)
             let id = rootState.session._id||JSON.parse(window.localStorage.getItem("session"))._id;
-            console.log(id)
+            // console.log(id)
             axios({
                 methods: "get",
                 url: "/orders/shop",
@@ -53,15 +52,6 @@ export default {
             }).then(({ data }) => {
                 commit('setOrderInfo', data)
             })
-        },
-        // getSession: function({commit}) {
-        //     axios({
-        //         method: "get",
-        //         url: "/users/getSession"
-        //     }).then(({ data }) => {
-        //         console.log(data);
-        //         commit('setSession',data._id)
-        //     });
-        // }
+        }
     }
 }

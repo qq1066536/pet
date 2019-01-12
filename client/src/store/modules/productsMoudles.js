@@ -12,7 +12,7 @@ export default {
             type: "",
             value: ""
         },
-        shopId: "5c32f1d56c9da2c6832b828f",
+        shopId: "",
     },
     getters: {},
     mutations: {
@@ -51,7 +51,6 @@ export default {
         },
         setProducts({ commit,rootState }, payloda = { page: 1, rows: 5 }) {
             let id = rootState.session._id || JSON.parse(window.localStorage.getItem("session"))._id;
-            commit('setShopId', id)
             axios({
                 method: "get",
                 url: "/sopPropducts",
@@ -61,6 +60,7 @@ export default {
                 console.log(data)
                 commit("setProducts", data.rows);
                 commit("setPagition", data)
+                commit('setShopId', data._id)
             });
         },
         setSupProducts({ commit, state }, payloda = { page: 1, rows: 5 }) {

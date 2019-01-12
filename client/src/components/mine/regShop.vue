@@ -170,7 +170,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["shopId"])
+    ...mapState(["userId"])
   },
   methods: {
     getLocation(){
@@ -246,7 +246,7 @@ export default {
           stuff: JSON.stringify(stuff),
           business_lic,
           img_head,
-          userId: this.shopId,
+          userId: this.userId,
           status: "待审核",
           account:this.account,
         }

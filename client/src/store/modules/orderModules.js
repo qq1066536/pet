@@ -10,7 +10,8 @@ export default {
         search: {
             type: "",
             value: "",
-        }
+        },
+        id: "",
     },
     mutations: {
         getOrders: function (state, data) {
@@ -29,18 +30,29 @@ export default {
         setPagination: function (state, data) {
             state.pagination = data;
         },
+        setId: function (state, data) {
+            state.id = data;
+        },
     },
     actions: {
-        getOrders: function ({ state,commit,rootState }, payload = { page: 1, rows: 5 }) {
+        getOrders: async function ({ state, commit, rootState }, payload = { page: 1, rows: 5 }) {
             // console.log(rootState,rootState.session)
-            let id = rootState.session._id||JSON.parse(window.localStorage.getItem("session"))._id;
+            let shopId = rootState.session._id || JSON.parse(window.localStorage.getItem("session"))._id;
+            await axios({
+                method: "get",
+                url: "/orders/shopid",
+                params: { id: shopId },
+            }).then(({ data }) => {
+                // console.log(data);
+                commit("setId",data._id)
+            })
             // console.log(id)
             axios({
-                methods: "get",
+                method: "get",
                 url: "/orders/shop",
-                params: { id, ...payload }
+                params: { id: state.id, ...payload }
             }).then(({ data }) => {
-                // console.log(data)
+                // console.log("123",data)
                 commit('getOrders', data.rows)
                 commit('setPagination', data)
             })

@@ -29,18 +29,25 @@ export default {
         setPagination: function (state, data) {
             state.pagination = data;
         },
-        setShopId: function(state,id) {
+        setShopId: function (state, id) {
             state.shopId = id;
         }
     },
     actions: {
-        getServices: function ({ commit,rootState }, payload = { page: 1, rows: 5 }) {
+        getServices: async function ({state, commit, rootState }, payload = { page: 1, rows: 5 }) {
             let id = rootState.session._id || JSON.parse(window.localStorage.getItem("session"))._id;
-            commit('setShopId', id)
+            await axios({
+                method: "get",
+                url: "/orders/shopid",
+                params: { id: id },
+            }).then(({ data }) => {
+                // console.log(data);
+                commit('setShopId', data._id)
+            })
             axios({
                 methods: "get",
                 url: "/services/shop",
-                params: { id, ...payload }
+                params: { id: state.shopId, ...payload }
             }).then(({ data }) => {
                 // console.log(data)
                 commit('getServices', data.rows)

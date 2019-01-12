@@ -25,7 +25,19 @@ router.get("/shop", async function (req, res) {
     // console.log(data);
     res.send(data)
 })
+// 根据sessionid查找门店信息
+router.get('/shopid', async function(req,res){
+  let {id} = req.query;
+  let data = await client.get("/shop", {
+    "submitType": "findJoin",
+    ref: "user",
+    "user.$id": id,
+  })
 
+  data = data[0];
+//   console.log(data)
+  res.send(data);
+})
 // 根据id查询订单
 router.get("/:id", async function (req, res) {
     let id = req.params.id;

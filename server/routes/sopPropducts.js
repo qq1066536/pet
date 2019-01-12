@@ -34,7 +34,8 @@ router.post('/', async function (req, res) {
 router.put('/:id', async function (req, res) {
   let id = req.params.id;
   let { name, type, makings, spec, suit, weight, taste, effect, addr, pro_date, valid_date, No, desc, price, img, number } = req.body;
-  await client.put("/sop_procducts/" + id, { name, type, makings, spec, suit, weight, taste, effect, addr, pro_date, valid_date, No, desc, price, img, number });
+  await client.put("/sop_procducts/" + id, { name, type, makings, spec, suit, weight, taste, effect,
+     addr, pro_date, valid_date, No, desc, price, img, number });
   res.send({ status: 1 });
 });
 //删除

@@ -5,15 +5,14 @@ export default {
     state: {
         product: {},
         products: [],
-        supProducts:[],
+        supProducts: [],
         pagination: {},
         updateVisible: false,
         search: {
             type: "",
             value: ""
         },
-        id: "5c32f1d56c9da2c6832b828f",
-        supId:"5c32ef8a6c9da2c6832b81fe"
+        shopId: "5c32f1d56c9da2c6832b828f",
     },
     getters: {},
     mutations: {
@@ -36,7 +35,11 @@ export default {
             state.updateVisible = updateVisible
         }
     },
+    setShopId: function (state, id) {
+        state.shopId = id;
+    },
     actions: {
+
         setProduct({ commit }, id) {
             axios({
                 method: "get",
@@ -46,11 +49,13 @@ export default {
                 commit("setProduct", data);
             })
         },
-        setProducts({ commit, state }, payloda = { page: 1, rows: 5 }) {
+        setProducts({ commit,rootState }, payloda = { page: 1, rows: 5 }) {
+            let id = rootState.session._id || JSON.parse(window.localStorage.getItem("session"))._id;
+            commit('setShopId', id)
             axios({
                 method: "get",
                 url: "/sopPropducts",
-                params: { id: state.id, ...payloda }
+                params: { id, ...payloda }
             }).then(({ data }) => {
                 console.log(state.id)
                 console.log(data)

@@ -14,6 +14,7 @@ import SaleNum from "../components/report/SaleNum"
 import Sales from "../components/report/Sales"
 import Register from "../components/Register/Register"
 import Login from "../components/Login/Login"
+import Mine from "../components/mine/index"
 Vue.use(VueRouter);
 export default new VueRouter({
     routes: [
@@ -63,6 +64,10 @@ export default new VueRouter({
             }, {
                 path: "/manage/services",
                 component: Services
+            },
+            {
+                path: "/manage/mine",
+                component: Mine
             },
             {
                 path: "/manage/report",

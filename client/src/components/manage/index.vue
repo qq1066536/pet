@@ -61,6 +61,10 @@
                 <i class="el-icon-goods"></i>
                 <span slot="title">服务</span>
               </el-menu-item>
+               <el-menu-item index="/manage/mine">
+                <i class="el-icon-goods"></i>
+                <span slot="title">我的</span>
+              </el-menu-item>
               <el-submenu index="4">
                 <template slot="title">
                   <i class="el-icon-tickets"></i>

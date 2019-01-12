@@ -4,7 +4,7 @@ export default {
     namespaced: true,
     state: {
         shop:{},
-        id: "5c344af38c93229ccce96a68"
+        shopId:""
     },
     getters: {},
     mutations: {
@@ -13,7 +13,9 @@ export default {
         },
     },
     actions: {
-        setShop({ commit }, id) {
+        setShop({ commit,rootState }) {
+        let id = rootState.session._id||JSON.parse(window.localStorage.getItem("session"))._id;
+        commit('setShopId', id)
             axios({
                 method: "get",
                 url: "/shop/" + id

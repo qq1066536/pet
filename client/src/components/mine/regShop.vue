@@ -1,6 +1,6 @@
 <template>
   <span class="regCard">
-    <el-button type="info" @click="dialogVisible = true">完善门店信息</el-button>
+    <el-button type="primary" @click="dialogVisible = true">注册门店</el-button>
     <el-dialog title="门店信息" :visible.sync="dialogVisible" width="50%">
       <el-form
         :model="regForm"
@@ -170,7 +170,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["id"])
+    ...mapState(["shopId"])
   },
   methods: {
     getLocation(){
@@ -246,7 +246,7 @@ export default {
           stuff: JSON.stringify(stuff),
           business_lic,
           img_head,
-          userId: this.id,
+          userId: this.shopId,
           status: "待审核",
           account:this.account,
         }

@@ -99,13 +99,14 @@ export default {
     };
   },
   computed: {
-    ...mapState(["id"])
+    // ...mapState(["id"])
   },
   methods: {
-    ...mapActions(["setProducts"]),
+    ...mapActions(["setProducts","shopId"]),
     addPro() {
+      let id = rootState.session._id||JSON.parse(window.localStorage.getItem("session"))._id;
       console.log(1234);
-      console.log("id", this.id);
+      console.log("shopId", this.shopId);
       let {
         name,
         type,
@@ -143,7 +144,7 @@ export default {
           price: price,
           img: JSON.stringify(this.img),
           number,
-          shopId: this.id
+          shopId: this.shopId
         }
       }).then(() => {
         this.dialogVisible = false;

@@ -43,7 +43,7 @@ export default {
     },
   props: [],
   computed: {
-    ...mapState(["supProducts","id"])
+    ...mapState(["supProducts","shopId"])
   },
   methods: {
         handleChange(value) {
@@ -62,7 +62,7 @@ export default {
            data:{
              data,
              number:this.number,
-             shopId:this.id
+             shopId:this.shopId
            }
         }).then(()=>{
           console.log("添加的",...data)

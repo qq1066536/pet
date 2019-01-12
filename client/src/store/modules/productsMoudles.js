@@ -56,7 +56,7 @@ export default {
                 url: "/sopPropducts",
                 params: { id, ...payloda }
             }).then(({ data }) => {
-                console.log(state.id)
+                // console.log(state.id)
                 console.log(data)
                 commit("setProducts", data.rows);
                 commit("setPagition", data)
@@ -69,7 +69,7 @@ export default {
                 url: "/sopPropducts/productsAll",
                 params: { ...payloda }
             }).then(({ data }) => {
-                console.log(state.supId)
+                // console.log(state.supId)
                 console.log(data)
                 commit("setSupProducts", data.rows);
                 commit("setPagition", data)

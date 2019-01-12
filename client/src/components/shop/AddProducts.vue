@@ -104,7 +104,6 @@ export default {
   methods: {
     ...mapActions(["setProducts","shopId"]),
     addPro() {
-      let id = rootState.session._id||JSON.parse(window.localStorage.getItem("session"))._id;
       console.log(1234);
       console.log("shopId", this.shopId);
       let {

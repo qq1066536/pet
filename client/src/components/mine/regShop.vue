@@ -213,7 +213,7 @@ export default {
     },
     ...mapActions([""]),
     regBtn(regForm) {
-      console.log("id", this.id);
+      console.log("userId", this.userId);
       let {
         name,
         business_no,

@@ -24,7 +24,6 @@ export default new Vuex.Store({
     state: {
         session:{}
     },
-    mutations: {},
     mutations: {
         getsession:function(state,data){
             state.session=data

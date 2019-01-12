@@ -42,7 +42,7 @@ export default {
                 method: "get",
                 url: "/sopPropducts/" + id
             }).then(({ data }) => {
-                console.log(data)
+                // console.log(data)
                 commit("setProduct", data);
             })
         },
@@ -52,8 +52,8 @@ export default {
                 url: "/sopPropducts",
                 params: { id: state.id, ...payloda }
             }).then(({ data }) => {
-                console.log(state.id)
-                console.log(data)
+                // console.log(state.id)
+                // console.log(data)
                 commit("setProducts", data.rows);
                 commit("setPagition", data)
             });
@@ -64,8 +64,8 @@ export default {
                 url: "/sopPropducts/productsAll",
                 params: { ...payloda }
             }).then(({ data }) => {
-                console.log(state.supId)
-                console.log(data)
+                // console.log(state.supId)
+                // console.log(data)
                 commit("setSupProducts", data.rows);
                 commit("setPagition", data)
             });

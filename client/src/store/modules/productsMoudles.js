@@ -58,7 +58,7 @@ export default {
                 commit("setPagition", data)
             });
         },
-        setSupProducts({ commit, state }, payloda = { page: 1, rows: 5 }) {
+        setSupProducts({ commit }, payloda = { page: 1, rows: 5 }) {
             axios({
                 method: "get",
                 url: "/sopPropducts/productsAll",

@@ -17,8 +17,6 @@ export default new Vuex.Store({
         SupProducts,
         shopModule,
         platformModule,
-        serviceModules,
-        SupProducts,
         productsMoudles
     },
     state: {

@@ -42,8 +42,4 @@ router.get('/:id', async function (req, res) {
   let data = await client.get("/shop/" + id);
   res.send(data)
 });
-router.get('/saleTotal',async function (req, res){
-  let data = await client.get("/order");
-  res.send(data)
-})
 module.exports = router;

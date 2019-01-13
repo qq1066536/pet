@@ -39,18 +39,59 @@ export default {
   methods: {
     ...mapActions(["getTime"]),
     showChart() {
-    console.log(this.getTime())
+      console.log(this.getTime());
       let myChart = echarts.init(this.$refs.myChart);
       if (this.type == "商品类销售额统计") {
         axios({
-          url: "/shop/saleTotal",
+          url: "/salePro",
           method: "get"
         }).then(res => {
           this.salesAxisData = res.data.axisData;
           this.salesSeriesData = res.data.seriesData;
-          myChart.setOption(this.classesOptions, true);
+          myChart.setOption(this.proOptions, true);
         });
       }
+    }
+  },
+  computed: {
+    proOptions() {
+      return {
+        title: {
+          text: "商品类销售额统计"
+        },
+        tooltip: {
+          trigger: "axis",
+          axisPointer: {
+            // 坐标轴指示器，坐标轴触发有效
+            type: "shadow" // 默认为直线，可选为：'line' | 'shadow'
+          }
+        },
+        legend: {
+          x: "right",
+          data: [
+            "狗粮",
+            "猫粮",
+            "狗盆",
+            "猫盆",
+            "",
+            "狗绳",
+            "小狗棉袄",
+            "猫屎铲",
+            "其他"
+          ]
+        },
+        xAxis: {
+          data: this.salesAxisData
+        },
+        yAxis: {},
+        series: [
+          {
+            name: "销售额",
+            type: "bar",
+            data: this.salesSeriesData
+          }
+        ]
+      };
     }
   }
 };

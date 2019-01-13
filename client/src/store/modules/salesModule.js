@@ -3,13 +3,17 @@ import axios from "axios"
 export default {
     namespaced: true,
     state: {
-        shopId: ""
+        shopId: "",
+        trueTime:""
     },
     getters: {},
     mutations: {
         setShopId(state, shopId) {
             state.shopId = shopId
-        }
+        },
+        setTrueTime(state, trueTime) {
+            state.trueTime = trueTime
+        },
     },
     actions: {
         getSession({ commit, state }) {

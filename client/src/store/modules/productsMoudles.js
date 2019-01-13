@@ -72,7 +72,7 @@ export default {
                 commit("setProduct", data);
             })
         },
-        setProducts({ commit, state }, payloda = { page: 1, rows: 5 }) {
+        setProducts({ commit, state, dispatch}, payloda = { page: 1, rows: 5 }) {
             let id = state.shopId || JSON.parse(window.localStorage.getItem("shopId"));
             axios({
                 method: "get",
@@ -82,6 +82,7 @@ export default {
                 // console.log(state.id)
                 console.log(state.shopId)
                 console.log(data)
+                dispatch("setProducts")
                 commit("setProducts", data.rows);
                 commit("setPagition", data)
             });

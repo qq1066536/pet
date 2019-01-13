@@ -1,0 +1,333 @@
+var express = require('express');
+var router = express.Router();
+const client = require("ykt-http-client");
+client.url("127.0.0.1:8080");
+
+/* GET users listing. */
+// 根据门店id查询订单
+router.get("/", async function (req, res) {
+    let { id } = req.query;
+    let data = await client.get("/order", {
+        "submitType": "findJoin",
+        ref: "shop",
+        "shop.$id": id,
+    });
+    // console.log(data);
+    let axisDataMonth = ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"];
+    let axisDataQuarter = ["1季度", "2季度", "3季度"];
+    let axisDataYear = ["2018年", "2019年"];
+    let seriesDataService = [
+        [{ name: "1月", type: "寄养服务", value: 0 }, { name: "1月", type: "洗护服务", value: 0 }, { name: "1月", name: "其他", value: 0 }],
+        [{ name: "2月", type: "寄养服务", value: 0 }, { name: "2月", type: "洗护服务", value: 0 }, { name: "2月", name: "其他", value: 0 }],
+        [{ name: "3月", type: "寄养服务", value: 0 }, { name: "3月", type: "洗护服务", value: 0 }, { name: "3月", name: "其他", value: 0 }],
+        [{ name: "4月", type: "寄养服务", value: 0 }, { name: "4月", type: "洗护服务", value: 0 }, { name: "4月", name: "其他", value: 0 }],
+        [{ name: "5月", type: "寄养服务", value: 0 }, { name: "5月", type: "洗护服务", value: 0 }, { name: "5月", name: "其他", value: 0 }],
+        [{ name: "6月", type: "寄养服务", value: 0 }, { name: "6月", type: "洗护服务", value: 0 }, { name: "6月", name: "其他", value: 0 }],
+        [{ name: "7月", type: "寄养服务", value: 0 }, { name: "7月", type: "洗护服务", value: 0 }, { name: "7月", name: "其他", value: 0 }],
+        [{ name: "8月", type: "寄养服务", value: 0 }, { name: "8月", type: "洗护服务", value: 0 }, { name: "8月", name: "其他", value: 0 }],
+        [{ name: "9月", type: "寄养服务", value: 0 }, { name: "9月", type: "洗护服务", value: 0 }, { name: "9月", name: "其他", value: 0 }],
+        [{ name: "10月", type: "寄养服务", value: 0 }, { name: "10月", type: "洗护服务", value: 0 }, { name: "10月", name: "其他", value: 0 }],
+        [{ name: "11月", type: "寄养服务", value: 0 }, { name: "11月", type: "洗护服务", value: 0 }, { name: "11月", name: "其他", value: 0 }],
+        [{ name: "12月", type: "寄养服务", value: 0 }, { name: "12月", type: "洗护服务", value: 0 }, { name: "12月", name: "其他", value: 0 }],]
+    let seriesDataPro = [
+        [{ name: "1月", type: "猫粮", value: 0 }, { name: "1月", type: "狗粮", value: 0 }, { name: "1月", type: "其他", value: 0 }],
+        [{ name: "2月", type: "猫粮", value: 0 }, { name: "2月", type: "狗粮", value: 0 }, { name: "2月", type: "其他", value: 0 }],
+        [{ name: "3月", type: "猫粮", value: 0 }, { name: "3月", type: "狗粮", value: 0 }, { name: "3月", type: "其他", value: 0 }],
+        [{ name: "4月", type: "猫粮", value: 0 }, { name: "4月", type: "狗粮", value: 0 }, { name: "4月", type: "其他", value: 0 }],
+        [{ name: "5月", type: "猫粮", value: 0 }, { name: "5月", type: "狗粮", value: 0 }, { name: "5月", type: "其他", value: 0 }],
+        [{ name: "6月", type: "猫粮", value: 0 }, { name: "6月", type: "狗粮", value: 0 }, { name: "6月", type: "其他", value: 0 }],
+        [{ name: "7月", type: "猫粮", value: 0 }, { name: "7月", type: "狗粮", value: 0 }, { name: "7月", type: "其他", value: 0 }],
+        [{ name: "8月", type: "猫粮", value: 0 }, { name: "8月", type: "狗粮", value: 0 }, { name: "8月", type: "其他", value: 0 }],
+        [{ name: "9月", type: "猫粮", value: 0 }, { name: "9月", type: "狗粮", value: 0 }, { name: "9月", type: "其他", value: 0 }],
+        [{ name: "10月", type: "猫粮", value: 0 }, { name: "10月", type: "狗粮", value: 0 }, { name: "10月", type: "其他", value: 0 }],
+        [{ name: "11月", type: "猫粮", value: 0 }, { name: "11月", type: "狗粮", value: 0 }, { name: "11月", type: "其他", value: 0 }],
+        [{ name: "12月", type: "猫粮", value: 0 }, { name: "12月", type: "狗粮", value: 0 }, { name: "12月", type: "其他", value: 0 }],
+    ];
+    let time = [];
+    if (data.length > 1) {
+        time = data[0].buyTime.split("/");
+    } else {
+        time = data.buyTime.split("/");
+    }
+    data.forEach(function (ele) {
+        if (time[1] == 1) {
+            ele.goods.forEach(function (el) {
+                // console.log(el);
+                if (el.state == 0) {
+                    if (el.type == "猫粮") {
+                        seriesDataPro[0][2].value += parseInt(el.number);
+                        // console.log(seriesDataPro[1].value)
+                    } else if (el.type == "狗粮") {
+                        seriesDataPro[0][1].value += parseInt(el.number);
+                    } else {
+                        seriesDataPro[0][0].value += parseInt(el.number);
+                    }
+                } else {
+                    if (el.type == "寄养服务") {
+                        seriesDataService[0][0].value += parseInt(el.number);
+                    } else if (el.type == "洗护服务") {
+                        seriesDataService[0][1].value += parseInt(el.number);
+                    } else {
+                        seriesDataService[0][2].value += parseInt(el.number);
+                    }
+                }
+            })
+        }
+        else if (time[1] == 2) {
+            ele.goods.forEach(function (el) {
+                // console.log(el);
+                if (el.state == 0) {
+                    if (el.type == "猫粮") {
+                        seriesDataPro[1][2].value += parseInt(el.number);
+                        // console.log(seriesDataPro[1].value)
+                    } else if (el.type == "狗粮") {
+                        seriesDataPro[1][1].value += parseInt(el.number);
+                    } else {
+                        seriesDataPro[1][0].value += parseInt(el.number);
+                    }
+                } else {
+                    if (el.type == "寄养服务") {
+                        seriesDataService[1][0].value += parseInt(el.number);
+                    } else if (el.type == "洗护服务") {
+                        seriesDataService[1][1].value += parseInt(el.number);
+                    } else {
+                        seriesDataService[1][2].value += parseInt(el.number);
+                    }
+                }
+            })
+        }
+        else if (time[1] == 3) {
+            ele.goods.forEach(function (el) {
+                // console.log(el);
+                if (el.state == 0) {
+                    if (el.type == "猫粮") {
+                        seriesDataPro[2][2].value += parseInt(el.number);
+                        // console.log(seriesDataPro[1].value)
+                    } else if (el.type == "狗粮") {
+                        seriesDataPro[2][1].value += parseInt(el.number);
+                    } else {
+                        seriesDataPro[2][0].value += parseInt(el.number);
+                    }
+                } else {
+                    if (el.type == "寄养服务") {
+                        seriesDataService[2][0].value += parseInt(el.number);
+                    } else if (el.type == "洗护服务") {
+                        seriesDataService[2][1].value += parseInt(el.number);
+                    } else {
+                        seriesDataService[2][2].value += parseInt(el.number);
+                    }
+                }
+            })
+        }
+        else if (time[1] == 4) {
+            ele.goods.forEach(function (el) {
+                // console.log(el);
+                if (el.state == 0) {
+                    if (el.type == "猫粮") {
+                        seriesDataPro[3][2].value += parseInt(el.number);
+                        // console.log(seriesDataPro[1].value)
+                    } else if (el.type == "狗粮") {
+                        seriesDataPro[3][1].value += parseInt(el.number);
+                    } else {
+                        seriesDataPro[3][0].value += parseInt(el.number);
+                    }
+                } else {
+                    if (el.type == "寄养服务") {
+                        seriesDataService[3][0].value += parseInt(el.number);
+                    } else if (el.type == "洗护服务") {
+                        seriesDataService[3][1].value += parseInt(el.number);
+                    } else {
+                        seriesDataService[3][2].value += parseInt(el.number);
+                    }
+                }
+            })
+        }
+        else if (time[1] == 5) {
+            ele.goods.forEach(function (el) {
+                // console.log(el);
+                if (el.state == 0) {
+                    if (el.type == "猫粮") {
+                        seriesDataPro[4][2].value += parseInt(el.number);
+                        // console.log(seriesDataPro[1].value)
+                    } else if (el.type == "狗粮") {
+                        seriesDataPro[4][1].value += parseInt(el.number);
+                    } else {
+                        seriesDataPro[4][0].value += parseInt(el.number);
+                    }
+                } else {
+                    if (el.type == "寄养服务") {
+                        seriesDataService[4][0].value += parseInt(el.number);
+                    } else if (el.type == "洗护服务") {
+                        seriesDataService[4][1].value += parseInt(el.number);
+                    } else {
+                        seriesDataService[4][2].value += parseInt(el.number);
+                    }
+                }
+            })
+        }
+        else if (time[1] == 6) {
+            ele.goods.forEach(function (el) {
+                // console.log(el);
+                if (el.state == 0) {
+                    if (el.type == "猫粮") {
+                        seriesDataPro[5][2].value += parseInt(el.number);
+                        // console.log(seriesDataPro[1].value)
+                    } else if (el.type == "狗粮") {
+                        seriesDataPro[5][1].value += parseInt(el.number);
+                    } else {
+                        seriesDataPro[5][0].value += parseInt(el.number);
+                    }
+                } else {
+                    if (el.type == "寄养服务") {
+                        seriesDataService[5][0].value += parseInt(el.number);
+                    } else if (el.type == "洗护服务") {
+                        seriesDataService[5][1].value += parseInt(el.number);
+                    } else {
+                        seriesDataService[5][2].value += parseInt(el.number);
+                    }
+                }
+            })
+        }
+        else if (time[1] == 7) {
+            ele.goods.forEach(function (el) {
+                // console.log(el);
+                if (el.state == 0) {
+                    if (el.type == "猫粮") {
+                        seriesDataPro[6][2].value += parseInt(el.number);
+                        // console.log(seriesDataPro[1].value)
+                    } else if (el.type == "狗粮") {
+                        seriesDataPro[6][1].value += parseInt(el.number);
+                    } else {
+                        seriesDataPro[6][0].value += parseInt(el.number);
+                    }
+                } else {
+                    if (el.type == "寄养服务") {
+                        seriesDataService[6][0].value += parseInt(el.number);
+                    } else if (el.type == "洗护服务") {
+                        seriesDataService[6][1].value += parseInt(el.number);
+                    } else {
+                        seriesDataService[6][2].value += parseInt(el.number);
+                    }
+                }
+            })
+        }
+        else if (time[1] == 8) {
+            ele.goods.forEach(function (el) {
+                // console.log(el);
+                if (el.state == 0) {
+                    if (el.type == "猫粮") {
+                        seriesDataPro[7][2].value += parseInt(el.number);
+                        // console.log(seriesDataPro[1].value)
+                    } else if (el.type == "狗粮") {
+                        seriesDataPro[7][1].value += parseInt(el.number);
+                    } else {
+                        seriesDataPro[7][0].value += parseInt(el.number);
+                    }
+                } else {
+                    if (el.type == "寄养服务") {
+                        seriesDataService[7][0].value += parseInt(el.number);
+                    } else if (el.type == "洗护服务") {
+                        seriesDataService[7][1].value += parseInt(el.number);
+                    } else {
+                        seriesDataService[7][2].value += parseInt(el.number);
+                    }
+                }
+            })
+        }
+        else if (time[1] == 9) {
+            ele.goods.forEach(function (el) {
+                // console.log(el);
+                if (el.state == 0) {
+                    if (el.type == "猫粮") {
+                        seriesDataPro[8][2].value += parseInt(el.number);
+                        // console.log(seriesDataPro[1].value)
+                    } else if (el.type == "狗粮") {
+                        seriesDataPro[8][1].value += parseInt(el.number);
+                    } else {
+                        seriesDataPro[8][0].value += parseInt(el.number);
+                    }
+                } else {
+                    if (el.type == "寄养服务") {
+                        seriesDataService[8][0].value += parseInt(el.number);
+                    } else if (el.type == "洗护服务") {
+                        seriesDataService[8][1].value += parseInt(el.number);
+                    } else {
+                        seriesDataService[8][2].value += parseInt(el.number);
+                    }
+                }
+            })
+        }
+        else if (time[1] == 10) {
+            ele.goods.forEach(function (el) {
+                // console.log(el);
+                if (el.state == 0) {
+                    if (el.type == "猫粮") {
+                        seriesDataPro[9][2].value += parseInt(el.number);
+                        // console.log(seriesDataPro[1].value)
+                    } else if (el.type == "狗粮") {
+                        seriesDataPro[9][1].value += parseInt(el.number);
+                    } else {
+                        seriesDataPro[9][0].value += parseInt(el.number);
+                    }
+                } else {
+                    if (el.type == "寄养服务") {
+                        seriesDataService[9][0].value += parseInt(el.number);
+                    } else if (el.type == "洗护服务") {
+                        seriesDataService[9][1].value += parseInt(el.number);
+                    } else {
+                        seriesDataService[9][2].value += parseInt(el.number);
+                    }
+                }
+            })
+        }
+        else if (time[1] == 11) {
+            ele.goods.forEach(function (el) {
+                // console.log(el);
+                if (el.state == 0) {
+                    if (el.type == "猫粮") {
+                        seriesDataPro[10][2].value += parseInt(el.number);
+                        // console.log(seriesDataPro[1].value)
+                    } else if (el.type == "狗粮") {
+                        seriesDataPro[10][1].value += parseInt(el.number);
+                    } else {
+                        seriesDataPro[10][0].value += parseInt(el.number);
+                    }
+                } else {
+                    if (el.type == "寄养服务") {
+                        seriesDataService[10][0].value += parseInt(el.number);
+                    } else if (el.type == "洗护服务") {
+                        seriesDataService[10][1].value += parseInt(el.number);
+                    } else {
+                        seriesDataService[10][2].value += parseInt(el.number);
+                    }
+                }
+            })
+        } else {
+            ele.goods.forEach(function (el) {
+                // console.log(el);
+                if (el.state == 0) {
+                    if (el.type == "猫粮") {
+                        seriesDataPro[11][2].value += parseInt(el.number);
+                        // console.log(seriesDataPro[1].value)
+                    } else if (el.type == "狗粮") {
+                        seriesDataPro[11][1].value += parseInt(el.number);
+                    } else {
+                        seriesDataPro[11][0].value += parseInt(el.number);
+                    }
+                } else {
+                    if (el.type == "寄养服务") {
+                        seriesDataService[11][0].value += parseInt(el.number);
+                    } else if (el.type == "洗护服务") {
+                        seriesDataService[11][1].value += parseInt(el.number);
+                    } else {
+                        seriesDataService[11][2].value += parseInt(el.number);
+                    }
+                }
+            })
+        }
+    });
+    res.send({ axisDataMonth, seriesDataService, seriesDataPro });
+})
+
+
+module.exports = router;

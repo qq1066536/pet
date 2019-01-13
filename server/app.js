@@ -13,11 +13,7 @@ var supplierRouter = require("./routes/supplier")
 var platformRouter = require('./routes/platform.js')
 var ordersRouter = require('./routes/orders');
 var servicesRouter = require('./routes/services');
-
-
-var platformRouter = require('./routes/platform.js')
-var supplierRouter=require("./routes/supplier")
-
+var reportProRouter = require('./routes/reportPro');
 var shopRouter = require('./routes/shop');
 var sopPropductsRouter = require('./routes/sopPropducts');
 var supProRouter = require('./routes/supPro');
@@ -48,6 +44,7 @@ app.use("/supplier", supplierRouter)
 app.use('/platform', platformRouter);
 app.use('/orders', ordersRouter);
 app.use('/services', servicesRouter);
+app.use('/reportPro', reportProRouter);
 app.use('/shop',shopRouter);
 app.use('/sopPropducts',sopPropductsRouter);
 app.use('/supPro',supProRouter);

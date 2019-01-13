@@ -17,14 +17,11 @@ export default new Vuex.Store({
         SupProducts,
         shopModule,
         platformModule,
-        serviceModules,
-        SupProducts,
         productsMoudles
     },
     state: {
         session:{}
     },
-    mutations: {},
     mutations: {
         getsession:function(state,data){
             state.session=data

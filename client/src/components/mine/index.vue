@@ -8,7 +8,7 @@
 import RegShop from "./regShop";
 import ChekShop from "./chekShop";
 import { createNamespacedHelpers } from "vuex";
-const { mapActions } = createNamespacedHelpers("productsMoudles");
+const { mapActions } = createNamespacedHelpers("shopModule");
 export default {
   components: {
     RegShop,
@@ -23,10 +23,10 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["setProducts"])
+    ...mapActions(["getSession"])
   },
   created() {
-    this.setProducts();
+   this.getSession()
     // console.log(123);
   }
 };

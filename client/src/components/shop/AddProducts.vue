@@ -71,7 +71,7 @@
 </template>
 <script>
 import axios from "axios";
-import { createNamespacedHelpers } from "vuex";
+import { createNamespacedHelpers, mapMutations } from "vuex";
 const { mapActions, mapState } = createNamespacedHelpers("productsMoudles");
 export default {
   data() {
@@ -99,12 +99,13 @@ export default {
     };
   },
   computed: {
-    // ...mapState(["id"])
+    ...mapState(["shopId"])
   },
   methods: {
-    ...mapActions(["setProducts","shopId"]),
+    ...mapMutations(["setShopId"]),
+    ...mapActions(["setProducts","getSession"]),
     addPro() {
-      console.log(1234);
+      // console.log(1234);
       console.log("shopId", this.shopId);
       let {
         name,

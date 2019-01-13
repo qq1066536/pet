@@ -211,7 +211,7 @@ export default {
        this.regForm.img_head="/upload/" + res;
       console.log(res, file);
     },
-    ...mapActions([""]),
+    ...mapActions(["getSession"]),
     regBtn(regForm) {
       console.log("userId", this.userId);
       let {

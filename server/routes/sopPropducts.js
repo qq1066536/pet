@@ -59,7 +59,7 @@ router.get('/:id', async function (req, res) {
 
 //查找门店所有商品
 router.get('/', async function (req, res) {
-  let { id, page, rows, type, value } = req.query;//获取页码,每页显示数,搜索类型,搜索框的值
+  let { shopId, page, rows, type, value } = req.query;//获取页码,每页显示数,搜索类型,搜索框的值
   let searchObj = {};//声明一个对象
   if (type) {
     searchObj = { [type]: value }//如果name不等于null,将name值,输入框的值传入对象;
@@ -69,7 +69,7 @@ router.get('/', async function (req, res) {
     page, rows, ...searchObj,
     submitType: "findJoin",
     ref: "shop",
-    "shop.$id": id
+    "shop.$id": shopId
   });
   console.log(data)
   res.send(data);

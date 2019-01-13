@@ -36,10 +36,11 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["setProducts"])
+    ...mapActions(["setProducts","getSession"])
   },
   created() {
     this.setProducts();
+    this.getSession()
     // console.log(123);
   }
 };

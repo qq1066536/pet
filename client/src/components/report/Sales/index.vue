@@ -3,9 +3,10 @@
 </template>
 
 <script>
+import echarts from "echarts/lib/echarts";
 export default {
 
-}
+}  
 </script>
 
 <style>

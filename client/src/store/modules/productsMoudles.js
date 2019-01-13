@@ -12,7 +12,7 @@ export default {
             type: "",
             value: ""
         },
-        shopId: "",
+        shopId: ""
     },
     getters: {},
     mutations: {
@@ -33,37 +33,60 @@ export default {
         },
         setupdateVisible(state, updateVisible) {
             state.updateVisible = updateVisible
-        }
+        },
+        setShopId(state, shopId) {
+            console.log(shopId)
+            state.shopId = shopId;
+        },
     },
-    setShopId: function (state, id) {
-        state.shopId = id;
-    },
-    actions: {
 
-        setProduct({ commit }, id) {
+    actions: {
+        getSession({ commit, state }) {
             axios({
                 method: "get",
-                url: "/sopPropducts/" + id
+                url: "/users/getSession"
+            }).then(({ data }) => {
+                // commit("setUserId", data._id);
+                console.log("user", data)
+                axios({
+                    method: "get",
+                    url: "/shop",
+                    params: {
+                        userId: data._id
+                    }
+                }).then(({ data }) => {
+                    commit("setShopId", data[0]._id);
+                    window.localStorage.setItem("shopId",JSON.stringify(data[0]._id))
+                    // commit("setShop", data[0]);
+                    // console.log("shop", data)
+                    console.log("shopId", data[0]._id)
+                })
+            });
+        },
+        setProduct({ commit }, shopId) {
+            axios({
+                method: "get",
+                url: "/sopPropducts/" + shopId
             }).then(({ data }) => {
                 console.log(data)
                 commit("setProduct", data);
             })
         },
-        setProducts({ commit,rootState }, payloda = { page: 1, rows: 5 }) {
-            let id = rootState.session._id || JSON.parse(window.localStorage.getItem("session"))._id;
+        setProducts({ commit, state }, payloda = { page: 1, rows: 5 }) {
+            let id = state.shopId || JSON.parse(window.localStorage.getItem("shopId"));
             axios({
                 method: "get",
                 url: "/sopPropducts",
-                params: { id, ...payloda }
+                params: { shopId: id, ...payloda }
             }).then(({ data }) => {
                 // console.log(state.id)
+                console.log(state.shopId)
                 console.log(data)
                 commit("setProducts", data.rows);
                 commit("setPagition", data)
-                commit('setShopId', data._id)
             });
         },
-        setSupProducts({ commit, state }, payloda = { page: 1, rows: 5 }) {
+        setSupProducts({ commit, state ,dispatch}, payloda = { page: 1, rows: 5 }) {
             axios({
                 method: "get",
                 url: "/sopPropducts/productsAll",
@@ -72,6 +95,7 @@ export default {
                 // console.log(state.supId)
                 console.log(data)
                 commit("setSupProducts", data.rows);
+                dispatch("setProducts")
                 commit("setPagition", data)
             });
         },

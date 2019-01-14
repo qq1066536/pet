@@ -14,6 +14,7 @@ import SaleNum from "../components/report/SaleNum"
 import Sales from "../components/report/Sales"
 import Register from "../components/Register/Register"
 import Login from "../components/Login/Login"
+import supplierReport from "../components/supplier/statistics"
 Vue.use(VueRouter);
 export default new VueRouter({
     routes: [
@@ -54,6 +55,10 @@ export default new VueRouter({
             }, {
                 path: "/manage/supplier/products",
                 component: SupProducts
+            },
+            {
+                path: "/manage/supplier/salesreport",
+                component: supplierReport
             },
             {
                 path: "/manage/orders",

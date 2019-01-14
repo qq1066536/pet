@@ -88,10 +88,28 @@
                 <i class="el-icon-printer"></i>
                 <span slot="title">商品信息</span>
               </el-menu-item>
-              <el-menu-item index>
+              <!-- <el-menu-item index>
                 <i class="el-icon-tickets"></i>
-                <span slot="title">统计</span>
-              </el-menu-item>
+                <span slot="title">统计</span> -->
+
+              <el-submenu index="4">
+                <template slot="title">
+                  <i class="el-icon-tickets"></i>
+                  <span>报表展示</span>
+                </template>
+                <el-menu-item-group>
+                  <el-menu-item index="/manage/supplier/salesreport">
+                    <i class="el-icon-menu"></i>
+                    <span slot="title">销量统计</span>
+                  </el-menu-item>
+                  <el-menu-item index="/manage/report/sales">
+                    <i class="el-icon-menu"></i>
+                    <span slot="title">销售额统计</span>
+                  </el-menu-item>
+                </el-menu-item-group>
+              </el-submenu>
+
+              <!-- </el-menu-item> -->
             </el-menu-item-group>
           </el-submenu>
         </el-menu>
@@ -113,6 +131,7 @@ export default {
     };
   },
   computed: {
+    ...mapState(["session"]),
     path() {
       return this.$router.history.current.path;
     }

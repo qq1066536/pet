@@ -54,6 +54,7 @@ export default {
         ...mapMutations(["setDialogVisible","setTitle", "getPid"]),
         ...mapActions(["setProducts", "getProduct"]),
         updateProduct(id) {
+            console.log(id)
             this.setTitle("修改")
             this.getPid(id);
             this.getProduct();

@@ -3,6 +3,23 @@ var router = express.Router();
 const client = require("ykt-http-client");
 client.url("127.0.0.1:8080");
 //上架
+//关联供应商商品
+router.get('/sup', async function (req, res) {
+  let { supId, page, rows, type, value } = req.query;//获取页码,每页显示数,搜索类型,搜索框的值
+  let searchObj = {};//声明一个对象
+  if (type) {
+    searchObj = { [type]: value }//如果name不等于null,将name值,输入框的值传入对象;
+  }
+  console.log(req.query)
+  let data = await client.get("/sup_products", {
+    page, rows, ...searchObj,
+    submitType: "findJoin",
+    ref: "supplier",
+    "supplier.$id": supId
+  });
+  console.log(data)
+  res.send(data);
+});
 router.post('/', async function (req, res) {
   if (req.body.data) {
     let { data, number,shopId } = req.body

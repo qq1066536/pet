@@ -104,8 +104,7 @@ export default {
 <style scoped>
 .box-card {
   width: 500px;
-  margin: 0 auto;
-  margin-top: 300px;
+  margin: 100px auto;
 }
 .clearx span {
   font-size: 30px;

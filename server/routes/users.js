@@ -48,7 +48,7 @@ router.get("/getSession", function (req, res) {
   res.send(user || {});
 });
 //删除session
-router.get("removeSession", function (req, res) {
+router.get("/removeSession", function (req, res) {
   req.session.user = null;
   res.send("删除成功");
 });

@@ -4,20 +4,14 @@
       <h1>
         宠物管理系统
         <span class="el-icon-service user">
-          {{session.phone}},欢迎你：
-          <span class="el-icon-error"></span>
+          {{phone}},欢迎你：
+          <span class="el-icon-error" @click="removeSession"></span>
         </span>
       </h1>
     </el-header>
     <el-container class="aside">
       <el-aside width="200px" class="aside">
-        <el-menu
-          class="menu"
-          background-color="#545c64"
-          text-color="#fff"
-          active-text-color="#ffd04b"
-          :router="true"
-        >
+        <el-menu class="menu" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b" :router="true">
           <el-submenu index="1" v-if="session.private=='管理员'">
             <template slot="title">
               <i class="el-icon-setting"></i>
@@ -115,13 +109,16 @@ import { mapState, mapActions } from "vuex";
 export default {
   data() {
     return {
-      // user: ""
+      phone: ""
     };
   },
   computed: {
     path() {
       return this.$router.history.current.path;
     }
+  },
+  mounted() {
+    this.getSessionIndex();
   },
   created() {
     this.getSession();
@@ -132,11 +129,44 @@ export default {
   methods: {
     ...mapActions(["getSession"]),
     removeSession() {
+      this.$confirm("此操作将封禁此账号, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          axios({
+            method: "get",
+            url: "/users/removeSession"
+          }).then(() => {
+            this.$router.history.push("/login");
+            this.$message({
+              type: "success",
+              message: "退出成功!"
+            });
+          });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消操作"
+          });
+        });
+    },
+    // 判断账号
+    getSessionIndex() {
       axios({
         method: "get",
-        url: "/removeSession"
-      }).then(() => {
-        this.$router.history.push("/login");
+        url: "/users/getSession"
+      }).then(({ data }) => {
+        if (!data.phone) {
+          this.$router.history.push("/login");
+        } else if (data.account == "封禁") {
+          alert("你的账号已被封禁，如需解封，请及时联系管理员！！！");
+          this.$router.history.push("/login");
+        } else {
+          this.phone = data.phone;
+        }
       });
     }
   }

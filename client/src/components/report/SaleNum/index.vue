@@ -159,7 +159,7 @@ export default {
             type: "bar",
             stack: "食品",
             barWidth: 10,
-            color: "#61a0a8",
+            color: "#e7bcf3",
             data: [
               this.seriesDataPro[0][1].value,
               this.seriesDataPro[1][1].value,
@@ -180,7 +180,7 @@ export default {
             type: "bar",
             stack: "食品",
             barWidth: 10,
-            color: "#d48265",
+            color: "#ff9f7f",
             data: [
               this.seriesDataPro[0][0].value,
               this.seriesDataPro[1][0].value,
@@ -200,7 +200,7 @@ export default {
             name: "其他",
             type: "bar",
             barWidth: 10,
-            color: "#91c7ae",
+            color: "#ffdb5c",
             data: [
               this.seriesDataPro[0][2].value,
               this.seriesDataPro[1][2].value,
@@ -258,7 +258,7 @@ export default {
             type: "bar",
             barWidth: 10,
             stack: "服务",
-            color: "#61a0a8",
+            color: "#37a2da",
             data: [
               this.seriesDataService[0][0].value,
               this.seriesDataService[1][0].value,
@@ -279,7 +279,7 @@ export default {
             type: "bar",
             barWidth: 10,
             stack: "服务",
-            color: "#d48265",
+            color: "#8378ea",
             data: [
               this.seriesDataService[0][1].value,
               this.seriesDataService[1][1].value,
@@ -299,7 +299,7 @@ export default {
             name: "其他",
             type: "bar",
             barWidth: 10,
-            color: "#91c7ae",
+            color: "#e7bcf3",
             data: [
               this.seriesDataService[0][2].value,
               this.seriesDataService[1][2].value,
@@ -357,7 +357,7 @@ export default {
             type: "bar",
             stack: "食品",
             barWidth: 10,
-            color: "#e7bcf3",
+            color: "#8378ea",
             data: [
               this.seriesDataPro[0][1].value,
               this.seriesDataPro[1][1].value,
@@ -370,7 +370,7 @@ export default {
             type: "bar",
             stack: "食品",
             barWidth: 10,
-            color: "#ff9f7f",
+            color: "#e7bcf3",
             data: [
               this.seriesDataPro[0][0].value,
               this.seriesDataPro[1][0].value,
@@ -382,7 +382,7 @@ export default {
             name: "其他",
             type: "bar",
             barWidth: 10,
-            color: "#91c7ae",
+            color: "#fb7293",
             data: [
               this.seriesDataPro[0][2].value,
               this.seriesDataPro[1][2].value,
@@ -432,7 +432,7 @@ export default {
             type: "bar",
             barWidth: 10,
             stack: "服务",
-            color: "#61a0a8",
+            color: "#ff9f7f",
             data: [
               this.seriesDataService[0][0].value,
               this.seriesDataService[1][0].value,
@@ -445,7 +445,7 @@ export default {
             type: "bar",
             barWidth: 10,
             stack: "服务",
-            color: "#d48265",
+            color: "#ffdb5c",
             data: [
               this.seriesDataService[0][1].value,
               this.seriesDataService[1][1].value,
@@ -457,7 +457,7 @@ export default {
             name: "其他",
             type: "bar",
             barWidth: 10,
-            color: "#91c7ae",
+            color: "#9fe6b8",
             data: [
               this.seriesDataService[0][2].value,
               this.seriesDataService[1][2].value,

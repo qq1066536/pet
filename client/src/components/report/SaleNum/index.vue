@@ -357,7 +357,7 @@ export default {
             type: "bar",
             stack: "食品",
             barWidth: 10,
-            color: "#61a0a8",
+            color: "#e7bcf3",
             data: [
               this.seriesDataPro[0][1].value,
               this.seriesDataPro[1][1].value,
@@ -370,7 +370,7 @@ export default {
             type: "bar",
             stack: "食品",
             barWidth: 10,
-            color: "#d48265",
+            color: "#ff9f7f",
             data: [
               this.seriesDataPro[0][0].value,
               this.seriesDataPro[1][0].value,
@@ -488,11 +488,12 @@ export default {
 
         visualMap: {
           show: false,
-          min: 80,
-          max: 600,
+          min: 0,
+          max: 10,
           inRange: {
-            colorLightness: [0, 1]
-          }
+            colorLightness: [0.5, 1]
+          },
+          color:['#8378ea','#e7bcf3','#fb7293','#ff9f7f','#ffdb5c','#9fe6b8','#37a2da']
         },
         series: [
           {
@@ -534,7 +535,7 @@ export default {
             },
             itemStyle: {
               normal: {
-                color: "#c23531",
+                // color: "#c23531",
                 shadowBlur: 200,
                 shadowColor: "rgba(0, 0, 0, 0.5)"
               }

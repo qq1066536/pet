@@ -5,7 +5,7 @@ const Axios = require("axios")
 client.url("127.0.0.1:8080");
 //注册门店
 router.post('/', async function (req, res) {
-  console.log(123)
+  // console.log(123)
   let { name, addr, business_lic, desc, business_no, location, city, legal_person, tel, img_head, feature, vip, package, stuff, status,account, userId } = req.body;
   location = location && JSON.parse(location);
   stuff = stuff && JSON.parse(stuff);

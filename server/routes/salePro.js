@@ -14,70 +14,178 @@ router.get('/', async function (req, res) {
     let data = await client.get("/order", { submitType: "findJoin", ref: "shop", "shop.$id": shopData[0]._id, })
     console.log("订单", data)
     let axisData = ["近6个月", "近5个月", "近4个月", "近3个月", "近2个月", "近1个月"];
-    let seriesData = [{ name: "近6个月", value: 0 }, { name: "近5个月", value: 0 }, { name: "近4个月", value: 0 }, { name: "近3个月", value: 0 }, { name: "近2个月", value: 0 }, { name: "近1个月", value: 0 }];
+    let seriesDataPro = [
+        [{ name: "近6个月", type: "狗粮", value: 0 }, { name: "近6个月", type: "猫粮", value: 0 }, { name: "近6个月", type: "其它", value: 0 }],
+        [{ name: "近5个月", type: "狗粮", value: 0 }, { name: "近5个月", type: "猫粮", value: 0 }, { name: "近5个月", type: "其它", value: 0 }],
+        [{ name: "近4个月", type: "狗粮", value: 0 }, { name: "近4个月", type: "猫粮", value: 0 }, { name: "近4个月", type: "其它", value: 0 }],
+        [{ name: "近3个月", type: "狗粮", value: 0 }, { name: "近3个月", type: "猫粮", value: 0 }, { name: "近3个月", type: "其它", value: 0 }],
+        [{ name: "近2个月", type: "狗粮", value: 0 }, { name: "近2个月", type: "猫粮", value: 0 }, { name: "近2个月", type: "其它", value: 0 }],
+        [{ name: "近1个月", type: "狗粮", value: 0 }, { name: "近1个月", type: "猫粮", value: 0 }, { name: "近1个月", type: "其它", value: 0 }],
+    ];
+    let seriesDataSer = [
+        [{ name: "近6个月", type: "洗护", value: 0 }, { name: "近6个月", type: "寄养", value: 0 }, { name: "近6个月", type: "其它", value: 0 }],
+        [{ name: "近5个月", type: "洗护", value: 0 }, { name: "近5个月", type: "寄养", value: 0 }, { name: "近5个月", type: "其它", value: 0 }],
+        [{ name: "近4个月", type: "洗护", value: 0 }, { name: "近4个月", type: "寄养", value: 0 }, { name: "近4个月", type: "其它", value: 0 }],
+        [{ name: "近3个月", type: "洗护", value: 0 }, { name: "近3个月", type: "寄养", value: 0 }, { name: "近3个月", type: "其它", value: 0 }],
+        [{ name: "近2个月", type: "洗护", value: 0 }, { name: "近2个月", type: "寄养", value: 0 }, { name: "近2个月", type: "其它", value: 0 }],
+        [{ name: "近1个月", type: "洗护", value: 0 }, { name: "近1个月", type: "寄养", value: 0 }, { name: "近1个月", type: "其它", value: 0 }],
+    ];
     let splitTrueTime = trueTime.split("/")
     console.log("splitTrueTime", splitTrueTime)
     data.forEach(function (ele) {
         if (ele.buyTime.split("/")[0] == splitTrueTime[0]) {
-            console.log("购买时间", ele.buyTime.split("/")[0])
-            if ((splitTrueTime[1] - ele.buyTime.split("/")[1]) == 0) {
-                // console.log("购买月份",(splitTrueTime[1] - ele.buyTime.split("/")[1]))
-                // if (ele.state == 3) {
-                ele.goods.forEach(function (eles) {
-                    // console.log("elesaaaaaaaaaa", eles)
-                    if (eles.state == 0) {
-                        console.log("商品订单", eles)
-                        if (eles.type == "狗粮") {
-                            console.log("狗粮", eles)
-                            seriesData[5].value += eles.proPrice * eles.number;
-                            console.log("金额", seriesData[5].value)
+            ele.goods.forEach(function (eles) {
+                if (eles.state == 1) {
+                    if ((splitTrueTime[1] - ele.buyTime.split("/")[1]) == 0) {
+                        if (eles.type == "洗护") {
+                            seriesDataSer[5][0].value += eles.serPrice * eles.number
+                        } else if (eles.type == "寄养") {
+                            seriesDataSer[5][1].value += eles.serPrice * eles.number
+                        } else {
+                            seriesDataSer[5][2].value += eles.serPrice * eles.number
+                        }
+                    } else if ((splitTrueTime[1] - ele.buyTime.split("/")[1]) == 1) {
+                        if (eles.type == "洗护") {
+                            seriesDataSer[4][0].value += eles.serPrice * eles.number
+                        } else if (eles.type == "寄养") {
+                            seriesDataSer[4][1].value += eles.serPrice * eles.number
+                        } else {
+                            seriesDataSer[4][2].value += eles.serPrice * eles.number
+                        }
+                    } else if ((splitTrueTime[1] - ele.buyTime.split("/")[1]) == 2) {
+                        if (eles.type == "洗护") {
+                            seriesDataSer[3][0].value += eles.serPrice * eles.number
+                        } else if (eles.type == "寄养") {
+                            seriesDataSer[3][1].value += eles.serPrice * eles.number
+                        } else {
+                            seriesDataSer[3][2].value += eles.serPrice * eles.number
+                        }
+                    } else if ((splitTrueTime[1] - ele.buyTime.split("/")[1]) == 3) {
+                        if (eles.type == "洗护") {
+                            seriesDataSer[2][0].value += eles.serPrice * eles.number
+                        } else if (eles.type == "寄养") {
+                            seriesDataSer[2][1].value += eles.serPrice * eles.number
+                        } else {
+                            seriesDataSer[2][2].value += eles.serPrice * eles.number
+                        }
+                    } else if ((splitTrueTime[1] - ele.buyTime.split("/")[1]) == 4) {
+                        if (eles.type == "洗护") {
+                            seriesDataSer[1][0].value += eles.serPrice * eles.number
+                        } else if (eles.type == "寄养") {
+                            seriesDataSer[1][1].value += eles.serPrice * eles.number
+                        } else {
+                            seriesDataSer[1][2].value += eles.serPrice * eles.number
+                        }
+                    } else if ((splitTrueTime[1] - ele.buyTime.split("/")[1]) == 5) {
+                        if (eles.type == "洗护") {
+                            seriesDataSer[0][0].value += eles.serPrice * eles.number
+                        } else if (eles.type == "寄养") {
+                            seriesDataSer[0][1].value += eles.serPrice * eles.number
+                        } else {
+                            seriesDataSer[0][2].value += eles.serPrice * eles.number
                         }
                     }
-                });
-                // }
-            } else if ((splitTrueTime[1] - ele.buyTime.split("/")[1]) == 1) {
-                if (eles.state == 0) {
-                    console.log("商品订单", eles)
-                    if (eles.type == "狗粮") {
-                        seriesData[4].value += eles.proPrice * eles.number;
-                    }
-                }
-            } else if ((splitTrueTime[1] - ele.buyTime.split("/")[1]) == 2) {
-                if (eles.state == 0) {
-                    console.log("商品订单", eles)
-                    if (eles.type == "狗粮") {
-                        seriesData[3].value += eles.proPrice * eles.number;
-                    }
-                }
-            } else if ((splitTrueTime[1] - ele.buyTime.split("/")[1]) == 3) {
-                if (eles.state == 0) {
-                    console.log("商品订单", eles)
-                    if (eles.type == "狗粮") {
-                        seriesData[2].value += eles.proPrice * eles.number;
-                    }
-                }
-            } else if ((splitTrueTime[1] - ele.buyTime.split("/")[1]) == 4) {
-                if (eles.state == 0) {
-                    console.log("商品订单", eles)
-                    if (eles.type == "狗粮") {
-                        seriesData[1].value += eles.proPrice * eles.number;
-                    }
-                }
-            } else if ((splitTrueTime[1] - ele.buyTime.split("/")[1]) == 5) {
-                if (eles.state == 0) {
-                    console.log("商品订单", eles)
-                    if (eles.type == "狗粮") {
-                        seriesData[0].value += eles.proPrice * eles.number;
-                        console.log("近6个月金额", seriesData[0].value)
-                    }
-                }
-            }
 
+                } else if (eles.state == 0) {
+                    if ((splitTrueTime[1] - ele.buyTime.split("/")[1]) == 0) {
+                        if (eles.type == "狗粮") {
+                            seriesDataPro[5][0].value += eles.proPrice * eles.number
+                        } else if (eles.type == "猫粮") {
+                            seriesDataPro[5][1].value += eles.proPrice * eles.number
+                        } else {
+                            seriesDataPro[5][2].value += eles.proPrice * eles.number
+                        }
+                    } else if ((splitTrueTime[1] - ele.buyTime.split("/")[1]) == 1) {
+                        if (eles.type == "狗粮") {
+                            seriesDataPro[4][0].value += eles.proPrice * eles.number
+                        } else if (eles.type == "猫粮") {
+                            seriesDataSer[4][1].value += eles.proPrice * eles.number
+                        } else {
+                            seriesDataPro[4][2].value += eles.proPrice * eles.number
+                        }
+                    }else if ((splitTrueTime[1] - ele.buyTime.split("/")[1]) == 2) {
+                        if (eles.type == "狗粮") {
+                            seriesDataPro[3][0].value += eles.proPrice * eles.number
+                        } else if (eles.type == "猫粮") {
+                            seriesDataSer[3][1].value += eles.proPrice * eles.number
+                        } else {
+                            seriesDataPro[3][2].value += eles.proPrice * eles.number
+                        }
+                    }else if ((splitTrueTime[1] - ele.buyTime.split("/")[1]) == 3) {
+                        if (eles.type == "狗粮") {
+                            seriesDataPro[2][0].value += eles.proPrice * eles.number
+                        } else if (eles.type == "猫粮") {
+                            seriesDataSer[2][1].value += eles.proPrice * eles.number
+                        } else {
+                            seriesDataPro[2][2].value += eles.proPrice * eles.number
+                        }
+                    }else if ((splitTrueTime[1] - ele.buyTime.split("/")[1]) == 4) {
+                        if (eles.type == "狗粮") {
+                            seriesDataPro[1][0].value += eles.proPrice * eles.number
+                        } else if (eles.type == "猫粮") {
+                            seriesDataSer[1][1].value += eles.proPrice * eles.number
+                        } else {
+                            seriesDataPro[1][2].value += eles.proPrice * eles.number
+                        }
+                    }else if ((splitTrueTime[1] - ele.buyTime.split("/")[1]) == 5) {
+                        if (eles.type == "狗粮") {
+                            seriesDataPro[0][0].value += eles.proPrice * eles.number
+                        } else if (eles.type == "猫粮") {
+                            seriesDataSer[0][1].value += eles.proPrice * eles.number
+                        } else {
+                            seriesDataPro[0][2].value += eles.proPrice * eles.number
+                        }
+                    }
+                }
+            });
+            // console.log("购买时间", ele.buyTime.split("/")[0])
+            // if ((splitTrueTime[1] - ele.buyTime.split("/")[1]) == 0) {
+            //     // if (ele.state == 3) {
+
+            //     // }
+            // } else if ((splitTrueTime[1] - ele.buyTime.split("/")[1]) == 1) {
+            //     if (eles.state == 0) {
+            //         console.log("商品订单", eles)
+            //         if (eles.type == "狗粮") {
+            //             seriesDataPro[0][4].value += eles.proPrice * eles.number;
+            //         }
+            //     }
+            // } else if ((splitTrueTime[1] - ele.buyTime.split("/")[1]) == 2) {
+            //     if (eles.state == 0) {
+            //         console.log("商品订单", eles)
+            //         if (eles.type == "狗粮") {
+            //             seriesDataPro[0][3].value += eles.proPrice * eles.number;
+            //         }
+            //     }
+            // } else if ((splitTrueTime[1] - ele.buyTime.split("/")[1]) == 3) {
+            //     if (eles.state == 0) {
+            //         console.log("商品订单", eles)
+            //         if (eles.type == "狗粮") {
+            //             seriesDataPro[0][2].value += eles.proPrice * eles.number;
+            //         }
+            //     }
+            // } else if ((splitTrueTime[1] - ele.buyTime.split("/")[1]) == 4) {
+            //     if (eles.state == 0) {
+            //         console.log("商品订单", eles)
+            //         if (eles.type == "狗粮") {
+            //             seriesDataPro[0][1].value += eles.proPrice * eles.number;
+            //         }
+            //     }
+            // } else if ((splitTrueTime[1] - ele.buyTime.split("/")[1]) == 5) {
+            //     if (eles.state == 0) {
+            //         console.log("商品订单", eles)
+            //         if (eles.type == "狗粮") {
+            //             seriesDataPro[0][0].value += eles.proPrice * eles.number;
+            //             console.log("近6个月金额", seriesData[0].value)
+            //         }
+            //     }
+            // }
         }
         console.log(ele.buyTime)
     });
-    console.log("6个月金额1111",seriesData)
-    res.send({ axisData, seriesData });
+    console.log("6个月金额1111", seriesDataPro)
+    console.log("服务", seriesDataSer)
+    res.send({ axisData, seriesDataPro,seriesDataSer });
 });
 
 module.exports = router;

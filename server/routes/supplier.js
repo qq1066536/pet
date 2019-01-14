@@ -18,7 +18,7 @@ router.get("/:id", async (req, res) => {
         "supplier.$id": id,
     })
     // data = data.rows.filter(item => item.supplier._id == id)
-    console.log("getProduct",data)
+    // console.log("getProduct",data)
     res.send(data)
 })
 // 新增产品数据，id为供应商id
@@ -31,7 +31,7 @@ router.post("/:id", async (req, res) => {
             "$id": id
         }
     })
-    console.log(data);
+    // console.log(data);
     res.send(data)
 })
 // 修改产品数据

@@ -12,7 +12,7 @@
 <script>
 import echarts from "echarts/lib/echarts";
 // 引入柱状图
-import "echarts/lib/chart/bar";
+import "echarts/lib/chart/bar"
 import "echarts/lib/chart/pie";
 import "echarts/lib/chart/scatter";
 // 引入提示框和标题组件
@@ -24,7 +24,7 @@ export default {
   // 指定图表的配置项和数据
   data() {
     return {
-      type: "店铺商品销量统计"
+      type: "店铺商品销量统计",
     };
   },
   mounted() {

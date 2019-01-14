@@ -9,8 +9,12 @@
       <span class="demonstration">请选择年份:</span>
       <el-date-picker v-model="value" type="year" placeholder="选择年份" @change="chooseYear"></el-date-picker>
     </div>
-    <el-radio class="block" v-model="radio" label="按季度显示">按季度显示</el-radio>
-    <el-radio v-model="radio" label="按年显示">按年显示</el-radio>
+
+    <el-radio-group v-model="radio" @change="showBy" class="block">
+      <el-radio label="按月份显示">按月份显示</el-radio>
+      <el-radio label="按季度显示">按季度显示</el-radio>
+      <el-radio label="按年份显示">按年份显示</el-radio>
+    </el-radio-group>
     <div id="saleNum" class="total" ref="saleNum"></div>
   </div>
 </template>
@@ -32,7 +36,7 @@ export default {
   data() {
     return {
       type: "店铺商品销量统计",
-      radio: "",
+      radio: "按月份显示",
       value: new Date(),
       xAxis: [],
       seriesDataPro: [],
@@ -69,6 +73,10 @@ export default {
             this.xAxis = data.axisDataQuarter;
             this.seriesDataPro = data.seriesDataProQuter;
             myChart.setOption(this.proQuterOption, true);
+          } else if (this.radio == "按年份显示") {
+            this.seriesDataProYear = data.seriesDataProYear;
+            this.seriesDataServiceYear = data.seriesDataServiceYear;
+            myChart.setOption(this.pieOption, true);
           } else {
             this.xAxis = data.axisDataMonth;
             this.seriesDataPro = data.seriesDataPro;
@@ -90,6 +98,10 @@ export default {
             this.xAxis = data.axisDataQuarter;
             this.seriesDataService = data.seriesDataServiceQuter;
             myChart.setOption(this.serQuterOption, true);
+          } else if (this.radio == "按年份显示") {
+            this.seriesDataProYear = data.seriesDataProYear;
+            this.seriesDataServiceYear = data.seriesDataServiceYear;
+            myChart.setOption(this.pieOption, true);
           } else {
             this.xAxis = data.axisDataMonth;
             this.seriesDataService = data.seriesDataService;
@@ -101,6 +113,9 @@ export default {
     },
     chooseYear(value) {
       this.value = new Date(value);
+      this.showRep();
+    },
+    showBy() {
       this.showRep();
     }
   },
@@ -490,8 +505,8 @@ export default {
               { value: this.seriesDataProYear[1].value, name: "猫粮" },
               {
                 value:
-                  this.seriesDataProYear[2].value +
-                  this.seriesDataServiceYear[2].value,
+                  parseInt(this.seriesDataProYear[2].value) +
+                  parseInt(this.seriesDataServiceYear[2].value),
                 name: "其他"
               },
               { value: this.seriesDataServiceYear[0].value, name: "寄养服务" },
@@ -528,7 +543,7 @@ export default {
             animationType: "scale",
             animationEasing: "elasticOut",
             animationDelay: function(idx) {
-              return Math.random() * 200;
+              return Math.random(idx) * 200;
             }
           }
         ]

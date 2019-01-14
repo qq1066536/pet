@@ -6,16 +6,22 @@ client.url("127.0.0.1:8080");
 /* GET users listing. */
 // 根据门店id查询订单
 router.get("/", async function (req, res) {
-    let { id } = req.query;
+    // console.log(new Date(Date.parse(req.query.chooseYear)).toLocaleDateString())
+    let { id, chooseYear } = req.query;
+    let dataShop = await client.get("/shop", {
+        "submitType": "findJoin",
+        ref: "user",
+        "user.$id": id,
+    })
+    // console.log(dataShop)
     let data = await client.get("/order", {
         "submitType": "findJoin",
         ref: "shop",
-        "shop.$id": id,
+        "shop.$id": dataShop[0]._id,
     });
     // console.log(data);
     let axisDataMonth = ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"];
-    let axisDataQuarter = ["1季度", "2季度", "3季度"];
-    let axisDataYear = ["2018年", "2019年"];
+    let axisDataQuarter = ["1季度", "2季度", "3季度", "4季度"];
     let seriesDataService = [
         [{ name: "1月", type: "寄养服务", value: 0 }, { name: "1月", type: "洗护服务", value: 0 }, { name: "1月", name: "其他", value: 0 }],
         [{ name: "2月", type: "寄养服务", value: 0 }, { name: "2月", type: "洗护服务", value: 0 }, { name: "2月", name: "其他", value: 0 }],
@@ -43,16 +49,36 @@ router.get("/", async function (req, res) {
         [{ name: "11月", type: "猫粮", value: 0 }, { name: "11月", type: "狗粮", value: 0 }, { name: "11月", type: "其他", value: 0 }],
         [{ name: "12月", type: "猫粮", value: 0 }, { name: "12月", type: "狗粮", value: 0 }, { name: "12月", type: "其他", value: 0 }],
     ];
+    let seriesDataProQuter = [
+        [{ name: "1季度", type: "猫粮", value: 0 }, { name: "1季度", type: "狗粮", value: 0 }, { name: "1季度", type: "其他", value: 0 }],
+        [{ name: "2季度", type: "猫粮", value: 0 }, { name: "2季度", type: "狗粮", value: 0 }, { name: "2季度", type: "其他", value: 0 }],
+        [{ name: "3季度", type: "猫粮", value: 0 }, { name: "3季度", type: "狗粮", value: 0 }, { name: "3季度", type: "其他", value: 0 }],
+        [{ name: "4季度", type: "猫粮", value: 0 }, { name: "4季度", type: "狗粮", value: 0 }, { name: "4季度", type: "其他", value: 0 }],
+    ];
+    let seriesDataServiceQuter = [
+        [{ name: "1季度", type: "寄养服务", value: 0 }, { name: "1季度", type: "洗护服务", value: 0 }, { name: "1季度", type: "其他", value: 0 }],
+        [{ name: "2季度", type: "寄养服务", value: 0 }, { name: "2季度", type: "洗护服务", value: 0 }, { name: "2季度", type: "其他", value: 0 }],
+        [{ name: "3季度", type: "寄养服务", value: 0 }, { name: "3季度", type: "洗护服务", value: 0 }, { name: "3季度", type: "其他", value: 0 }],
+        [{ name: "4季度", type: "寄养服务", value: 0 }, { name: "4季度", type: "洗护服务", value: 0 }, { name: "4季度", type: "其他", value: 0 }],
+    ];
+    let seriesDataProYear = [
+        { name: "猫粮", type: "猫粮", value: 0 }, { name: "狗粮", type: "狗粮", value: 0 }, { name: "其他", type: "其他", value: 0 },
+    ];
+    let seriesDataServiceYear = [
+        { name: "寄养服务", type: "寄养服务", value: 0 }, { name: "洗护服务", type: "洗护服务", value: 0 }, { name: "其他", type: "其他", value: 0 },
+    ];
     let time = [];
     if (data.length > 1) {
-        time = data[0].buyTime.split("/");
+        // console.log(data[0].buyTime)
+        time = data[0].buyTime.split("-");
     } else {
-        time = data.buyTime.split("/");
+        time = data.buyTime.split("-");
     }
+    chooseYear = new Date(Date.parse(chooseYear)).toLocaleDateString().split("-")[0];
+    // console.log(chooseYear,time[0])
     data.forEach(function (ele) {
-        if (time[1] == 1) {
+        if (time[0] == chooseYear && time[1] == 1) {
             ele.goods.forEach(function (el) {
-                // console.log(el);
                 if (el.state == 0) {
                     if (el.type == "猫粮") {
                         seriesDataPro[0][2].value += parseInt(el.number);
@@ -73,7 +99,7 @@ router.get("/", async function (req, res) {
                 }
             })
         }
-        else if (time[1] == 2) {
+        else if (time[0] == chooseYear && time[1] == 2) {
             ele.goods.forEach(function (el) {
                 // console.log(el);
                 if (el.state == 0) {
@@ -96,7 +122,7 @@ router.get("/", async function (req, res) {
                 }
             })
         }
-        else if (time[1] == 3) {
+        else if (time[0] == chooseYear && time[1] == 4) {
             ele.goods.forEach(function (el) {
                 // console.log(el);
                 if (el.state == 0) {
@@ -119,7 +145,7 @@ router.get("/", async function (req, res) {
                 }
             })
         }
-        else if (time[1] == 4) {
+        else if (time[0] == chooseYear && time[1] == 4) {
             ele.goods.forEach(function (el) {
                 // console.log(el);
                 if (el.state == 0) {
@@ -142,7 +168,7 @@ router.get("/", async function (req, res) {
                 }
             })
         }
-        else if (time[1] == 5) {
+        else if (time[0] == chooseYear && time[1] == 5) {
             ele.goods.forEach(function (el) {
                 // console.log(el);
                 if (el.state == 0) {
@@ -165,7 +191,7 @@ router.get("/", async function (req, res) {
                 }
             })
         }
-        else if (time[1] == 6) {
+        else if (time[0] == chooseYear && time[1] == 6) {
             ele.goods.forEach(function (el) {
                 // console.log(el);
                 if (el.state == 0) {
@@ -188,7 +214,7 @@ router.get("/", async function (req, res) {
                 }
             })
         }
-        else if (time[1] == 7) {
+        else if (time[0] == chooseYear && time[1] == 7) {
             ele.goods.forEach(function (el) {
                 // console.log(el);
                 if (el.state == 0) {
@@ -211,7 +237,7 @@ router.get("/", async function (req, res) {
                 }
             })
         }
-        else if (time[1] == 8) {
+        else if (time[0] == chooseYear && time[1] == 8) {
             ele.goods.forEach(function (el) {
                 // console.log(el);
                 if (el.state == 0) {
@@ -234,7 +260,7 @@ router.get("/", async function (req, res) {
                 }
             })
         }
-        else if (time[1] == 9) {
+        else if (time[0] == chooseYear && time[1] == 9) {
             ele.goods.forEach(function (el) {
                 // console.log(el);
                 if (el.state == 0) {
@@ -257,7 +283,7 @@ router.get("/", async function (req, res) {
                 }
             })
         }
-        else if (time[1] == 10) {
+        else if (time[0] == chooseYear && time[1] == 10) {
             ele.goods.forEach(function (el) {
                 // console.log(el);
                 if (el.state == 0) {
@@ -280,7 +306,7 @@ router.get("/", async function (req, res) {
                 }
             })
         }
-        else if (time[1] == 11) {
+        else if (time[0] == chooseYear && time[1] == 11) {
             ele.goods.forEach(function (el) {
                 // console.log(el);
                 if (el.state == 0) {
@@ -302,7 +328,7 @@ router.get("/", async function (req, res) {
                     }
                 }
             })
-        } else {
+        } else if (time[0] == chooseYear && time[1] == 12) {
             ele.goods.forEach(function (el) {
                 // console.log(el);
                 if (el.state == 0) {
@@ -326,7 +352,124 @@ router.get("/", async function (req, res) {
             })
         }
     });
-    res.send({ axisDataMonth, seriesDataService, seriesDataPro });
+    data.forEach(function (ele) {
+        if (time[0] == chooseYear && (time[1] == 1 || time[1] == 2 || time[1] == 3)) {
+            ele.goods.forEach(function (el) {
+                if (el.state == 0) {
+                    if (el.type == "猫粮") {
+                        seriesDataProQuter[0][0].value += parseInt(el.number);
+                        // console.log(seriesDataProQuter[1].value)
+                    } else if (el.type == "狗粮") {
+                        seriesDataProQuter[0][1].value += parseInt(el.number);
+                    } else {
+                        seriesDataProQuter[0][2].value += parseInt(el.number);
+                    }
+                } else {
+                    if (el.type == "寄养服务") {
+                        seriesDataServiceQuter[0][0].value += parseInt(el.number);
+                    } else if (el.type == "洗护服务") {
+                        seriesDataServiceQuter[0][1].value += parseInt(el.number);
+                    } else {
+                        seriesDataServiceQuter[0][2].value += parseInt(el.number);
+                    }
+                }
+            })
+        }
+        else if (time[0] == chooseYear && (time[1] == 4 || time[1] == 5 || time[1] == 6)) {
+            ele.goods.forEach(function (el) {
+                // console.log(el);
+                if (el.state == 0) {
+                    if (el.type == "猫粮") {
+                        seriesDataProQuter[1][0].value += parseInt(el.number);
+                        // console.log(seriesDataProQuter[1].value)
+                    } else if (el.type == "狗粮") {
+                        seriesDataProQuter[1][1].value += parseInt(el.number);
+                    } else {
+                        seriesDataProQuter[1][2].value += parseInt(el.number);
+                    }
+                } else {
+                    if (el.type == "寄养服务") {
+                        seriesDataServiceQuter[1][0].value += parseInt(el.number);
+                    } else if (el.type == "洗护服务") {
+                        seriesDataServiceQuter[1][1].value += parseInt(el.number);
+                    } else {
+                        seriesDataServiceQuter[1][2].value += parseInt(el.number);
+                    }
+                }
+            })
+        }
+        else if (time[0] == chooseYear && (time[1] == 7 || time[1] == 8 || time[1] == 9)) {
+            ele.goods.forEach(function (el) {
+                // console.log(el);
+                if (el.state == 0) {
+                    if (el.type == "猫粮") {
+                        seriesDataProQuter[2][0].value += parseInt(el.number);
+                        // console.log(seriesDataProQuter[1].value)
+                    } else if (el.type == "狗粮") {
+                        seriesDataProQuter[2][1].value += parseInt(el.number);
+                    } else {
+                        seriesDataProQuter[2][2].value += parseInt(el.number);
+                    }
+                } else {
+                    if (el.type == "寄养服务") {
+                        seriesDataServiceQuter[2][0].value += parseInt(el.number);
+                    } else if (el.type == "洗护服务") {
+                        seriesDataServiceQuter[2][1].value += parseInt(el.number);
+                    } else {
+                        seriesDataServiceQuter[2][2].value += parseInt(el.number);
+                    }
+                }
+            })
+        }
+        else if (time[0] == chooseYear && (time[1] == 10 || time[1] == 11 || time[1] == 12)) {
+            ele.goods.forEach(function (el) {
+                // console.log(el);
+                if (el.state == 0) {
+                    if (el.type == "猫粮") {
+                        seriesDataProQuter[3][0].value += parseInt(el.number);
+                        // console.log(seriesDataProQuter[1].value)
+                    } else if (el.type == "狗粮") {
+                        seriesDataProQuter[3][1].value += parseInt(el.number);
+                    } else {
+                        seriesDataProQuter[3][2].value += parseInt(el.number);
+                    }
+                } else {
+                    if (el.type == "寄养服务") {
+                        seriesDataServiceQuter[3][0].value += parseInt(el.number);
+                    } else if (el.type == "洗护服务") {
+                        seriesDataServiceQuter[3][1].value += parseInt(el.number);
+                    } else {
+                        seriesDataServiceQuter[3][2].value += parseInt(el.number);
+                    }
+                }
+            })
+        }
+    })
+    data.forEach(function (ele) {
+        if (time[0] == chooseYear) {
+            ele.goods.forEach(function (el) {
+                if (el.state == 0) {
+                    if (el.type == "猫粮") {
+                        seriesDataProYear[0].value += parseInt(el.number);
+                        // console.log(seriesDataProYear[1].value)
+                    } else if (el.type == "狗粮") {
+                        seriesDataProYear[1].value += parseInt(el.number);
+                    } else {
+                        seriesDataProYear[2].value += parseInt(el.number);
+                    }
+                } else {
+                    if (el.type == "寄养服务") {
+                        seriesDataServiceYear[0].value += parseInt(el.number);
+                    } else if (el.type == "洗护服务") {
+                        seriesDataServiceYear[1].value += parseInt(el.number);
+                    } else {
+                        seriesDataServiceYear[2].value += parseInt(el.number);
+                    }
+                }
+            })
+        }
+    })
+    res.send({ axisDataMonth, axisDataQuarter, seriesDataService, seriesDataPro, seriesDataProQuter, seriesDataServiceQuter, seriesDataProYear, seriesDataServiceYear });
 })
 
 

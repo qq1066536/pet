@@ -1,15 +1,15 @@
 var express = require('express');
 var router = express.Router();
-var multiparty = require("multiparty")
-var path = require("path")
-//上传文件
+var multiparty=require("multiparty")
+var path =require("path")
+/* GET home page. */
 router.post('/upload', function (req, res) {
+  // console.log(req)
   let form = new multiparty.Form({
     uploadDir: "./public/upload"
   });
   form.parse(req, function (err, fields, files) {
-    // console.log("files",files);
-
+    console.log(files)
     let key = Object.keys(files)[0];
     if (err) {
       res.send(err);

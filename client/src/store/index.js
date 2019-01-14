@@ -1,16 +1,41 @@
-import Vue from "vue"
-import Vuex from "vuex"
+
+import Vue from 'vue'
+import Vuex from 'vuex'
+import orderModules from "./modules/orderModules"
+import productsMoudles from "./modules/productsMoudles"
 import platformModule from "./modules/platformModule.js"
-Vue.use(Vuex);
+import serviceModules from "./modules/serviceModules"
+import SupProducts from "./modules/supplierModules"
+import axios from "axios"
+import shopModule from "./modules/shopModule"
+Vue.use(Vuex)
+
 export default new Vuex.Store({
-    modules:{
-        platformModule
+    modules: {
+        orderModules,
+        serviceModules,
+        SupProducts,
+        shopModule,
+        platformModule,
+        productsMoudles
     },
     state: {
+        session:{}
     },
-    getters: {},
     mutations: {
+        getsession:function(state,data){
+            state.session=data
+        }
     },
-    actions: {
+    actions:{
+        getSession:function({commit}) {
+            axios({
+              method: "get",
+              url: "/users/getSession"
+            }).then(({ data }) => {
+                commit("getsession",data)
+                window.localStorage.setItem("session",JSON.stringify(data))
+            });
+          }
     }
 })

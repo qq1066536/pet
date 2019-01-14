@@ -4,7 +4,7 @@
       <h1>
         爱宠邦后台管理系统
         <span class="el-icon-service user">
-          {{phone}},欢迎你：
+          {{phone}},欢迎你!
           <span class="el-icon-error back" @click="removeSession"></span>
         </span>
       </h1>

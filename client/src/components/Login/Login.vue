@@ -74,7 +74,7 @@ export default {
 }
 .box-card {
   width: 500px;
-  margin: 0 auto;
+  margin: 100px auto;
 }
 .position {
   padding-top: 30px;

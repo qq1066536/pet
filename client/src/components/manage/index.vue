@@ -11,7 +11,7 @@
     </el-header>
     <el-container class="aside">
       <el-aside width="200px" class="aside">
-        <el-menu class="menu" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b" :router="true">
+        <el-menu class="menu" background-color="#35495e" text-color="#fff" active-text-color="#ffd04b" :router="true">
           <el-submenu index="1" v-if="session.private=='管理员'">
             <template slot="title">
               <i class="el-icon-setting"></i>
@@ -194,7 +194,7 @@ export default {
 
 <style scoped>
 .headerBgc {
-  background-color: #545c64;
+  background-color: #35495e;
   color: #fff;
   height: 84px;
 }

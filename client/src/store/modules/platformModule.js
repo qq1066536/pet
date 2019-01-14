@@ -7,11 +7,22 @@ export default {
         users: [],
         user: {},
         pagination: {},
+        shopPagination: {},
         search: {
             type: "",
             value: "",
         },
+        shopSearch: {
+            type: "",
+            value: "",
+        },
         updateShopVisible: false,
+        petmasters: [],
+        petmasterPagination: {},
+        petmasterSearch: {
+            type: "",
+            value: ""
+        }
     },
     getters: {},
     mutations: {
@@ -30,12 +41,27 @@ export default {
         setPagination(state, pagination) {
             state.pagination = pagination;
         },
+        setShopPagination(state, shopPagination) {
+            state.shopPagination = shopPagination;
+        },
         setSearch(state, search) {
-            state.search = search
+            state.search = search;
+        },
+        setShopSearch(state, shopSearch) {
+            state.shopSearch = shopSearch;
         },
         setUpdateShopVisible(state, updateShopVisible) {
             state.updateShopVisible = updateShopVisible;
         },
+        setPetmasters(state, petmasters) {
+            state.petmasters = petmasters;
+        },
+        setPetmasterPagination(state, petmasterPagination) {
+            state.petmasterPagination = petmasterPagination;
+        },
+        setPetmasterSearch(state, petmasterSearch) {
+            state.petmasterSearch = petmasterSearch;
+        }
     },
     actions: {
         // 查寻所有用户
@@ -59,12 +85,14 @@ export default {
             })
         },
         //查询所有门面信息
-        setStores({ commit }) {
+        setStores({ commit }, payLoad = { page: 1, rows: 5 }) {
             axios({
                 method: "get",
                 url: "/platform/shop",
+                params: payLoad
             }).then(({ data }) => {
-                commit("setStores", data);
+                commit("setStores", data.rows);
+                commit("setShopPagination", data)
             })
         },
         //通过id查门店
@@ -75,6 +103,17 @@ export default {
             }).then(({ data }) => {
                 commit("setStore", data)
             })
+        },
+        //查所有宠主
+        setPetmasters({ commit }, payLoad = { page: 1, rows: 5 }) {
+            axios({
+                method: "get",
+                url: "/platform/findPetmaster",
+                params: payLoad
+            }).then(({ data }) => {
+                commit("setPetmasters", data.rows)
+                commit("setPetmasterPagination", data)
+            });
         }
     }
 }

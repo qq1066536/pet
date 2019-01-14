@@ -39,13 +39,14 @@ router.delete('/:id', async function (req, res) {
 router.get('/shop', async function (req, res) {
     //type value 是页面搜索传过来的 
     let { page, rows, type, value } = req.query;
+    value = decodeURI(value)
     let searcherObj = {};
     //当搜索全部是 type为null 所以不进入if
     if (type) {
         // 当进入if 就找相对应的type value
-        searcherObj = { [type]: value || "" };
+        searcherObj = { [type]: value };
     }
-    let data = await client.get("/shop", { page, rows, submitType: 'findJoin', ref: 'user' });
+    let data = await client.get("/shop", { page, rows, ...searcherObj, submitType: 'findJoin', ref: 'user' });
     res.send(data);
 });
 
@@ -142,9 +143,9 @@ router.get('/addr', async (req, res) => {
 
 //添加门店
 router.post("/addShop", async function (req, res) {
-    let { id, name, username, img_head, business_no, business_lic, legal_person, addr, location, city, tel, feature, website, vip, commission_rate, status, account } = req.body;
+    let { id, name, username, img_head, business_no, business_lic, legal_person, addr, location, city, tel, feature, website, vip, commission_rate, stuff, status, account } = req.body;
     let data = await client.post("/shop", {
-        name, username, img_head, business_no, business_lic, legal_person, addr, location, city, tel, feature, website, vip, commission_rate, status, account, "user": {
+        name, username, img_head, business_no, business_lic, legal_person, addr, location, city, tel, feature, website, vip, commission_rate, stuff, status, account, "user": {
             "$ref": "user",
             "$id": id
         }
@@ -155,6 +156,28 @@ router.post("/addShop", async function (req, res) {
 router.get('/findShop/:id', async function (req, res) {
     let id = req.params.id;
     let data = await client.get("/shop/" + id)
+    res.send(data)
+})
+
+//查询宠主
+router.get("/findPetmaster", async function (req, res) {
+    //type value 是页面搜索传过来的 
+    let { page, rows, type, value } = req.query;
+    value = decodeURI(value)
+    let searcherObj = {};
+    //当搜索全部是 type为null 所以不进入if
+    if (type) {
+        // 当进入if 就找相对应的type value
+        searcherObj = { [type]: value };
+    }
+    let data = await client.get("/petmaster", { page, rows, ...searcherObj });
+    res.send(data);
+})
+//修改宠主
+router.put('/putPetmaster/:id', async function (req, res) {
+    let id = req.params.id;
+    let { account } = req.body;
+    let data = await client.put("/petmaster/" + id, { account })
     res.send(data)
 })
 module.exports = router;

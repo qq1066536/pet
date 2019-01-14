@@ -1,6 +1,20 @@
 <template>
   <div>
     <el-button type="primary" icon="el-icon-circle-plus-outline" @click="openAddDialog">添加门店</el-button>
+    <el-button @click="clearFilter">清除所有过滤器</el-button>
+    <div class="el-search">
+      <el-input placeholder="请输入内容" v-model="value" class="input-with-select">
+        <el-select class="selectWidth" v-model="type" slot="prepend" placeholder="请选择">
+          <el-option label="注册人" value="username"></el-option>
+          <el-option label="门店名" value="name"></el-option>
+          <el-option label="所在城市" value="city"></el-option>
+          <el-option label="法人" value="legal_person"></el-option>
+          <el-option label="审核状态" value="status"></el-option>
+          <el-option label="门店状态" value="account"></el-option>
+        </el-select>
+        <el-button slot="append" icon="el-icon-search" @click="searchBtn"></el-button>
+      </el-input>
+    </div>
     <div>
       <el-dialog title="添加门店" :visible.sync="addDialogVisible" width="50%">
         <el-form :model="addShopForm" :rules="rules" status-icon ref="addShopForm" label-width="150px">
@@ -64,7 +78,7 @@
         </span>
       </el-dialog>
       <UptateStore></UptateStore>
-      <el-table :data="stores" style="width: 100%" max-height="180">
+      <el-table :data="stores" style="width: 100%" ref="filterTable">
         <el-table-column width="120" prop="username" label="注册人"></el-table-column>
         <el-table-column width="120" prop="name" label="门店名"></el-table-column>
         <el-table-column width="120" prop="addr" label="营业地址" show-overflow-tooltip="false"></el-table-column>
@@ -79,8 +93,8 @@
         <el-table-column width="120" prop="website" label="网址" show-overflow-tooltip="false"></el-table-column>
         <el-table-column width="120" prop="vip" label="VIP等级"></el-table-column>
         <el-table-column width="120" prop="commission_rate" label="佣金比例"></el-table-column>
-        <el-table-column width="120" prop="status" label="审核状态"></el-table-column>
-        <el-table-column width="120" prop="account" label="门店状态"></el-table-column>
+        <el-table-column width="120" prop="status" label="审核状态" :filters="[{ text: '已审核', value: '已审核' }, { text: '待审核', value: '待审核' }, { text: '已拒绝', value: '已拒绝' }]" :filter-method="filterStatus" filter-placement="bottom-end"></el-table-column>
+        <el-table-column width="120" prop="account" label="门店状态" :filters="[{ text: '正常', value: '正常' }, { text: '封禁', value: '封禁' }]" :filter-method="filterAccount" filter-placement="bottom-end"></el-table-column>
         <el-table-column width="250" fixed="right" label="操作">
           <template slot-scope="scope">
             <el-button size="small" type="primary" @click="updateShop(scope.row._id)">
@@ -93,6 +107,7 @@
         </el-table-column>
       </el-table>
     </div>
+    <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="shopPagination.curpage" :page-sizes="[5, 10, 20, 30]" :page-size="shopPagination.eachpage" layout="total, sizes, prev, pager, next, jumper" :total="shopPagination.total"></el-pagination>
   </div>
 </template>
 <script>
@@ -107,13 +122,17 @@ export default {
     UptateStore
   },
   computed: {
-    ...mapState(["stores"])
+    ...mapState(["stores", "shopPagination", "shopSearch"])
   },
   data() {
     return {
       addDialogVisible: false,
       //初始每次点击增加门店获取的未和shop关联的门店注册人
       regShoper: [],
+      //搜索
+      value: "",
+      type: "",
+      currentSize: "",
       //初始化添加表单
       addShopForm: {
         id: "",
@@ -130,7 +149,8 @@ export default {
         feature: "",
         website: "",
         vip: "",
-        commission_rate: ""
+        commission_rate: "",
+        stuff: []
       },
       // 验证规则
       rules: {
@@ -167,8 +187,8 @@ export default {
     this.setStores();
   },
   methods: {
-    ...mapActions(["setStores","setStore"]),
-    ...mapMutations(["setUpdateShopVisible"]),
+    ...mapActions(["setStores", "setStore"]),
+    ...mapMutations(["setUpdateShopVisible", "setShopSearch"]),
     //打开增加门店面板
     openAddDialog() {
       this.addDialogVisible = true;
@@ -238,11 +258,15 @@ export default {
           });
       }
     },
-    //添加确定按钮
-    addStore() {},
     //关闭增加门店面板
     calcle() {
       this.addDialogVisible = false;
+      this.resetForm();
+      this.addShopForm.location = "";
+    },
+    //重置添加门店表单
+    resetForm() {
+      this.$refs.addShopForm.resetFields();
     },
     //查询user集合里没有关联shop集合的门店
     findUserForShop() {
@@ -313,12 +337,15 @@ export default {
               website: this.addShopForm.website,
               vip: this.addShopForm.vip,
               commission_rate: this.addShopForm.commission_rate,
+              stuff: this.addShopForm.stuff,
               status: "待审核",
               account: "正常"
             }
           }).then(({}) => {
             this.setStores();
+            this.resetForm();
             this.addDialogVisible = false;
+            this.addShopForm.location = "";
           });
         } else {
           this.$alert("输入信息有误，或不完整！！", "消息");
@@ -329,6 +356,43 @@ export default {
     updateShop(id) {
       this.setStore(id);
       this.setUpdateShopVisible(true);
+    },
+    //清除所有过滤器
+    clearFilter() {
+      this.$refs.filterTable.clearFilter();
+    },
+    //筛选审核状态
+    filterStatus(value, row) {
+      return row.status === value;
+    },
+    //筛选门店状态
+    filterAccount(value, row) {
+      return row.account === value;
+    },
+    //分页
+    handleSizeChange(size) {
+      this.setStores({
+        page: 1,
+        rows: size,
+        type: this.shopSearch.type,
+        value: this.shopSearch.value
+      });
+      this.currentSize = size;
+    },
+    handleCurrentChange(page) {
+      //   console.log(`当前页: ${val}`);
+      this.setStores({
+        page,
+        rows: this.currentSize,
+        type: this.shopSearch.type,
+        value: this.shopSearch.value
+      });
+    },
+    // 搜索
+    searchBtn() {
+      let { type, value } = this;
+      this.setShopSearch({ type, value });
+      this.setStores({ page: 1, rows: 5, type, value });
     }
   }
 };
@@ -360,5 +424,25 @@ export default {
   width: 178px;
   height: 178px;
   display: block;
+}
+
+.select {
+  width: 175px;
+}
+.selectP {
+  text-align: center;
+}
+.el-select .el-input {
+  width: 100px;
+}
+.selectWidth {
+  width: 120px;
+}
+.input-with-select .el-input-group__prepend {
+  background-color: #fff;
+}
+.el-search {
+  margin-top: 15px;
+  width: 500px;
 }
 </style>

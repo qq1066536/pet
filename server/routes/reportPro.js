@@ -23,18 +23,18 @@ router.get("/", async function (req, res) {
     let axisDataMonth = ["1月", "2月", "3月", "4月", "5月", "6月", "7月", "8月", "9月", "10月", "11月", "12月"];
     let axisDataQuarter = ["1季度", "2季度", "3季度", "4季度"];
     let seriesDataService = [
-        [{ name: "1月", type: "寄养服务", value: 0 }, { name: "1月", type: "洗护服务", value: 0 }, { name: "1月", name: "其他", value: 0 }],
-        [{ name: "2月", type: "寄养服务", value: 0 }, { name: "2月", type: "洗护服务", value: 0 }, { name: "2月", name: "其他", value: 0 }],
-        [{ name: "3月", type: "寄养服务", value: 0 }, { name: "3月", type: "洗护服务", value: 0 }, { name: "3月", name: "其他", value: 0 }],
-        [{ name: "4月", type: "寄养服务", value: 0 }, { name: "4月", type: "洗护服务", value: 0 }, { name: "4月", name: "其他", value: 0 }],
-        [{ name: "5月", type: "寄养服务", value: 0 }, { name: "5月", type: "洗护服务", value: 0 }, { name: "5月", name: "其他", value: 0 }],
-        [{ name: "6月", type: "寄养服务", value: 0 }, { name: "6月", type: "洗护服务", value: 0 }, { name: "6月", name: "其他", value: 0 }],
-        [{ name: "7月", type: "寄养服务", value: 0 }, { name: "7月", type: "洗护服务", value: 0 }, { name: "7月", name: "其他", value: 0 }],
-        [{ name: "8月", type: "寄养服务", value: 0 }, { name: "8月", type: "洗护服务", value: 0 }, { name: "8月", name: "其他", value: 0 }],
-        [{ name: "9月", type: "寄养服务", value: 0 }, { name: "9月", type: "洗护服务", value: 0 }, { name: "9月", name: "其他", value: 0 }],
-        [{ name: "10月", type: "寄养服务", value: 0 }, { name: "10月", type: "洗护服务", value: 0 }, { name: "10月", name: "其他", value: 0 }],
-        [{ name: "11月", type: "寄养服务", value: 0 }, { name: "11月", type: "洗护服务", value: 0 }, { name: "11月", name: "其他", value: 0 }],
-        [{ name: "12月", type: "寄养服务", value: 0 }, { name: "12月", type: "洗护服务", value: 0 }, { name: "12月", name: "其他", value: 0 }],]
+        [{ name: "1月", type: "寄养", value: 0 }, { name: "1月", type: "洗护", value: 0 }, { name: "1月", name: "其他", value: 0 }],
+        [{ name: "2月", type: "寄养", value: 0 }, { name: "2月", type: "洗护", value: 0 }, { name: "2月", name: "其他", value: 0 }],
+        [{ name: "3月", type: "寄养", value: 0 }, { name: "3月", type: "洗护", value: 0 }, { name: "3月", name: "其他", value: 0 }],
+        [{ name: "4月", type: "寄养", value: 0 }, { name: "4月", type: "洗护", value: 0 }, { name: "4月", name: "其他", value: 0 }],
+        [{ name: "5月", type: "寄养", value: 0 }, { name: "5月", type: "洗护", value: 0 }, { name: "5月", name: "其他", value: 0 }],
+        [{ name: "6月", type: "寄养", value: 0 }, { name: "6月", type: "洗护", value: 0 }, { name: "6月", name: "其他", value: 0 }],
+        [{ name: "7月", type: "寄养", value: 0 }, { name: "7月", type: "洗护", value: 0 }, { name: "7月", name: "其他", value: 0 }],
+        [{ name: "8月", type: "寄养", value: 0 }, { name: "8月", type: "洗护", value: 0 }, { name: "8月", name: "其他", value: 0 }],
+        [{ name: "9月", type: "寄养", value: 0 }, { name: "9月", type: "洗护", value: 0 }, { name: "9月", name: "其他", value: 0 }],
+        [{ name: "10月", type: "寄养", value: 0 }, { name: "10月", type: "洗护", value: 0 }, { name: "10月", name: "其他", value: 0 }],
+        [{ name: "11月", type: "寄养", value: 0 }, { name: "11月", type: "洗护", value: 0 }, { name: "11月", name: "其他", value: 0 }],
+        [{ name: "12月", type: "寄养", value: 0 }, { name: "12月", type: "洗护", value: 0 }, { name: "12月", name: "其他", value: 0 }],]
     let seriesDataPro = [
         [{ name: "1月", type: "猫粮", value: 0 }, { name: "1月", type: "狗粮", value: 0 }, { name: "1月", type: "其他", value: 0 }],
         [{ name: "2月", type: "猫粮", value: 0 }, { name: "2月", type: "狗粮", value: 0 }, { name: "2月", type: "其他", value: 0 }],
@@ -56,16 +56,16 @@ router.get("/", async function (req, res) {
         [{ name: "4季度", type: "猫粮", value: 0 }, { name: "4季度", type: "狗粮", value: 0 }, { name: "4季度", type: "其他", value: 0 }],
     ];
     let seriesDataServiceQuter = [
-        [{ name: "1季度", type: "寄养服务", value: 0 }, { name: "1季度", type: "洗护服务", value: 0 }, { name: "1季度", type: "其他", value: 0 }],
-        [{ name: "2季度", type: "寄养服务", value: 0 }, { name: "2季度", type: "洗护服务", value: 0 }, { name: "2季度", type: "其他", value: 0 }],
-        [{ name: "3季度", type: "寄养服务", value: 0 }, { name: "3季度", type: "洗护服务", value: 0 }, { name: "3季度", type: "其他", value: 0 }],
-        [{ name: "4季度", type: "寄养服务", value: 0 }, { name: "4季度", type: "洗护服务", value: 0 }, { name: "4季度", type: "其他", value: 0 }],
+        [{ name: "1季度", type: "寄养", value: 0 }, { name: "1季度", type: "洗护", value: 0 }, { name: "1季度", type: "其他", value: 0 }],
+        [{ name: "2季度", type: "寄养", value: 0 }, { name: "2季度", type: "洗护", value: 0 }, { name: "2季度", type: "其他", value: 0 }],
+        [{ name: "3季度", type: "寄养", value: 0 }, { name: "3季度", type: "洗护", value: 0 }, { name: "3季度", type: "其他", value: 0 }],
+        [{ name: "4季度", type: "寄养", value: 0 }, { name: "4季度", type: "洗护", value: 0 }, { name: "4季度", type: "其他", value: 0 }],
     ];
     let seriesDataProYear = [
         { name: "猫粮", type: "猫粮", value: 0 }, { name: "狗粮", type: "狗粮", value: 0 }, { name: "其他", type: "其他", value: 0 },
     ];
     let seriesDataServiceYear = [
-        { name: "寄养服务", type: "寄养服务", value: 0 }, { name: "洗护服务", type: "洗护服务", value: 0 }, { name: "其他", type: "其他", value: 0 },
+        { name: "寄养", type: "寄养", value: 0 }, { name: "洗护", type: "洗护", value: 0 }, { name: "其他", type: "其他", value: 0 },
     ];
     let time = [];
     if (data.length > 1) {
@@ -89,9 +89,9 @@ router.get("/", async function (req, res) {
                         seriesDataPro[0][0].value += parseInt(el.number);
                     }
                 } else {
-                    if (el.type == "寄养服务") {
+                    if (el.type == "寄养") {
                         seriesDataService[0][0].value += parseInt(el.number);
-                    } else if (el.type == "洗护服务") {
+                    } else if (el.type == "洗护") {
                         seriesDataService[0][1].value += parseInt(el.number);
                     } else {
                         seriesDataService[0][2].value += parseInt(el.number);
@@ -112,9 +112,9 @@ router.get("/", async function (req, res) {
                         seriesDataPro[1][0].value += parseInt(el.number);
                     }
                 } else {
-                    if (el.type == "寄养服务") {
+                    if (el.type == "寄养") {
                         seriesDataService[1][0].value += parseInt(el.number);
-                    } else if (el.type == "洗护服务") {
+                    } else if (el.type == "洗护") {
                         seriesDataService[1][1].value += parseInt(el.number);
                     } else {
                         seriesDataService[1][2].value += parseInt(el.number);
@@ -135,9 +135,9 @@ router.get("/", async function (req, res) {
                         seriesDataPro[2][0].value += parseInt(el.number);
                     }
                 } else {
-                    if (el.type == "寄养服务") {
+                    if (el.type == "寄养") {
                         seriesDataService[2][0].value += parseInt(el.number);
-                    } else if (el.type == "洗护服务") {
+                    } else if (el.type == "洗护") {
                         seriesDataService[2][1].value += parseInt(el.number);
                     } else {
                         seriesDataService[2][2].value += parseInt(el.number);
@@ -158,9 +158,9 @@ router.get("/", async function (req, res) {
                         seriesDataPro[3][0].value += parseInt(el.number);
                     }
                 } else {
-                    if (el.type == "寄养服务") {
+                    if (el.type == "寄养") {
                         seriesDataService[3][0].value += parseInt(el.number);
-                    } else if (el.type == "洗护服务") {
+                    } else if (el.type == "洗护") {
                         seriesDataService[3][1].value += parseInt(el.number);
                     } else {
                         seriesDataService[3][2].value += parseInt(el.number);
@@ -181,9 +181,9 @@ router.get("/", async function (req, res) {
                         seriesDataPro[4][0].value += parseInt(el.number);
                     }
                 } else {
-                    if (el.type == "寄养服务") {
+                    if (el.type == "寄养") {
                         seriesDataService[4][0].value += parseInt(el.number);
-                    } else if (el.type == "洗护服务") {
+                    } else if (el.type == "洗护") {
                         seriesDataService[4][1].value += parseInt(el.number);
                     } else {
                         seriesDataService[4][2].value += parseInt(el.number);
@@ -204,9 +204,9 @@ router.get("/", async function (req, res) {
                         seriesDataPro[5][0].value += parseInt(el.number);
                     }
                 } else {
-                    if (el.type == "寄养服务") {
+                    if (el.type == "寄养") {
                         seriesDataService[5][0].value += parseInt(el.number);
-                    } else if (el.type == "洗护服务") {
+                    } else if (el.type == "洗护") {
                         seriesDataService[5][1].value += parseInt(el.number);
                     } else {
                         seriesDataService[5][2].value += parseInt(el.number);
@@ -227,9 +227,9 @@ router.get("/", async function (req, res) {
                         seriesDataPro[6][0].value += parseInt(el.number);
                     }
                 } else {
-                    if (el.type == "寄养服务") {
+                    if (el.type == "寄养") {
                         seriesDataService[6][0].value += parseInt(el.number);
-                    } else if (el.type == "洗护服务") {
+                    } else if (el.type == "洗护") {
                         seriesDataService[6][1].value += parseInt(el.number);
                     } else {
                         seriesDataService[6][2].value += parseInt(el.number);
@@ -250,9 +250,9 @@ router.get("/", async function (req, res) {
                         seriesDataPro[7][0].value += parseInt(el.number);
                     }
                 } else {
-                    if (el.type == "寄养服务") {
+                    if (el.type == "寄养") {
                         seriesDataService[7][0].value += parseInt(el.number);
-                    } else if (el.type == "洗护服务") {
+                    } else if (el.type == "洗护") {
                         seriesDataService[7][1].value += parseInt(el.number);
                     } else {
                         seriesDataService[7][2].value += parseInt(el.number);
@@ -273,9 +273,9 @@ router.get("/", async function (req, res) {
                         seriesDataPro[8][0].value += parseInt(el.number);
                     }
                 } else {
-                    if (el.type == "寄养服务") {
+                    if (el.type == "寄养") {
                         seriesDataService[8][0].value += parseInt(el.number);
-                    } else if (el.type == "洗护服务") {
+                    } else if (el.type == "洗护") {
                         seriesDataService[8][1].value += parseInt(el.number);
                     } else {
                         seriesDataService[8][2].value += parseInt(el.number);
@@ -296,9 +296,9 @@ router.get("/", async function (req, res) {
                         seriesDataPro[9][0].value += parseInt(el.number);
                     }
                 } else {
-                    if (el.type == "寄养服务") {
+                    if (el.type == "寄养") {
                         seriesDataService[9][0].value += parseInt(el.number);
-                    } else if (el.type == "洗护服务") {
+                    } else if (el.type == "洗护") {
                         seriesDataService[9][1].value += parseInt(el.number);
                     } else {
                         seriesDataService[9][2].value += parseInt(el.number);
@@ -319,9 +319,9 @@ router.get("/", async function (req, res) {
                         seriesDataPro[10][0].value += parseInt(el.number);
                     }
                 } else {
-                    if (el.type == "寄养服务") {
+                    if (el.type == "寄养") {
                         seriesDataService[10][0].value += parseInt(el.number);
-                    } else if (el.type == "洗护服务") {
+                    } else if (el.type == "洗护") {
                         seriesDataService[10][1].value += parseInt(el.number);
                     } else {
                         seriesDataService[10][2].value += parseInt(el.number);
@@ -341,9 +341,9 @@ router.get("/", async function (req, res) {
                         seriesDataPro[11][0].value += parseInt(el.number);
                     }
                 } else {
-                    if (el.type == "寄养服务") {
+                    if (el.type == "寄养") {
                         seriesDataService[11][0].value += parseInt(el.number);
-                    } else if (el.type == "洗护服务") {
+                    } else if (el.type == "洗护") {
                         seriesDataService[11][1].value += parseInt(el.number);
                     } else {
                         seriesDataService[11][2].value += parseInt(el.number);
@@ -365,9 +365,9 @@ router.get("/", async function (req, res) {
                         seriesDataProQuter[0][2].value += parseInt(el.number);
                     }
                 } else {
-                    if (el.type == "寄养服务") {
+                    if (el.type == "寄养") {
                         seriesDataServiceQuter[0][0].value += parseInt(el.number);
-                    } else if (el.type == "洗护服务") {
+                    } else if (el.type == "洗护") {
                         seriesDataServiceQuter[0][1].value += parseInt(el.number);
                     } else {
                         seriesDataServiceQuter[0][2].value += parseInt(el.number);
@@ -388,9 +388,9 @@ router.get("/", async function (req, res) {
                         seriesDataProQuter[1][2].value += parseInt(el.number);
                     }
                 } else {
-                    if (el.type == "寄养服务") {
+                    if (el.type == "寄养") {
                         seriesDataServiceQuter[1][0].value += parseInt(el.number);
-                    } else if (el.type == "洗护服务") {
+                    } else if (el.type == "洗护") {
                         seriesDataServiceQuter[1][1].value += parseInt(el.number);
                     } else {
                         seriesDataServiceQuter[1][2].value += parseInt(el.number);
@@ -411,9 +411,9 @@ router.get("/", async function (req, res) {
                         seriesDataProQuter[2][2].value += parseInt(el.number);
                     }
                 } else {
-                    if (el.type == "寄养服务") {
+                    if (el.type == "寄养") {
                         seriesDataServiceQuter[2][0].value += parseInt(el.number);
-                    } else if (el.type == "洗护服务") {
+                    } else if (el.type == "洗护") {
                         seriesDataServiceQuter[2][1].value += parseInt(el.number);
                     } else {
                         seriesDataServiceQuter[2][2].value += parseInt(el.number);
@@ -434,9 +434,9 @@ router.get("/", async function (req, res) {
                         seriesDataProQuter[3][2].value += parseInt(el.number);
                     }
                 } else {
-                    if (el.type == "寄养服务") {
+                    if (el.type == "寄养") {
                         seriesDataServiceQuter[3][0].value += parseInt(el.number);
-                    } else if (el.type == "洗护服务") {
+                    } else if (el.type == "洗护") {
                         seriesDataServiceQuter[3][1].value += parseInt(el.number);
                     } else {
                         seriesDataServiceQuter[3][2].value += parseInt(el.number);
@@ -458,9 +458,9 @@ router.get("/", async function (req, res) {
                         seriesDataProYear[2].value += parseInt(el.number);
                     }
                 } else {
-                    if (el.type == "寄养服务") {
+                    if (el.type == "寄养") {
                         seriesDataServiceYear[0].value += parseInt(el.number);
-                    } else if (el.type == "洗护服务") {
+                    } else if (el.type == "洗护") {
                         seriesDataServiceYear[1].value += parseInt(el.number);
                     } else {
                         seriesDataServiceYear[2].value += parseInt(el.number);

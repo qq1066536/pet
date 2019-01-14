@@ -106,15 +106,18 @@
       <div v-if="shopOrsupplier.status == ''">
         <p>暂无审核消息。</p>
       </div>
+      <div v-else>
+        <p>暂无审核消息。</p>
+      </div>
     </el-dialog>
     <div>
       <el-table :data="users" style="width: 100%" ref="filterTable">
         <el-table-column prop="phone" label="手机号"></el-table-column>
         <el-table-column prop="password" label="密码"></el-table-column>
         <el-table-column prop="private" label="申请类型" :filters="[{ text: '供应商', value: '供应商' }, { text: '门店', value: '门店' }]" :filter-method="filterPrivate" filter-placement="bottom-end"></el-table-column>
-        <el-table-column prop="status" label="用户状态" :filters="[{ text: '已审核', value: '已审核' }, { text: '待审核', value: '待审核' }, { text: '已拒绝', value: '已拒绝' }]" :filter-method="filterStatus" filter-placement="bottom-end"></el-table-column>
+        <el-table-column prop="status" label="用户申请状态" :filters="[{ text: '已审核', value: '已审核' }, { text: '待审核', value: '待审核' }, { text: '已拒绝', value: '已拒绝' }]" :filter-method="filterStatus" filter-placement="bottom-end"></el-table-column>
         <el-table-column prop="account" label="账号情况" :filters="[{ text: '正常', value: '正常' }, { text: '封禁', value: '封禁' }]" :filter-method="filterAccount" filter-placement="bottom-end"></el-table-column>
-        <el-table-column label="申请信息">
+        <el-table-column label="审核信息">
           <template slot-scope="scope">
             <el-button size="mini" @click="see(scope.row._id)">查看</el-button>
           </template>
@@ -261,7 +264,7 @@ export default {
               status: "待审核",
               account: "正常"
             }
-          }).then(( ) => {
+          }).then(() => {
             this.dialogVisible = false;
             this.resetForm();
             this.setUsers();

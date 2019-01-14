@@ -59,7 +59,7 @@ export default {
         }
     },
     actions: {
-        setProducts: function ({ commit, state,rootState }, payload = { page: 1, row: 5 }) {
+        setProducts: function ({ commit,rootState }, payload = { page: 1, row: 5 }) {
             // let id = state.id
             let id = rootState.session._id||JSON.parse(window.localStorage.getItem("session"))._id;
             axios({
@@ -95,8 +95,8 @@ export default {
             })
         },
         updateProduct: function ({ commit, state, dispatch }) {
-            console.log(state.product)
-            let id = state.product._id
+            // console.log(state.product)
+            // let id = state.product._id
             delete state.product._id
             delete state.product.supplier
             axios({
@@ -111,6 +111,7 @@ export default {
         },
         addProduct: function ({ state, commit, dispatch,rootState }) {
             let id = rootState.session._id||JSON.parse(window.localStorage.getItem("session"))._id;
+            // console.log(id)
             axios({
                 url: "/supplier/" + id,
                 method: "post",

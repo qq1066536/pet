@@ -2,7 +2,17 @@ var express = require('express');
 var router = express.Router();
 const client = require("ykt-http-client");
 client.url("http://127.0.0.1:8080")
-//获取某供应商数据
+// 获取供应商信息
+router.get("/info",async (req,res)=>{
+    let {id}=req.query
+    console.log(id)
+    res.send(await client.get("/supplier",{
+        "submitType": "findJoin",
+        ref: "user",
+        "user.$id": id,
+    }))
+})
+//获取某供应商商品数据
 router.get("/", async (req, res) => {
     let { id, page, rows } = req.query
     // let data = await client.get(`/sup_products`, { submitType: "findJoin", ref: "supplier" })

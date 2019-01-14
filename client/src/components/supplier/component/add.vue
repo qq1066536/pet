@@ -56,7 +56,7 @@
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button @click="test(false)">取 消</el-button>
+                <el-button @click="setDialogVisible(false)">取 消</el-button>
                 <el-button type="primary" @click="test(false)">确 定</el-button>
             </div>
         </el-dialog>
@@ -95,7 +95,7 @@ export default {
             if (value) {
                 this.getProduct();
             }
-            if (this.title.name == "新增" && value) {
+            if (this.title.name == "新增") {
                 this.addProduct();
             } else {
                 console.log(this.title);

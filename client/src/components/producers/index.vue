@@ -1,38 +1,28 @@
 <template>
   <div>
-    <el-button
-      type="primary"
-      v-bind:class="{upBtn:isActive,'upBtnTo': hasError}"
-      plain
-      @click="dialogVisible = true"
-    >修改信息</el-button>
-    <span v-if="producer.status == 0" class="red">【信息审核中...】</span>
-    <div class="mainLayout">
-      <el-form label-width="100px" style="width:400px">
-        <el-form-item label="公司名称:">{{producer.name}}</el-form-item>
-        <el-form-item label="公司简介:">{{producer.desc}}</el-form-item>
-        <el-form-item label="法定代表人:">{{producer.corporate}}</el-form-item>
-        <el-form-item label="成立日期:">{{producer.date}}</el-form-item>
-        <el-form-item label="登记机关:">{{producer.office}}</el-form-item>
-        <el-form-item label="经营范围:">{{producer.management}}</el-form-item>
-      </el-form>
-      <el-form label-width="100px" style="width:400px">
-        <el-form-item label="注册资本:">{{producer.capital}}</el-form-item>
-        <el-form-item label="信用代码:">{{producer.No}}</el-form-item>
-        <el-form-item label="所在地址:">{{producer.addr}}</el-form-item>
-        <el-form-item label="电话号码:">{{producer.tel}}</el-form-item>
-        <el-form-item label="公司网站:">{{producer.website}}</el-form-item>
-        <el-form-item label="营业执照:">
-          <img
-            class="films-img"
-            v-bind:src="'http://127.0.0.1:3000/upload/'+producer.license"
-            style="width:240px;height:160px"
-            alt
-          >
-        </el-form-item>
-      </el-form>
-    </div>
-    <!-- <p v-bind:class="{auditor:isActive,'auditoring': hasError}">资料待平台管理员审核中······</p> -->
+    <el-table :data="producers" style="width: 100%">
+      <el-table-column prop="name" label="公司名称" width="120"></el-table-column>
+      <el-table-column prop="desc" label="公司简介" width="120"></el-table-column>
+      <el-table-column prop="corporate" label="法定代表人" width="120"></el-table-column>
+      <el-table-column prop="date" label="成立日期" width="120"></el-table-column>
+      <el-table-column prop="office" label="登记机关" width="120"></el-table-column>
+      <el-table-column prop="management" label="经营范围" width="120"></el-table-column>
+      <el-table-column prop="capital" label="注册资本" width="120"></el-table-column>
+      <el-table-column prop="No" label="信用代码" width="120"></el-table-column>
+      <el-table-column prop="addr" label="所在地址" width="120"></el-table-column>
+      <el-table-column prop="tel" label="电话号码" width="120"></el-table-column>
+      <el-table-column prop="website" label="公司网站" width="120"></el-table-column>
+      <el-table-column prop="license" label="营业执照" width="120">
+        <template slot-scope="scope">
+          <img :src="'http://127.0.0.1:3000/upload/'+scope.row.license" min-width="70" height="70">
+        </template>
+      </el-table-column>
+      <el-table-column label="操作">
+        <template slot-scope="scope">
+          <el-button size="mini" type="primary" @click="showById(scope.row._id)">修改</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
     <!-- 修改板块 -->
     <el-dialog title="修改供应商信息" :visible.sync="dialogVisible" width="30%">
       <el-form :model="producer" status-icon ref="updateForm" label-width="100px">
@@ -91,19 +81,16 @@
         <el-button type="primary" @click="updateInformation">确 定</el-button>
       </span>
     </el-dialog>
-    <el-dialog title="提示" :visible.sync="centerDialogVisible" width="30%" center>
-      <span style="color:red;font-size: 20px;">资料待平台管理员审核中······</span>
-      <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="update">确 定</el-button>
-      </span>
-    </el-dialog>
+    <span v-if="producer.status == 0" class="red">【信息审核中...】</span>
   </div>
 </template>
 <script>
 import axios from "axios";
+
 export default {
   data() {
     return {
+      producers: [],
       producer: {},
       dialogVisible: false,
       isActive: true,
@@ -112,43 +99,43 @@ export default {
       userId: ""
     };
   },
+
   created() {
-    // axios({
-    //   method:"get",
-    //   url:"/getSession"
-    // }).then(({data})=>{
-    //   this.userId=data._id
-    // })
-    this.auditor();
+    this.getuserId();
   },
-  computed: {
-    id: function() {
-      return "5c32ef8a6c9da2c6832b81fe";
-    }
-  },
+
   methods: {
-    auditor() {
-      axios({
-        method: "get",
-        url: "/supplier/info/" + this.id //(this.userId)
-      }).then(({ data }) => {
-        this.show();
-        /* if (data.status == "已审核") {
-          this.show();
-        } else {
-          this.centerDialogVisible = true;
-        } */
-      });
-    },
     update() {
       (this.centerDialogVisible = false),
         (this.isActive = false),
         (this.hasError = true);
     },
+
     show() {
       axios({
         method: "get",
-        url: "/supplier/info/" + this.id //(this.userId)
+        url: "/supplier/info",
+        params: {
+          id: this.userId
+        }
+      }).then(({ data }) => {
+        this.producers = data;
+      });
+    },
+    getuserId() {
+      axios({
+        method: "get",
+        url: "/users/getSession"
+      }).then(({ data }) => {
+        this.userId = data._id;
+        this.show()
+      });
+    },
+    showById(id) {
+      this.dialogVisible = true;
+      axios({
+        method: "get",
+        url: "/supplier/supplierInfo/" + id
       }).then(({ data }) => {
         this.producer = data;
       });
@@ -167,7 +154,6 @@ export default {
         addr,
         tel,
         website,
-
         license
       } = this.producer;
       axios({
@@ -189,8 +175,7 @@ export default {
           license
         }
       }).then(() => {
-        // this.show();
-        this.auditor();
+        this.show();
       });
     },
     handleAvatarSuccess(res, file) {
@@ -206,45 +191,12 @@ export default {
   }
 };
 </script>
-
-
 <style scoped>
-.mainLayout {
-  display: flex;
-}
-.avatar-uploader .el-upload {
-  border: 1px dashed #d9d9d9;
-  border-radius: 6px;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-}
-.avatar-uploader .el-upload:hover {
-  border-color: #409eff;
-}
-.avatar-uploader-icon {
-  font-size: 28px;
-  color: #8c939d;
-  width: 178px;
-  height: 178px;
-  line-height: 178px;
-  text-align: center;
-}
 .avatar {
-  width: 178px;
-  height: 178px;
-  display: block;
-}
-.upBtnTo {
-  font-size: 30px;
-  display: none;
-}
-.upBtn {
-  display: block;
-  color: red;
+  width: 160px;
+  height: 100px;
 }
 .red {
   color: tomato;
 }
-</style>
-
+</style> 

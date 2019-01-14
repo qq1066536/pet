@@ -20,7 +20,7 @@ import "echarts/lib/component/title";
 import "echarts/lib/component/legend";
 import axios from "axios";
 import { createNamespacedHelpers, mapMutations } from "vuex";
-const { mapActions, mapState } = createNamespacedHelpers("salesModule");
+const { mapActions, mapState } = createNamespacedHelpers("productsMoudles");
 export default {
   data() {
     return {
@@ -30,34 +30,44 @@ export default {
       zoom: 0
     };
   },
-  created() {
+  mounted() {
     this.$nextTick(() => {
       this.showChart();
     });
+    this.getSession();
+    // console.log('商店id',this.shopId);
+    // console.log('shopId',);
     this.getTime();
+    // this.getOrders()
+    console.log()
   },
   methods: {
-    ...mapActions(["getTime"]),
+    ...mapActions(["getTime","getSession"]),
     showChart() {
-      console.log(this.getTime());
       let myChart = echarts.init(this.$refs.myChart);
       if (this.type == "商品类销售额统计") {
         axios({
           url: "/salePro",
-          method: "get"
-        }).then(res => {
-          this.salesAxisData = res.data.axisData;
-          this.salesSeriesData = res.data.seriesData;
+          method: "get",
+          params:{
+            trueTime:this.trueTime,
+            sessionId:JSON.parse(window.localStorage.getItem("session"))._id
+          }
+        }).then(({data}) => {
+          console.log("data",data)
+          this.salesAxisData = data.axisData;
+          this.salesSeriesData = data.seriesData;
           myChart.setOption(this.proOptions, true);
         });
       }
     }
   },
   computed: {
+    ...mapState(["trueTime",]),
     proOptions() {
       return {
         title: {
-          text: "商品类销售额统计"
+          text: "近6个月商品类销售额统计"
         },
         tooltip: {
           trigger: "axis",
@@ -68,17 +78,7 @@ export default {
         },
         legend: {
           x: "right",
-          data: [
-            "狗粮",
-            "猫粮",
-            "狗盆",
-            "猫盆",
-            "",
-            "狗绳",
-            "小狗棉袄",
-            "猫屎铲",
-            "其他"
-          ]
+          data: ["狗粮", "猫粮", "其他"]
         },
         xAxis: {
           data: this.salesAxisData
@@ -89,7 +89,7 @@ export default {
             name: "销售额",
             type: "bar",
             data: this.salesSeriesData
-          }
+          },
         ]
       };
     }
@@ -98,4 +98,8 @@ export default {
 </script>
 
 <style>
+.total{
+  width: 1000px;
+  height: 500px;
+}
 </style>

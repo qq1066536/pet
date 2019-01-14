@@ -12,7 +12,9 @@ export default {
             type: "",
             value: ""
         },
-        shopId: ""
+        shopId: "",
+        trueTime: "",
+        orders: []
     },
     getters: {},
     mutations: {
@@ -38,10 +40,16 @@ export default {
             console.log(shopId)
             state.shopId = shopId;
         },
+        setTrueTime(state, trueTime) {
+            state.trueTime = trueTime
+        },
+        setOrders(state, orders) {
+            state.orders = orders
+        },
     },
 
     actions: {
-        getSession({ commit, state }) {
+        getSession({ commit, state,dispatch }) {
             axios({
                 method: "get",
                 url: "/users/getSession"
@@ -59,6 +67,7 @@ export default {
                     window.localStorage.setItem("shopId",JSON.stringify(data[0]._id))
                     // commit("setShop", data[0]);
                     // console.log("shop", data)
+                    dispatch("setProducts")
                     console.log("shopId", data[0]._id)
                 })
             });
@@ -72,7 +81,7 @@ export default {
                 commit("setProduct", data);
             })
         },
-        setProducts({ commit, state, dispatch}, payloda = { page: 1, rows: 5 }) {
+        setProducts({ commit, state}, payloda = { page: 1, rows: 5 }) {
             let id = state.shopId || JSON.parse(window.localStorage.getItem("shopId"));
             axios({
                 method: "get",
@@ -81,8 +90,8 @@ export default {
             }).then(({ data }) => {
                 // console.log(state.id)
                 console.log(state.shopId)
-                console.log(data)
-                dispatch("setProducts")
+                // console.log(data)
+                // dispatch("setSupProducts")
                 commit("setProducts", data.rows);
                 commit("setPagition", data)
             });
@@ -100,5 +109,29 @@ export default {
                 commit("setPagition", data)
             });
         },
+        getTime({ commit }) {
+            var nowtime = new Date();
+            var year = nowtime.getFullYear();
+            // var month = (nowtime.getMonth() + 1).toString().replace(/^[0-9]{1}$/,"0"+(nowtime.getMonth() + 1));
+            var month = (nowtime.getMonth() + 1).toString().replace(/^[0-9]{1}$/, nowtime.getMonth() + 1);
+            var day = (nowtime.getDate()).toString().replace(/^[0-9]{1}$/, nowtime.getDate());
+            commit("setTrueTime", year + '/' + month + '/' + day);
+        },
+        //获取所有订单
+        // getOrders({ commit, state }) {
+        //     console.log('商店id',state.shopId)
+        //     axios({
+        //         method: "get",
+        //         url: "/salePro",
+        //         params: {
+        //             trueTime: state.trueTime,
+        //             sessionId:window.localStorage.getItem("session._id"),
+        //         }
+        //     }).then(({ data }) => {
+        //         commit("setOrders",data)
+        //         console.log("订单",data)
+        //         console.log(state.trueTime, state.shopId)
+        //     })
+        // }
     }
 }

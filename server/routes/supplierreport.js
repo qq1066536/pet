@@ -24,9 +24,10 @@ router.get("/allorderBySupplier/:id", async (req, res) => {
     let orders = await client.get("/order", { submitType: "findJoin", ref: "sop_procducts" })
     // 格式化时间
     let list = _.reduce(orders, function (result, value, key) {
-        value.buytime = value.buytime.split(" ")[0].split("-")
-        value.buytime.pop()
-        value.buytime = value.buytime.join("")
+        console.log(value.buyTime)
+        value.buyTime = value.buyTime.split(" ")[0].split("-")
+        value.buyTime.pop()
+        value.buyTime = value.buyTime.join("")
         result.push(value)
         return result
     }, [])

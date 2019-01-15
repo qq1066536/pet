@@ -208,7 +208,7 @@ export default {
               method: "put",
               url: "/platform/putShop/" + id,
               data: { account: "正常" }
-            }).then(({}) => {
+            }).then(() => {
               this.setStores();
               this.$message({
                 type: "success",
@@ -242,7 +242,7 @@ export default {
               method: "put",
               url: "/platform/putShop/" + id,
               data: { account: "关闭" }
-            }).then(({ data }) => {
+            }).then(() => {
               this.setStores();
               this.$message({
                 type: "success",
@@ -293,7 +293,7 @@ export default {
     },
     //上传图片
     //门店图片
-    handleAvatarSuccessShop(res, file) {
+    handleAvatarSuccessShop(res) {
       this.addShopForm.img_head = "/upload/" + res;
     },
     beforeAvatarUploadShop(file) {
@@ -304,7 +304,7 @@ export default {
       }
     },
     //营业执照图片
-    handleAvatarSuccessBus(res, file) {
+    handleAvatarSuccessBus(res) {
       this.addShopForm.business_lic = "/upload/" + res;
     },
     beforeAvatarUploadBus(file) {
@@ -341,7 +341,7 @@ export default {
               status: "待审核",
               account: "正常"
             }
-          }).then(({}) => {
+          }).then(() => {
             this.setStores();
             this.resetForm();
             this.addDialogVisible = false;

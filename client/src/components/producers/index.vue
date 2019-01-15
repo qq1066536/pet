@@ -81,7 +81,7 @@
         <el-button type="primary" @click="updateInformation">确 定</el-button>
       </span>
     </el-dialog>
-    <span v-if="producer.status == 0" class="red">【信息审核中...】</span>
+    <span v-if="producer.status == '待审核'" class="red">【信息审核中...】</span>
   </div>
 </template>
 <script>
@@ -171,7 +171,7 @@ export default {
           addr,
           tel,
           website,
-          status: "0",
+          status: "待审核",
           license
         }
       }).then(() => {

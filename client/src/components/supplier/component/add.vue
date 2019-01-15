@@ -82,7 +82,7 @@ export default {
         ...mapMutations(["setDialogVisible","setProduct"]),
         ...mapActions(["getProduct","updateProduct","addProduct","setProducts"]),
         test(value) {
-            console.log(this.title)
+            // console.log(this.title)
             if (value) {
                 this.getProduct();
             }

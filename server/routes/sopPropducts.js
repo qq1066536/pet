@@ -63,14 +63,14 @@ router.get('/', async function (req, res) {
   if (type) {
     searchObj = { [type]: value }//如果name不等于null,将name值,输入框的值传入对象;
   }
-  console.log(req.query)
+  // console.log(req.query)
   let data = await client.get("/sop_procducts", {
     page, rows, ...searchObj,
     submitType: "findJoin",
     ref: "shop",
     "shop.$id": id
   });
-  console.log(data)
+  // console.log(data)
   res.send(data);
 });
 
@@ -81,14 +81,14 @@ router.get('/sup', async function (req, res) {
   if (type) {
     searchObj = { [type]: value }//如果name不等于null,将name值,输入框的值传入对象;
   }
-  console.log(req.query)
+  // console.log(req.query)
   let data = await client.get("/sup_products", {
     page, rows, ...searchObj,
     submitType: "findJoin",
     ref: "supplier",
     "supplier.$id": supId
   });
-  console.log(data)
+  // console.log(data)
   res.send(data);
 });
 module.exports = router;

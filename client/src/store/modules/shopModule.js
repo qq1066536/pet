@@ -18,7 +18,7 @@ export default {
                 method: "get",
                 url: "/shop/" + id
             }).then(({ data }) => {
-                console.log("门店",data)
+                // console.log("门店",data)
                 commit("setShop", data);
             })
         },

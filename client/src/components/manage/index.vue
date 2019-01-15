@@ -43,7 +43,7 @@
             </el-menu-item-group>
           </el-submenu>
 
-          <el-submenu index="2"  v-if="session.private=='门店'">
+          <el-submenu index="2" v-if="session.private=='门店'">
             <template slot="title">
               <i class="el-icon-setting"></i>
               <span>门面管理</span>
@@ -80,7 +80,7 @@
             </el-menu-item-group>
           </el-submenu>
 
-          <el-submenu index="3"  v-if="session.private=='供应商'">
+          <el-submenu index="3" v-if="session.private=='供应商'">
             <template slot="title">
               <i class="el-icon-setting"></i>
               <span>供应商管理</span>
@@ -111,12 +111,11 @@
 
 <script>
 import axios from "axios";
-import {mapState, mapActions} from "vuex"
-export default {  
-
+import { mapState, mapActions } from "vuex";
+export default {
   data() {
     return {
-      user: ""
+      // user: ""
     };
   },
   computed: {
@@ -127,7 +126,9 @@ export default {
   created() {
     this.getSession();
   },
-  computed:{...mapState(["session"])},
+  computed: {
+    ...mapState(["session"])
+  },
   methods: {
     ...mapActions(["getSession"]),
     removeSession() {
@@ -140,7 +141,6 @@ export default {
     }
   }
 };
-
 </script>
 
 <style scoped>
@@ -149,13 +149,13 @@ export default {
   color: #fff;
 }
 .container {
-    height: 100%;
+  height: 100%;
 }
 .menu {
-    height: 100%;
+  height: 100%;
 }
 .user {
-    float: right;
-    font-size: 16px;
+  float: right;
+  font-size: 16px;
 }
 </style>

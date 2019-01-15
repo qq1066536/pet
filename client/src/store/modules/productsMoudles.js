@@ -42,7 +42,7 @@ export default {
                 method: "get",
                 url: "/sopPropducts/" + id
             }).then(({ data }) => {
-                console.log(data)
+                // console.log(data)
                 commit("setProduct", data);
             })
         },
@@ -52,20 +52,20 @@ export default {
                 url: "/sopPropducts",
                 params: { id: state.id, ...payloda }
             }).then(({ data }) => {
-                console.log(state.id)
-                console.log(data)
+                // console.log(state.id)
+                // console.log(data)
                 commit("setProducts", data.rows);
                 commit("setPagition", data)
             });
         },
-        setSupProducts({ commit, state }, payloda = { page: 1, rows: 5 }) {
+        setSupProducts({ commit }, payloda = { page: 1, rows: 5 }) {
             axios({
                 method: "get",
                 url: "/sopPropducts/productsAll",
                 params: { ...payloda }
             }).then(({ data }) => {
-                console.log(state.supId)
-                console.log(data)
+                // console.log(state.supId)
+                // console.log(data)
                 commit("setSupProducts", data.rows);
                 commit("setPagition", data)
             });

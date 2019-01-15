@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-table :data="producers" style="width: 100%">
+    <el-table :cell-style="cellStyle" :data="producers" style="width: 100%">
       <el-table-column label="信息状态" prop="status"></el-table-column>
       <el-table-column prop="name" label="公司名称" width="120"></el-table-column>
       <el-table-column prop="desc" label="公司简介" width="120"></el-table-column>
@@ -89,6 +89,7 @@
 import axios from "axios";
 
 export default {
+
   data() {
     return {
       producers: [],
@@ -106,6 +107,13 @@ export default {
   },
 
   methods: {
+cellStyle:function({column}){
+ if(column.label === "信息状态"){
+                    return 'color:red'
+                }else{
+                    return ''
+                }
+            },
     update() {
       (this.centerDialogVisible = false),
         (this.isActive = false),

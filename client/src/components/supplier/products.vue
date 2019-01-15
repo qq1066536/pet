@@ -1,6 +1,7 @@
 <template>
     <div>
         <el-button plain @click="add">新增</el-button>
+        <!-- {{products}} -->
         <Add></Add>
         <el-table
             :data="products"
@@ -19,7 +20,12 @@
             <el-table-column prop="valid_date" label="有效期"></el-table-column>
             <el-table-column prop="price" label="价格"></el-table-column>
             <el-table-column prop="desc" label="介绍"></el-table-column>
-            <el-table-column prop="img" label="图片"></el-table-column>
+            <el-table-column prop="img" label="图片">
+                <template slot-scope="scope">
+                    <!-- {{scope.row._id}} -->
+                    <img v-for="src in scope.row.img.split(',')" :src="src" min-width="70" height="70">
+                </template>
+            </el-table-column>
             <el-table-column prop="inventory" label="库存"></el-table-column>
             <el-table-column label="操作">
                 <template slot-scope="scope">
@@ -38,7 +44,7 @@ const { mapState, mapActions, mapMutations } = createNamespacedHelpers(
     "SupProducts"
 );
 import Add from "./component/add.vue";
-import axios from "axios"
+import axios from "axios";
 export default {
     components: {
         Add
@@ -48,28 +54,28 @@ export default {
         this.setProducts();
     },
     computed: {
-        ...mapState(["id", "products","title"])
+        ...mapState(["id", "products", "title"])
     },
     methods: {
-        ...mapMutations(["setDialogVisible","setTitle", "getPid"]),
+        ...mapMutations(["setDialogVisible", "setTitle", "getPid"]),
         ...mapActions(["setProducts", "getProduct"]),
         updateProduct(id) {
-            console.log(id)
-            this.setTitle("修改")
+            console.log(id);
+            this.setTitle("修改");
             this.getPid(id);
             this.getProduct();
             this.setDialogVisible(true);
         },
-        add(){
-            this.setTitle("新增")
-            this.setDialogVisible(true)
+        add() {
+            this.setTitle("新增");
+            this.setDialogVisible(true);
         },
         deleteProduct(id) {
             axios({
                 method: "delete",
                 url: `/supplier/${id}`
             }).then(({ data }) => {
-                this.setProducts()
+                this.setProducts();
             });
         }
     }

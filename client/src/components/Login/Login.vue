@@ -81,9 +81,6 @@ export default {
   width: 500px;
   margin: 0 auto 0 25%;
 }
-.position {
-  /* padding-top: 30px; */
-}
 .clearfix span {
   font-size: 30px;
 }

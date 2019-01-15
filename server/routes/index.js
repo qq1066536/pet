@@ -37,4 +37,7 @@ router.post('/upload', function (req, res) {
   })
 });
 
+router.get('/getSession', function (req, res) {
+  res.send(req.session.name);
+});
 module.exports = router;

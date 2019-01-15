@@ -23,7 +23,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["id"])
+    ...mapState(["shopId"])
   },
   methods: {
     ...mapMutations(["setSearch"]),
@@ -36,12 +36,12 @@ export default {
         rows: 5,
         type: this.type,
         value: this.value,
-        id:this.id
+        shopId:this.shopId
       });
       this.setSearch({
         type: this.type,
         value: this.value,
-         id:this.id
+         shopId:this.shopId
       });
     }
   }

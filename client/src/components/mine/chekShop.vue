@@ -20,30 +20,24 @@
   </span>
 </template>
 <script>
-import { createNamespacedHelpers } from "vuex";
-import axios from "axios";
-const { mapActions, mapState } = createNamespacedHelpers("shopModule");
+import { createNamespacedHelpers} from "vuex";
+// import axios from "axios";
+const { mapActions, mapState,mapMutations } = createNamespacedHelpers("shopModule");
 export default {
   data() {
     return {
       dialogVisible: false,
-      shop: {}
     };
   },
   computed: {
-    ...mapState(["id"])
+    ...mapState(["shopId", "shop"])
   },
   methods: {
-    ...mapActions(["setShop"])
+    ...mapMutations(["setShop"]),
+    ...mapActions(["getSession"])
   },
   created() {
-    axios({
-      method: "get",
-      url: "/shop/" +"5c36e08c7a21cd0678571c8f"
-    }).then(({ data }) => {
-      this.shop = data;
-      console.log(data)
-    });
+    this.getSession();
   }
 };
 </script>

@@ -72,10 +72,10 @@ export default {
 <style scoped>
 .box {
   width: 100%;
-  height: 100%;
+  height: 78%;
   padding-top: 10%;
   background: url("../../assets/1.jpg") no-repeat;
-  background-size: cover;
+  background-size: contain;
 }
 .box-card {
   width: 500px;

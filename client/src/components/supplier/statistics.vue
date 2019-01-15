@@ -180,7 +180,7 @@ export default {
                         for (let i in data) {
                             if (Object.keys(data[i])[0] == allmonth[j]) {
                                 // console.log(data[i][allmonth[j]]);
-                                console.log(j, i);
+                                // console.log(j, i);
 
                                 arr1.push(data[i][allmonth[j]]);
                                 // continue
@@ -196,11 +196,11 @@ export default {
                     // console.log(that)
                     that.list.xAxis = [].concat(allmonth);
                     that.list.yAxis = [].concat(arr1);
-                    console.log(that.list.yAxis);
+                    // console.log(that.list.yAxis);
                     myChart.setOption(this.echartOption, true);
                 });
             });
-            console.log(this.list);
+            // console.log(this.list);
         }
     }
 };

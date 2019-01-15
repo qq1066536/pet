@@ -37,7 +37,7 @@
           <el-input v-model="regForm.city"></el-input>
         </el-form-item>-->
         <el-form-item label="所在城市" prop="city">
-          <!-- <el-input v-model="addForm.city" clearable :disabled="false"></el-input> -->
+          <!-- <el-input v-model="addForm.city" clearable :disabled></el-input> -->
           <el-cascader expand-trigger="hover" :options="citys" v-model="regForm.city"></el-cascader>
         </el-form-item>
         <el-form-item label="法人:" prop="legal_person">

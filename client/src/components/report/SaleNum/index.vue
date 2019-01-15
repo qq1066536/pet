@@ -9,8 +9,12 @@
       <span class="demonstration">请选择年份:</span>
       <el-date-picker v-model="value" type="year" placeholder="选择年份" @change="chooseYear"></el-date-picker>
     </div>
-    <el-radio class="block" v-model="radio" label="按季度显示">按季度显示</el-radio>
-    <el-radio v-model="radio" label="按年显示">按年显示</el-radio>
+
+    <el-radio-group v-model="radio" @change="showBy" class="block">
+      <el-radio label="按月份显示">按月份显示</el-radio>
+      <el-radio label="按季度显示">按季度显示</el-radio>
+      <el-radio label="按年份显示">按年份显示</el-radio>
+    </el-radio-group>
     <div id="saleNum" class="total" ref="saleNum"></div>
   </div>
 </template>
@@ -32,7 +36,7 @@ export default {
   data() {
     return {
       type: "店铺商品销量统计",
-      radio: "",
+      radio: "按月份显示",
       value: new Date(),
       xAxis: [],
       seriesDataPro: [],
@@ -69,6 +73,10 @@ export default {
             this.xAxis = data.axisDataQuarter;
             this.seriesDataPro = data.seriesDataProQuter;
             myChart.setOption(this.proQuterOption, true);
+          } else if (this.radio == "按年份显示") {
+            this.seriesDataProYear = data.seriesDataProYear;
+            this.seriesDataServiceYear = data.seriesDataServiceYear;
+            myChart.setOption(this.pieOption, true);
           } else {
             this.xAxis = data.axisDataMonth;
             this.seriesDataPro = data.seriesDataPro;
@@ -90,6 +98,10 @@ export default {
             this.xAxis = data.axisDataQuarter;
             this.seriesDataService = data.seriesDataServiceQuter;
             myChart.setOption(this.serQuterOption, true);
+          } else if (this.radio == "按年份显示") {
+            this.seriesDataProYear = data.seriesDataProYear;
+            this.seriesDataServiceYear = data.seriesDataServiceYear;
+            myChart.setOption(this.pieOption, true);
           } else {
             this.xAxis = data.axisDataMonth;
             this.seriesDataService = data.seriesDataService;
@@ -101,6 +113,9 @@ export default {
     },
     chooseYear(value) {
       this.value = new Date(value);
+      this.showRep();
+    },
+    showBy() {
       this.showRep();
     }
   },
@@ -144,7 +159,7 @@ export default {
             type: "bar",
             stack: "食品",
             barWidth: 10,
-            color: "#61a0a8",
+            color: "#e7bcf3",
             data: [
               this.seriesDataPro[0][1].value,
               this.seriesDataPro[1][1].value,
@@ -165,7 +180,7 @@ export default {
             type: "bar",
             stack: "食品",
             barWidth: 10,
-            color: "#d48265",
+            color: "#ff9f7f",
             data: [
               this.seriesDataPro[0][0].value,
               this.seriesDataPro[1][0].value,
@@ -185,7 +200,7 @@ export default {
             name: "其他",
             type: "bar",
             barWidth: 10,
-            color: "#91c7ae",
+            color: "#ffdb5c",
             data: [
               this.seriesDataPro[0][2].value,
               this.seriesDataPro[1][2].value,
@@ -243,7 +258,7 @@ export default {
             type: "bar",
             barWidth: 10,
             stack: "服务",
-            color: "#61a0a8",
+            color: "#37a2da",
             data: [
               this.seriesDataService[0][0].value,
               this.seriesDataService[1][0].value,
@@ -264,7 +279,7 @@ export default {
             type: "bar",
             barWidth: 10,
             stack: "服务",
-            color: "#d48265",
+            color: "#8378ea",
             data: [
               this.seriesDataService[0][1].value,
               this.seriesDataService[1][1].value,
@@ -284,7 +299,7 @@ export default {
             name: "其他",
             type: "bar",
             barWidth: 10,
-            color: "#91c7ae",
+            color: "#e7bcf3",
             data: [
               this.seriesDataService[0][2].value,
               this.seriesDataService[1][2].value,
@@ -342,7 +357,7 @@ export default {
             type: "bar",
             stack: "食品",
             barWidth: 10,
-            color: "#61a0a8",
+            color: "#8378ea",
             data: [
               this.seriesDataPro[0][1].value,
               this.seriesDataPro[1][1].value,
@@ -355,7 +370,7 @@ export default {
             type: "bar",
             stack: "食品",
             barWidth: 10,
-            color: "#d48265",
+            color: "#e7bcf3",
             data: [
               this.seriesDataPro[0][0].value,
               this.seriesDataPro[1][0].value,
@@ -367,7 +382,7 @@ export default {
             name: "其他",
             type: "bar",
             barWidth: 10,
-            color: "#91c7ae",
+            color: "#fb7293",
             data: [
               this.seriesDataPro[0][2].value,
               this.seriesDataPro[1][2].value,
@@ -417,7 +432,7 @@ export default {
             type: "bar",
             barWidth: 10,
             stack: "服务",
-            color: "#61a0a8",
+            color: "#ff9f7f",
             data: [
               this.seriesDataService[0][0].value,
               this.seriesDataService[1][0].value,
@@ -430,7 +445,7 @@ export default {
             type: "bar",
             barWidth: 10,
             stack: "服务",
-            color: "#d48265",
+            color: "#ffdb5c",
             data: [
               this.seriesDataService[0][1].value,
               this.seriesDataService[1][1].value,
@@ -442,7 +457,7 @@ export default {
             name: "其他",
             type: "bar",
             barWidth: 10,
-            color: "#91c7ae",
+            color: "#9fe6b8",
             data: [
               this.seriesDataService[0][2].value,
               this.seriesDataService[1][2].value,
@@ -473,11 +488,12 @@ export default {
 
         visualMap: {
           show: false,
-          min: 80,
-          max: 600,
+          min: 0,
+          max: 10,
           inRange: {
-            colorLightness: [0, 1]
-          }
+            colorLightness: [0.5, 1]
+          },
+          color:['#8378ea','#e7bcf3','#fb7293','#ff9f7f','#ffdb5c','#9fe6b8','#37a2da']
         },
         series: [
           {
@@ -490,8 +506,8 @@ export default {
               { value: this.seriesDataProYear[1].value, name: "猫粮" },
               {
                 value:
-                  this.seriesDataProYear[2].value +
-                  this.seriesDataServiceYear[2].value,
+                  parseInt(this.seriesDataProYear[2].value) +
+                  parseInt(this.seriesDataServiceYear[2].value),
                 name: "其他"
               },
               { value: this.seriesDataServiceYear[0].value, name: "寄养服务" },
@@ -519,7 +535,7 @@ export default {
             },
             itemStyle: {
               normal: {
-                color: "#c23531",
+                // color: "#c23531",
                 shadowBlur: 200,
                 shadowColor: "rgba(0, 0, 0, 0.5)"
               }
@@ -528,7 +544,7 @@ export default {
             animationType: "scale",
             animationEasing: "elasticOut",
             animationDelay: function(idx) {
-              return Math.random() * 200;
+              return Math.random(idx) * 200;
             }
           }
         ]

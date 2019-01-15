@@ -86,7 +86,7 @@ export default {
             })
         },
         setProducts({ commit, state}, payloda = { page: 1, rows: 5 }) {
-            console.log(state.shopId || JSON.parse(window.localStorage.getItem("shopId"))._id)
+            // console.log(state.shopId || JSON.parse(window.localStorage.getItem("shopId"))._id)
             let id = state.shopId || JSON.parse(window.localStorage.getItem("shopId"))._id;
             axios({
                 method: "get",
@@ -118,9 +118,9 @@ export default {
             var nowtime = new Date();
             var year = nowtime.getFullYear();
             // var month = (nowtime.getMonth() + 1).toString().replace(/^[0-9]{1}$/,"0"+(nowtime.getMonth() + 1));
-            var month = (nowtime.getMonth() + 1).toString().replace(/^[0-9]{1}$/, nowtime.getMonth() + 1);
-            var day = (nowtime.getDate()).toString().replace(/^[0-9]{1}$/, nowtime.getDate());
-            commit("setTrueTime", year + '/' + month + '/' + day);
+            var month = (nowtime.getMonth() + 1).toString().replace(/^[0-9]{2}$/, nowtime.getMonth() + 1);
+            var day = (nowtime.getDate()).toString().replace(/^[0-9]{2}$/, nowtime.getDate());
+            commit("setTrueTime", year + '-' + month + '-' + day);
         },
         //获取所有订单
         // getOrders({ commit, state }) {

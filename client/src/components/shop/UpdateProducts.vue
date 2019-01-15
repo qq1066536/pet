@@ -79,6 +79,7 @@ const { mapActions, mapMutations, mapState } = createNamespacedHelpers(
 export default {
   data() {
     return {
+      img:[],
       dialogImageUrl: "",
       dialogVisible: false
     };
@@ -118,6 +119,7 @@ export default {
         img,
         number
       } = this.product;
+      this.img=this.img.concat(img)
       //   console.log("图片数组", this.product.img)
       axios({
         method: "put",
@@ -137,7 +139,7 @@ export default {
           No,
           desc,
           price,
-          img,
+          img:this.img,
           number
         }
       }).then(() => {
@@ -167,7 +169,8 @@ export default {
     //   // console.log(file);
     // },
     handleAvatarSuccess(res) {
-      this.img.push("http://127.0.0.1:3000/upload/" + res);
+      console.log(Array.isArray(this.img))
+     this.img.push({ url: "/upload/" + res });
       //  console.log("tupian",this.img)
     }
   }

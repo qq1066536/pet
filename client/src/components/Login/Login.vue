@@ -1,7 +1,7 @@
 <template>
 <div class="box">
   <el-card class="box-card">
-    <div slot="header" class="clearfix position">
+    <div slot="header" class="clearfix">
       <span>欢迎登录爱宠邦后台管理系统</span>
     </div>
     <el-form :model="lgForm" status-icon :rules="rules" ref="lgForm" label-width="100px">
@@ -79,10 +79,7 @@ export default {
 }
 .box-card {
   width: 500px;
-  margin: 0 auto;
-}
-.position {
-  padding-top: 30px;
+  margin: 0 auto 0 20%;
 }
 .clearfix span {
   font-size: 30px;

@@ -7,12 +7,12 @@ client.url("127.0.0.1:8080");
 // 店铺所有商品近6个月的月销售额统计
 router.get('/', async function (req, res) {
     let { trueTime, sessionId } = req.query;
-    console.log("trueTime", trueTime)
-    console.log("Id", sessionId)
+    // console.log("trueTime", trueTime)
+    // console.log("Id", sessionId)
     let shopData = await client.get("/shop", { submitType: "findJoin", ref: "user", "user.$id": sessionId, });
     // console.log("门店", shopData)
     let data = await client.get("/order", { submitType: "findJoin", ref: "shop", "shop.$id": shopData[0]._id, })
-    console.log("订单", data)
+    // console.log("订单", data)
     let axisData = ["近6个月", "近5个月", "近4个月", "近3个月", "近2个月", "近1个月"];
     let seriesDataPro = [
         [{ name: "近6个月", type: "狗粮", value: 0 }, { name: "近6个月", type: "猫粮", value: 0 }, { name: "近6个月", type: "其它", value: 0 }],
@@ -31,7 +31,7 @@ router.get('/', async function (req, res) {
         [{ name: "近1个月", type: "洗护", value: 0 }, { name: "近1个月", type: "寄养", value: 0 }, { name: "近1个月", type: "其它", value: 0 }],
     ];
     let splitTrueTime = trueTime.split("-")
-    console.log("splitTrueTime", splitTrueTime)
+    // console.log("splitTrueTime", splitTrueTime)
     data.forEach(function (ele) {
         if(ele.state==3){
         if (ele.buyTime.split("-")[0] == splitTrueTime[0]) {
@@ -243,11 +243,11 @@ router.get('/', async function (req, res) {
                 }
             })
         }
-        console.log(ele.buyTime)
+        // console.log(ele.buyTime)
     }
     });
-    console.log("6个月金额1111", seriesDataPro)
-    console.log("服务", seriesDataSer)
+    // console.log("6个月金额1111", seriesDataPro)
+    // console.log("服务", seriesDataSer)
     res.send({ axisData, seriesDataPro, seriesDataSer });
 });
 module.exports = router;

@@ -30,10 +30,16 @@ router.get('/addr', async (req, res) => {
   res.send(data.data)
 });
 //查找门店
+router.get('/', async function (req, res) {
+  let {userId}=req.query
+  // let id = req.params.id;
+  let data = await client.get("/shop" ,{ submitType: "findJoin", "user.$id": userId, ref: "user" });
+  res.send(data);
+})
+//id查找
 router.get('/:id', async function (req, res) {
   let id = req.params.id;
   let data = await client.get("/shop/" + id);
-  res.send(data);
-})
-
+  res.send(data)
+});
 module.exports = router;

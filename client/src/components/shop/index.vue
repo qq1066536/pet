@@ -2,8 +2,6 @@
   <div>
     <AddProducts></AddProducts>
     <AddSuplierPro></AddSuplierPro>
-      <RegShop></RegShop>
-      <ChekShop></ChekShop>
     <SearchProducts></SearchProducts>
     <UpdateProducts></UpdateProducts>
     <ProductsList></ProductsList>
@@ -18,8 +16,6 @@ import UpdateProducts from "./UpdateProducts";
 import SearchProducts from "./SearchProducts";
 import PageProducts from "./PageProducts";
 import AddSuplierPro from "./AddSuplierPro";
-import RegShop from "./regShop";
-import ChekShop from "./chekShop";
 import { createNamespacedHelpers } from "vuex";
 const { mapActions } = createNamespacedHelpers("productsMoudles");
 export default {
@@ -29,9 +25,7 @@ export default {
     UpdateProducts,
     SearchProducts,
     PageProducts,
-    RegShop,
     AddSuplierPro,
-    ChekShop
   },
   data() {
     return {
@@ -42,10 +36,11 @@ export default {
     };
   },
   methods: {
-    ...mapActions(["setProducts"])
+    ...mapActions(["setProducts","getSession"])
   },
   created() {
-    this.setProducts();
+    // this.setProducts();
+    this.getSession()
     // console.log(123);
   }
 };

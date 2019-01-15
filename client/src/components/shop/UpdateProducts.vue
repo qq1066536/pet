@@ -52,7 +52,7 @@
       </el-form>
       <el-upload
         action="/upload"
-        :file-list="this.product.img"
+        :file-list="product.img"
         :on-success="handleAvatarSuccess"
         :on-preview="handlePictureCardPreview"
         :on-remove="handleRemove"
@@ -60,9 +60,9 @@
       >
         <i class="el-icon-plus"></i>
       </el-upload>
-      <el-dialog :visible.sync="dialogVisible">
+      <!-- <el-dialog :visible.sync="dialogVisible">
         <img width="100%" :src="this.product.img" alt>
-      </el-dialog>
+      </el-dialog> -->
       <span slot="footer" class="dialog-footer">
         <el-button @click="setupdateVisible(false)">取 消</el-button>
         <el-button type="primary" @click="updatePro">确 定</el-button>

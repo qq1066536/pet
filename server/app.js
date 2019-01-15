@@ -13,6 +13,11 @@ var supplierRouter = require("./routes/supplier")
 var platformRouter = require('./routes/platform.js')
 var ordersRouter = require('./routes/orders');
 var servicesRouter = require('./routes/services');
+var saleProRouter = require('./routes/salePro');
+
+var platformRouter = require('./routes/platform.js')
+var supplierRouter=require("./routes/supplier")
+
 var reportProRouter = require('./routes/reportPro');
 var supplierreport=require("./routes/supplierreport")
 var shopRouter = require('./routes/shop');
@@ -49,6 +54,7 @@ app.use('/reportPro', reportProRouter);
 app.use('/shop',shopRouter);
 app.use('/sopPropducts',sopPropductsRouter);
 app.use('/supPro',supProRouter);
+app.use('/salePro',saleProRouter);
 app.use("/baiduapi",baidu)
 app.use("/supplierreport",supplierreport)
 // catch 404 and forward to error handler

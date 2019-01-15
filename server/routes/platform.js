@@ -229,14 +229,18 @@ router.get("/citys", async function (req, res) {
         cityLongitudeAndLatitude.push(data.data.result.location)
     }
     let arr = [];
+    let count = 1;
     for (let i = 0; i < cityArr.length; i++) {
         let tmparr = [];
         tmparr.push(cityLongitudeAndLatitude[i].lng)
         tmparr.push(cityLongitudeAndLatitude[i].lat)
+        tmparr.push(count)
         tmparr.push(cityArr[i]);
         arr.push(tmparr)
     }
     console.log(arr)
+    
+
     // res.send(cityArr);
 })
 module.exports = router;

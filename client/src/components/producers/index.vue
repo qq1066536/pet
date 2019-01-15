@@ -1,6 +1,7 @@
 <template>
   <div>
     <el-table :data="producers" style="width: 100%">
+      <el-table-column label="信息状态" prop="status"></el-table-column>
       <el-table-column prop="name" label="公司名称" width="120"></el-table-column>
       <el-table-column prop="desc" label="公司简介" width="120"></el-table-column>
       <el-table-column prop="corporate" label="法定代表人" width="120"></el-table-column>
@@ -26,6 +27,7 @@
     <!-- 修改板块 -->
     <el-dialog title="修改供应商信息" :visible.sync="dialogVisible" width="30%">
       <el-form :model="producer" status-icon ref="updateForm" label-width="100px">
+        <!-- <span class="red">【信息审核中...】</span> -->
         <el-form-item label="公司名称">
           <el-input v-model="producer.name"></el-input>
         </el-form-item>
@@ -81,7 +83,6 @@
         <el-button type="primary" @click="updateInformation">确 定</el-button>
       </span>
     </el-dialog>
-    <span v-if="producer.status == '待审核'" class="red">【信息审核中...】</span>
   </div>
 </template>
 <script>
@@ -128,7 +129,7 @@ export default {
         url: "/users/getSession"
       }).then(({ data }) => {
         this.userId = data._id;
-        this.show()
+        this.show();
       });
     },
     showById(id) {
@@ -178,7 +179,7 @@ export default {
         this.show();
       });
     },
-    handleAvatarSuccess(res, file) {
+    handleAvatarSuccess(res) {
       this.producer.license = res;
     },
     beforeAvatarUpload(file) {

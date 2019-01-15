@@ -2,22 +2,16 @@
   <el-container class="container">
     <el-header class="headerBgc">
       <h1>
-        宠物管理系统
+        爱宠邦后台管理系统
         <span class="el-icon-service user">
-          {{session.phone}},欢迎你：
-          <span class="el-icon-error"></span>
+          {{phone}},欢迎你!
+          <span class="el-icon-error back" @click="removeSession"></span>
         </span>
       </h1>
     </el-header>
     <el-container class="aside">
       <el-aside width="200px" class="aside">
-        <el-menu
-          class="menu"
-          background-color="#545c64"
-          text-color="#fff"
-          active-text-color="#ffd04b"
-          :router="true"
-        >
+        <el-menu class="menu" background-color="#35495e" text-color="#fff" active-text-color="#ffd04b" :router="true">
           <el-submenu index="1" v-if="session.private=='管理员'">
             <template slot="title">
               <i class="el-icon-setting"></i>
@@ -61,6 +55,10 @@
                 <i class="el-icon-goods"></i>
                 <span slot="title">服务</span>
               </el-menu-item>
+               <el-menu-item index="/manage/mine">
+                <i class="el-icon-goods"></i>
+                <span slot="title">我的</span>
+              </el-menu-item>
               <el-submenu index="4">
                 <template slot="title">
                   <i class="el-icon-tickets"></i>
@@ -94,10 +92,28 @@
                 <i class="el-icon-printer"></i>
                 <span slot="title">商品信息</span>
               </el-menu-item>
-              <el-menu-item index>
+              <!-- <el-menu-item index>
                 <i class="el-icon-tickets"></i>
-                <span slot="title">统计</span>
-              </el-menu-item>
+                <span slot="title">统计</span> -->
+
+              <el-submenu index="4">
+                <template slot="title">
+                  <i class="el-icon-tickets"></i>
+                  <span>报表展示</span>
+                </template>
+                <el-menu-item-group>
+                  <el-menu-item index="/manage/supplier/salesreport">
+                    <i class="el-icon-menu"></i>
+                    <span slot="title">销量统计</span>
+                  </el-menu-item>
+                  <!-- <el-menu-item index="/manage/report/sales">
+                    <i class="el-icon-menu"></i>
+                    <span slot="title">销售额统计</span>
+                  </el-menu-item> -->
+                </el-menu-item-group>
+              </el-submenu>
+
+              <!-- </el-menu-item> -->
             </el-menu-item-group>
           </el-submenu>
         </el-menu>
@@ -115,28 +131,65 @@ import { mapState, mapActions } from "vuex";
 export default {
   data() {
     return {
-      // user: ""
+      phone: ""
     };
   },
   computed: {
+    ...mapState(["session"]),
     path() {
       return this.$router.history.current.path;
     }
   },
+  mounted() {
+    this.getSessionIndex();
+  },
   created() {
     this.getSession();
   },
-  computed: {
-    ...mapState(["session"])
-  },
+  // computed: {
+  //   ...mapState(["session"])
+  // },
   methods: {
     ...mapActions(["getSession"]),
     removeSession() {
+      this.$confirm("确定退出系统?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          axios({
+            method: "get",
+            url: "/users/removeSession"
+          }).then(() => {
+            this.$router.history.push("/login");
+            this.$message({
+              type: "success",
+              message: "退出成功!"
+            });
+          });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消操作"
+          });
+        });
+    },
+    // 判断账号
+    getSessionIndex() {
       axios({
         method: "get",
-        url: "/removeSession"
-      }).then(() => {
-        this.$router.history.push("/login");
+        url: "/users/getSession"
+      }).then(({ data }) => {
+        if (!data.phone) {
+          this.$router.history.push("/login");
+        } else if (data.account == "封禁") {
+          alert("你的账号已被封禁，如需解封，请及时联系管理员！！！");
+          this.$router.history.push("/login");
+        } else {
+          this.phone = data.phone;
+        }
       });
     }
   }
@@ -145,8 +198,9 @@ export default {
 
 <style scoped>
 .headerBgc {
-  background-color: #545c64;
+  background-color: #35495e;
   color: #fff;
+  height: 84px;
 }
 .container {
   height: 100%;
@@ -157,5 +211,8 @@ export default {
 .user {
   float: right;
   font-size: 16px;
+}
+.back {
+  cursor: pointer;
 }
 </style>

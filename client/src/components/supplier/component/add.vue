@@ -25,7 +25,12 @@
                 </el-form-item>
                 <el-form-item label="生产日期" prop="pro_date">
                     <!-- <el-input autocomplete="off" v-model="product.pro_date"></el-input> -->
-                    <el-date-picker type="date" placeholder="选择日期" v-model="product.pro_date" style="width: 100%;"></el-date-picker>
+                    <el-date-picker
+                        type="date"
+                        placeholder="选择日期"
+                        v-model="product.pro_date"
+                        style="width: 100%;"
+                    ></el-date-picker>
                 </el-form-item>
                 <el-form-item label="有效期" prop="valid_date">
                     <el-input autocomplete="off" v-model="product.valid_date"></el-input>
@@ -41,17 +46,17 @@
                 </el-form-item>
                 <!-- <el-form-item label="生产日期" prop="type">
                     <el-input autocomplete="off" v-model="product.pro_date"></el-input>
-                </el-form-item> -->
+                </el-form-item>-->
                 <!-- <el-form-item label="图片">
                     <el-input autocomplete="off" v-model="product.img"></el-input>
-                </el-form-item> -->
+                </el-form-item>-->
                 <Upload></Upload>
                 <el-form-item label="库存" prop="inventory">
                     <el-input autocomplete="off" v-model="product.inventory"></el-input>
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button @click="test(false)">取 消</el-button>
+                <el-button @click="cancelDialog(false)">取 消</el-button>
                 <el-button type="primary" @click="test(false)">确 定</el-button>
             </div>
         </el-dialog>
@@ -59,18 +64,18 @@
 </template>
 
 <script>
-import Upload from "./upload.vue"
+import Upload from "./upload.vue";
 import { createNamespacedHelpers } from "vuex";
 const { mapState, mapMutations, mapActions } = createNamespacedHelpers(
     "SupProducts"
 );
 export default {
     name: "Add",
-    components:{
+    components: {
         Upload
     },
     computed: {
-        ...mapState(["dialogVisible", "product","title"])
+        ...mapState(["dialogVisible", "product", "title"])
     },
     // created: function() {
     //     console.log(this.product);
@@ -79,20 +84,31 @@ export default {
         // console.log(this.product);
     },
     methods: {
-        ...mapMutations(["setDialogVisible","setProduct"]),
-        ...mapActions(["getProduct","updateProduct","addProduct","setProducts"]),
+        ...mapMutations(["setDialogVisible", "setProduct"]),
+        ...mapActions([
+            "getProduct",
+            "updateProduct",
+            "addProduct",
+            "setProducts"
+        ]),
+        cancelDialog(value) {
+            this.setDialogVisible(value);
+            this.setProduct({});
+        },
         test(value) {
             // console.log(this.title)
             if (value) {
                 this.getProduct();
             }
-            if(this.title.name=="新增" && value){
-                this.addProduct()
-            }else{
-                this.updateProduct()
+            if (this.title.name == "新增") {
+                this.addProduct();
+            } else {
+                // console.log(this.title);
+
+                this.updateProduct();
             }
             this.setDialogVisible(value);
-            this.setProduct({})
+            this.setProduct({});
         }
     }
 };

@@ -51,7 +51,7 @@
             <el-input v-model="addShopForm.addr" @blur="getLocation" autocomplete="off"></el-input>
           </el-form-item>
           <el-form-item label="经纬度:">
-            <el-input v-model="addShopForm.location" disabled="true"></el-input>
+            <el-input v-model="addShopForm.location" disabled></el-input>
           </el-form-item>
           <el-form-item label="所在城市" prop="city">
             <el-input v-model="addShopForm.city" type="text" autocomplete="off"></el-input>
@@ -80,17 +80,17 @@
       <UptateStore></UptateStore>
       <el-table :data="stores" style="width: 100%" ref="filterTable">
         <el-table-column width="120" prop="username" label="注册人"></el-table-column>
-        <el-table-column width="120" prop="name" label="门店名"></el-table-column>
-        <el-table-column width="120" prop="addr" label="营业地址" show-overflow-tooltip="false"></el-table-column>
-        <el-table-column width="120" prop="business_no" label="营业执照号码" show-overflow-tooltip="false"></el-table-column>
-        <el-table-column width="120" prop="business_lic" label="营业执照图片" show-overflow-tooltip="false"></el-table-column>
-        <el-table-column width="120" prop="city" label="所在城市" show-overflow-tooltip="false"></el-table-column>
-        <el-table-column width="120" prop="location" label="定位" show-overflow-tooltip="false"></el-table-column>
+        <el-table-column width="120" prop="name" label="门店名" show-overflow-tooltip></el-table-column>
+        <el-table-column width="120" prop="addr" label="营业地址" show-overflow-tooltip></el-table-column>
+        <el-table-column width="120" prop="business_no" label="营业执照号码" show-overflow-tooltip></el-table-column>
+        <el-table-column width="120" prop="business_lic" label="营业执照图片" show-overflow-tooltip></el-table-column>
+        <el-table-column width="120" prop="city" label="所在城市" show-overflow-tooltip></el-table-column>
+        <el-table-column width="120" prop="location" label="定位" show-overflow-tooltip></el-table-column>
         <el-table-column width="120" prop="legal_person" label="法人"></el-table-column>
         <el-table-column width="120" prop="tel" label="联系电话"></el-table-column>
-        <el-table-column width="120" prop="img_head" label="头图" show-overflow-tooltip="false"></el-table-column>
-        <el-table-column width="120" prop="feature" label="特色" show-overflow-tooltip="false"></el-table-column>
-        <el-table-column width="120" prop="website" label="网址" show-overflow-tooltip="false"></el-table-column>
+        <el-table-column width="120" prop="img_head" label="头图" show-overflow-tooltip></el-table-column>
+        <el-table-column width="120" prop="feature" label="特色" show-overflow-tooltip></el-table-column>
+        <el-table-column width="120" prop="website" label="网址" show-overflow-tooltip></el-table-column>
         <el-table-column width="120" prop="vip" label="VIP等级"></el-table-column>
         <el-table-column width="120" prop="commission_rate" label="佣金比例"></el-table-column>
         <el-table-column width="120" prop="status" label="审核状态" :filters="[{ text: '已审核', value: '已审核' }, { text: '待审核', value: '待审核' }, { text: '已拒绝', value: '已拒绝' }]" :filter-method="filterStatus" filter-placement="bottom-end"></el-table-column>
@@ -208,7 +208,7 @@ export default {
               method: "put",
               url: "/platform/putShop/" + id,
               data: { account: "正常" }
-            }).then(({}) => {
+            }).then(() => {
               this.setStores();
               this.$message({
                 type: "success",
@@ -242,7 +242,7 @@ export default {
               method: "put",
               url: "/platform/putShop/" + id,
               data: { account: "关闭" }
-            }).then(({ data }) => {
+            }).then(() => {
               this.setStores();
               this.$message({
                 type: "success",
@@ -293,7 +293,7 @@ export default {
     },
     //上传图片
     //门店图片
-    handleAvatarSuccessShop(res, file) {
+    handleAvatarSuccessShop(res) {
       this.addShopForm.img_head = "/upload/" + res;
     },
     beforeAvatarUploadShop(file) {
@@ -304,7 +304,7 @@ export default {
       }
     },
     //营业执照图片
-    handleAvatarSuccessBus(res, file) {
+    handleAvatarSuccessBus(res) {
       this.addShopForm.business_lic = "/upload/" + res;
     },
     beforeAvatarUploadBus(file) {
@@ -341,7 +341,7 @@ export default {
               status: "待审核",
               account: "正常"
             }
-          }).then(({}) => {
+          }).then(() => {
             this.setStores();
             this.resetForm();
             this.addDialogVisible = false;

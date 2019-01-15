@@ -96,7 +96,12 @@
         <p>供应商地址：{{shopOrsupplier.addr}}</p>
         <p>供应商电话：{{shopOrsupplier.tel}}</p>
         <p>供应商网站：{{shopOrsupplier.website}}</p>
-        <p>供应商营业执照：{{shopOrsupplier.business_lic}}</p>
+        <p>供应商营业执照：
+          <el-upload disabled="false" :show-file-list="false">
+            <img v-if="shopOrsupplier.license" :src="shopOrsupplier.license" class="shoperImg">
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          </el-upload>
+        </p>
         <p>供应商备注：{{shopOrsupplier.desc}}</p>
         <p v-if="shopOrsupplier.status == '待审核'">
           <el-button type="primary" @click="agreeSupplierTwice(shopOrsupplier._id)">通过供应商申请审核</el-button>
@@ -112,9 +117,9 @@
         <el-table-column prop="phone" label="手机号"></el-table-column>
         <el-table-column prop="password" label="密码"></el-table-column>
         <el-table-column prop="private" label="申请类型" :filters="[{ text: '供应商', value: '供应商' }, { text: '门店', value: '门店' }]" :filter-method="filterPrivate" filter-placement="bottom-end"></el-table-column>
-        <el-table-column prop="status" label="用户状态" :filters="[{ text: '已审核', value: '已审核' }, { text: '待审核', value: '待审核' }, { text: '已拒绝', value: '已拒绝' }]" :filter-method="filterStatus" filter-placement="bottom-end"></el-table-column>
+        <el-table-column prop="status" label="用户申请状态" :filters="[{ text: '已审核', value: '已审核' }, { text: '待审核', value: '待审核' }, { text: '已拒绝', value: '已拒绝' }]" :filter-method="filterStatus" filter-placement="bottom-end"></el-table-column>
         <el-table-column prop="account" label="账号情况" :filters="[{ text: '正常', value: '正常' }, { text: '封禁', value: '封禁' }]" :filter-method="filterAccount" filter-placement="bottom-end"></el-table-column>
-        <el-table-column label="申请信息">
+        <el-table-column label="审核信息">
           <template slot-scope="scope">
             <el-button size="mini" @click="see(scope.row._id)">查看</el-button>
           </template>
@@ -261,7 +266,7 @@ export default {
               status: "待审核",
               account: "正常"
             }
-          }).then(( ) => {
+          }).then(() => {
             this.dialogVisible = false;
             this.resetForm();
             this.setUsers();
@@ -318,7 +323,7 @@ export default {
               data: {
                 status: "已审核"
               }
-            }).then(({ data }) => {
+            }).then(() => {
               this.setUsers();
               this.$message({
                 type: "success",
@@ -352,7 +357,7 @@ export default {
               data: {
                 status: "已拒绝"
               }
-            }).then(({ data }) => {
+            }).then(() => {
               this.setUsers();
               this.$message({
                 type: "success",
@@ -386,7 +391,7 @@ export default {
               data: {
                 account: "封禁"
               }
-            }).then(({ data }) => {
+            }).then(() => {
               this.setUsers();
               this.$message({
                 type: "success",
@@ -420,7 +425,7 @@ export default {
               data: {
                 account: "正常"
               }
-            }).then(({ data }) => {
+            }).then(() => {
               this.setUsers();
               this.$message({
                 type: "success",
@@ -452,7 +457,7 @@ export default {
             data: {
               password
             }
-          }).then(({ data }) => {
+          }).then(() => {
             this.updateDialogVisible = false;
             this.setUsers();
           });
@@ -473,7 +478,7 @@ export default {
             method: "put",
             url: "/platform/putShop/" + id,
             data: { status: "已审核" }
-          }).then(({ data }) => {
+          }).then(() => {
             this.dialogDetailsVisible = false;
             this.$message({
               type: "success",
@@ -500,7 +505,7 @@ export default {
             method: "put",
             url: "/platform/putShop/" + id,
             data: { status: "已拒绝" }
-          }).then(({ data }) => {
+          }).then(() => {
             this.dialogDetailsVisible = false;
             this.$message({
               type: "success",
@@ -527,7 +532,7 @@ export default {
             method: "put",
             url: "/platform/putSupplier/" + id,
             data: { status: "已审核" }
-          }).then(({ data }) => {
+          }).then(() => {
             this.dialogDetailsVisible = false;
             this.$message({
               type: "success",
@@ -554,7 +559,7 @@ export default {
             method: "put",
             url: "/platform/putSupplier/" + id,
             data: { status: "已拒绝" }
-          }).then(({ data }) => {
+          }).then(() => {
             this.dialogDetailsVisible = false;
             this.$message({
               type: "success",

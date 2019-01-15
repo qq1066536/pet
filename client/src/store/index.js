@@ -8,6 +8,7 @@ import serviceModules from "./modules/serviceModules"
 import SupProducts from "./modules/supplierModules"
 import axios from "axios"
 import shopModule from "./modules/shopModule"
+import salesModule from "./modules/salesModule"
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -17,7 +18,8 @@ export default new Vuex.Store({
         SupProducts,
         shopModule,
         platformModule,
-        productsMoudles
+        productsMoudles,
+        salesModule
     },
     state: {
         session:{}

@@ -52,17 +52,17 @@
       </el-form>
       <el-upload
         action="/upload"
-        :file-list="this.product.img"
+        :file-list="product.img"
         :on-success="handleAvatarSuccess"
-        :on-preview="handlePictureCardPreview"
+     
         :on-remove="handleRemove"
         list-type="picture-card"
       >
         <i class="el-icon-plus"></i>
       </el-upload>
-      <el-dialog :visible.sync="dialogVisible">
+      <!-- <el-dialog :visible.sync="dialogVisible">
         <img width="100%" :src="this.product.img" alt>
-      </el-dialog>
+      </el-dialog> -->
       <span slot="footer" class="dialog-footer">
         <el-button @click="setupdateVisible(false)">取 消</el-button>
         <el-button type="primary" @click="updatePro">确 定</el-button>
@@ -152,8 +152,8 @@ export default {
       this.dialogImageUrl = file.url;
       this.dialogVisible = true;
     },
-    handleRemove(file, fileList) {
-      console.log(file, fileList);
+    handleRemove(file) {
+      // console.log(file, fileList);
       let arr = this.img;
       for (let i in arr) {
         if (arr[i].uid == file.uid) {
@@ -163,9 +163,9 @@ export default {
       }
       this.img = arr;
     },
-    handlePreview(file) {
-      console.log(file);
-    },
+    // handlePreview(file) {
+    //   // console.log(file);
+    // },
     handleAvatarSuccess(res) {
       this.img.push("http://127.0.0.1:3000/upload/" + res);
       //  console.log("tupian",this.img)

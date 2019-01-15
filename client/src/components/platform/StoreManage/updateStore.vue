@@ -30,7 +30,7 @@
                     <el-input v-model="addr" @blur="getLocation" autocomplete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="经纬度:">
-                    <el-input v-model="location" disabled="true"></el-input>
+                    <el-input v-model="location" disabled></el-input>
                 </el-form-item>
                 <el-form-item label="所在城市" prop="city">
                     <el-input v-model="city" type="text" autocomplete="off"></el-input>
@@ -308,7 +308,7 @@ export default {
               vip,
               commission_rate
             }
-          }).then(({}) => {
+          }).then(() => {
             this.setStores();
             this.setUpdateShopVisible(false);
           });

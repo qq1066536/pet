@@ -223,7 +223,7 @@ export default {
 
 <style>
 .total {
-  width: 1200px;
-  height: 600px;
+  width: 100%;
+  height: 500px;
 }
 </style>

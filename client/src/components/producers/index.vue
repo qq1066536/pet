@@ -15,7 +15,7 @@
       <el-table-column prop="website" label="公司网站" width="120"></el-table-column>
       <el-table-column prop="license" label="营业执照" width="120">
         <template slot-scope="scope">
-          <img :src="'http://127.0.0.1:3000/upload/'+scope.row.license" min-width="70" height="70">
+          <img :src="'/upload/'+scope.row.license" min-width="70" height="70">
         </template>
       </el-table-column>
       <el-table-column label="操作">
@@ -71,7 +71,7 @@
           >
             <img
               v-if="producer.license"
-              :src="'http://127.0.0.1:3000/upload/'+producer.license"
+              :src="'/upload/'+producer.license"
               class="avatar"
             >
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>

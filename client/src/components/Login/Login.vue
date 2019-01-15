@@ -75,14 +75,14 @@ export default {
   height: 78%;
   padding-top: 10%;
   background: url("../../assets/1.jpg") no-repeat;
-  background-size: contain;
+  background-size: cover;
 }
 .box-card {
   width: 500px;
-  margin: 0 auto;
+  margin: 0 auto 0 25%;
 }
 .position {
-  padding-top: 30px;
+  /* padding-top: 30px; */
 }
 .clearfix span {
   font-size: 30px;

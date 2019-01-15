@@ -147,9 +147,10 @@ export default {
           shopId: this.shopId
         }
       }).then(() => {
+        console.log(123123)
         this.dialogVisible = false;
         this.setProducts();
-        this.addForm.reset();
+        // this.$refs.addForm.resetFileds();
       });
     },
     handleRemove(file, fileList) {

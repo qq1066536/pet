@@ -4,6 +4,9 @@ const client = require("ykt-http-client");
 client.url("127.0.0.1:8080");
 //上架
 router.post('/', async function (req, res) {
+  console.log(req.body)
+  console.log(req.body.shopId)
+
   if (req.body.data) {
     let { data, number,shopId } = req.body
     await client.post('/sop_procducts', {
@@ -24,10 +27,11 @@ router.post('/', async function (req, res) {
       shop: { $ref: "shop", $id: shopId }
     })
   }
-  let shopData = await client.get("/shop/" + shopId);
-  shopData.number++;
-  delete shopData._id;
-  await client.put("/shop/" + shopId, { ...shopData });
+  // console.log(shopId)
+  // let shopData = await client.get("/shop/" + shopId);
+  // shopData.number++;
+  // delete shopData._id;
+  // await client.put("/shop/" + shopId, { ...shopData });
   res.send({ status: 1 });
 });
 //修改商品

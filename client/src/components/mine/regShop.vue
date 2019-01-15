@@ -82,7 +82,7 @@
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="regBtn('regForm')">确定</el-button>
-          <el-button @click="resetForm('regForm')">重置</el-button>
+          <el-button>重置</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -253,7 +253,7 @@ export default {
       }).then(() => {
         // this.$emit("show")
         this.dialogVisible = false;
-        this.regForm.reset('regForm');
+        // this.$refs.regForm.resetFileds();
       });
     }
   }

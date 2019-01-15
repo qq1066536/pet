@@ -21,7 +21,7 @@ export default {
         }
     },
     actions: {
-        getSession({ commit }) {
+        getSession({ commit}) {
             axios({
                 method: "get",
                 url: "/users/getSession"

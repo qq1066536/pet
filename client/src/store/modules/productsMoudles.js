@@ -13,6 +13,7 @@ export default {
             value: ""
         },
         shopId: "",
+        userId:"",
         trueTime: "",
         orders: []
     },
@@ -40,6 +41,9 @@ export default {
             // console.log(shopId)
             state.shopId = shopId;
         },
+        setUserId(state, userId) {
+            state.userId = userId;
+        },
         setTrueTime(state, trueTime) {
             state.trueTime = trueTime
         },
@@ -54,7 +58,7 @@ export default {
                 method: "get",
                 url: "/users/getSession"
             }).then(({ data }) => {
-                // commit("setUserId", data._id);
+                commit("setUserId", data._id);
                 // console.log("user", data)
                 axios({
                     method: "get",
@@ -96,7 +100,7 @@ export default {
                 commit("setPagition", data)
             });
         },
-        setSupProducts({ commit ,dispatch}, payloda = { page: 1, rows: 5 }) {
+        setSupProducts({ commit,dispatch}, payloda = { page: 1, rows: 5 }) {
             axios({
                 method: "get",
                 url: "/sopPropducts/productsAll",

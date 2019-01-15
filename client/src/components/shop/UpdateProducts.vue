@@ -54,7 +54,7 @@
         action="/upload"
         :file-list="product.img"
         :on-success="handleAvatarSuccess"
-        :on-preview="handlePictureCardPreview"
+     
         :on-remove="handleRemove"
         list-type="picture-card"
       >
@@ -163,9 +163,9 @@ export default {
       }
       this.img = arr;
     },
-    handlePreview() {
-      // console.log(file);
-    },
+    // handlePreview(file) {
+    //   // console.log(file);
+    // },
     handleAvatarSuccess(res) {
       this.img.push("http://127.0.0.1:3000/upload/" + res);
       //  console.log("tupian",this.img)

@@ -30,14 +30,14 @@ router.get('/', async function (req, res) {
         [{ name: "近2个月", type: "洗护", value: 0 }, { name: "近2个月", type: "寄养", value: 0 }, { name: "近2个月", type: "其它", value: 0 }],
         [{ name: "近1个月", type: "洗护", value: 0 }, { name: "近1个月", type: "寄养", value: 0 }, { name: "近1个月", type: "其它", value: 0 }],
     ];
-    let splitTrueTime = trueTime.split("/")
+    let splitTrueTime = trueTime.split("-")
     console.log("splitTrueTime", splitTrueTime)
     data.forEach(function (ele) {
         if(ele.state==3){
-        if (ele.buyTime.split("/")[0] == splitTrueTime[0]) {
+        if (ele.buyTime.split("-")[0] == splitTrueTime[0]) {
             ele.goods.forEach(function (eles) {
                 if (eles.state == 1) {
-                    if ((splitTrueTime[1] - ele.buyTime.split("/")[1]) == 0) {
+                    if ((splitTrueTime[1] - ele.buyTime.split("-")[1]) == 0) {
                         if (eles.type == "洗护") {
                             seriesDataSer[5][0].value += eles.serPrice * eles.number
                         } else if (eles.type == "寄养") {
@@ -45,7 +45,7 @@ router.get('/', async function (req, res) {
                         } else {
                             seriesDataSer[5][2].value += eles.serPrice * eles.number
                         }
-                    } else if ((splitTrueTime[1] - ele.buyTime.split("/")[1]) == 1) {
+                    } else if ((splitTrueTime[1] - ele.buyTime.split("-")[1]) == 1) {
                         if (eles.type == "洗护") {
                             seriesDataSer[4][0].value += eles.serPrice * eles.number
                         } else if (eles.type == "寄养") {
@@ -53,7 +53,7 @@ router.get('/', async function (req, res) {
                         } else {
                             seriesDataSer[4][2].value += eles.serPrice * eles.number
                         }
-                    } else if ((splitTrueTime[1] - ele.buyTime.split("/")[1]) == 2) {
+                    } else if ((splitTrueTime[1] - ele.buyTime.split("-")[1]) == 2) {
                         if (eles.type == "洗护") {
                             seriesDataSer[3][0].value += eles.serPrice * eles.number
                         } else if (eles.type == "寄养") {
@@ -61,7 +61,7 @@ router.get('/', async function (req, res) {
                         } else {
                             seriesDataSer[3][2].value += eles.serPrice * eles.number
                         }
-                    } else if ((splitTrueTime[1] - ele.buyTime.split("/")[1]) == 3) {
+                    } else if ((splitTrueTime[1] - ele.buyTime.split("-")[1]) == 3) {
                         if (eles.type == "洗护") {
                             seriesDataSer[2][0].value += eles.serPrice * eles.number
                         } else if (eles.type == "寄养") {
@@ -69,7 +69,7 @@ router.get('/', async function (req, res) {
                         } else {
                             seriesDataSer[2][2].value += eles.serPrice * eles.number
                         }
-                    } else if ((splitTrueTime[1] - ele.buyTime.split("/")[1]) == 4) {
+                    } else if ((splitTrueTime[1] - ele.buyTime.split("-")[1]) == 4) {
                         if (eles.type == "洗护") {
                             seriesDataSer[1][0].value += eles.serPrice * eles.number
                         } else if (eles.type == "寄养") {
@@ -77,7 +77,7 @@ router.get('/', async function (req, res) {
                         } else {
                             seriesDataSer[1][2].value += eles.serPrice * eles.number
                         }
-                    } else if ((splitTrueTime[1] - ele.buyTime.split("/")[1]) == 5) {
+                    } else if ((splitTrueTime[1] - ele.buyTime.split("-")[1]) == 5) {
                         if (eles.type == "洗护") {
                             seriesDataSer[0][0].value += eles.serPrice * eles.number
                         } else if (eles.type == "寄养") {
@@ -87,7 +87,7 @@ router.get('/', async function (req, res) {
                         }
                     }
                 } else if (eles.state == 0) {
-                    if ((splitTrueTime[1] - ele.buyTime.split("/")[1]) == 0) {
+                    if ((splitTrueTime[1] - ele.buyTime.split("-")[1]) == 0) {
                         if (eles.type == "狗粮") {
                             seriesDataPro[5][0].value += eles.proPrice * eles.number
                         } else if (eles.type == "猫粮") {
@@ -95,7 +95,7 @@ router.get('/', async function (req, res) {
                         } else {
                             seriesDataPro[5][2].value += eles.proPrice * eles.number
                         }
-                    } else if ((splitTrueTime[1] - ele.buyTime.split("/")[1]) == 1) {
+                    } else if ((splitTrueTime[1] - ele.buyTime.split("-")[1]) == 1) {
                         if (eles.type == "狗粮") {
                             seriesDataPro[4][0].value += eles.proPrice * eles.number
                         } else if (eles.type == "猫粮") {
@@ -103,7 +103,7 @@ router.get('/', async function (req, res) {
                         } else {
                             seriesDataPro[4][2].value += eles.proPrice * eles.number
                         }
-                    } else if ((splitTrueTime[1] - ele.buyTime.split("/")[1]) == 2) {
+                    } else if ((splitTrueTime[1] - ele.buyTime.split("-")[1]) == 2) {
                         if (eles.type == "狗粮") {
                             seriesDataPro[3][0].value += eles.proPrice * eles.number
                         } else if (eles.type == "猫粮") {
@@ -111,7 +111,7 @@ router.get('/', async function (req, res) {
                         } else {
                             seriesDataPro[3][2].value += eles.proPrice * eles.number
                         }
-                    } else if ((splitTrueTime[1] - ele.buyTime.split("/")[1]) == 3) {
+                    } else if ((splitTrueTime[1] - ele.buyTime.split("-")[1]) == 3) {
                         if (eles.type == "狗粮") {
                             seriesDataPro[2][0].value += eles.proPrice * eles.number
                         } else if (eles.type == "猫粮") {
@@ -119,7 +119,7 @@ router.get('/', async function (req, res) {
                         } else {
                             seriesDataPro[2][2].value += eles.proPrice * eles.number
                         }
-                    } else if ((splitTrueTime[1] - ele.buyTime.split("/")[1]) == 4) {
+                    } else if ((splitTrueTime[1] - ele.buyTime.split("-")[1]) == 4) {
                         if (eles.type == "狗粮") {
                             seriesDataPro[1][0].value += eles.proPrice * eles.number
                         } else if (eles.type == "猫粮") {
@@ -127,7 +127,7 @@ router.get('/', async function (req, res) {
                         } else {
                             seriesDataPro[1][2].value += eles.proPrice * eles.number
                         }
-                    } else if ((splitTrueTime[1] - ele.buyTime.split("/")[1]) == 5) {
+                    } else if ((splitTrueTime[1] - ele.buyTime.split("-")[1]) == 5) {
                         if (eles.type == "狗粮") {
                             seriesDataPro[0][0].value += eles.proPrice * eles.number
                         } else if (eles.type == "猫粮") {
@@ -138,10 +138,10 @@ router.get('/', async function (req, res) {
                     }
                 }
             });
-        }else if(ele.buyTime.split("/")[0] !== splitTrueTime[0]){
+        }else if(ele.buyTime.split("-")[0] !== splitTrueTime[0]){
             ele.goods.forEach(function (eles) {
                 if (eles.state == 1) {
-                    if ((splitTrueTime[1] - ele.buyTime.split("/")[1]) == -11) {
+                    if ((splitTrueTime[1] - ele.buyTime.split("-")[1]) == -11) {
                         if (eles.type == "洗护") {
                             seriesDataSer[5][0].value += eles.serPrice * eles.number
                         } else if (eles.type == "寄养") {
@@ -149,7 +149,7 @@ router.get('/', async function (req, res) {
                         } else {
                             seriesDataSer[5][2].value += eles.serPrice * eles.number
                         }
-                    }else if ((splitTrueTime[1] - ele.buyTime.split("/")[1]) == -10) {
+                    }else if ((splitTrueTime[1] - ele.buyTime.split("-")[1]) == -10) {
                         if (eles.type == "洗护") {
                             seriesDataSer[4][0].value += eles.serPrice * eles.number
                         } else if (eles.type == "寄养") {
@@ -157,7 +157,7 @@ router.get('/', async function (req, res) {
                         } else {
                             seriesDataSer[4][2].value += eles.serPrice * eles.number
                         }
-                    }else if ((splitTrueTime[1] - ele.buyTime.split("/")[1]) == -9) {
+                    }else if ((splitTrueTime[1] - ele.buyTime.split("-")[1]) == -9) {
                         if (eles.type == "洗护") {
                             seriesDataSer[3][0].value += eles.serPrice * eles.number
                         } else if (eles.type == "寄养") {
@@ -165,7 +165,7 @@ router.get('/', async function (req, res) {
                         } else {
                             seriesDataSer[3][2].value += eles.serPrice * eles.number
                         }
-                    }else if ((splitTrueTime[1] - ele.buyTime.split("/")[1]) == -8) {
+                    }else if ((splitTrueTime[1] - ele.buyTime.split("-")[1]) == -8) {
                         if (eles.type == "洗护") {
                             seriesDataSer[2][0].value += eles.serPrice * eles.number
                         } else if (eles.type == "寄养") {
@@ -173,7 +173,7 @@ router.get('/', async function (req, res) {
                         } else {
                             seriesDataSer[2][2].value += eles.serPrice * eles.number
                         }
-                    }else if ((splitTrueTime[1] - ele.buyTime.split("/")[1]) == -7) {
+                    }else if ((splitTrueTime[1] - ele.buyTime.split("-")[1]) == -7) {
                         if (eles.type == "洗护") {
                             seriesDataSer[1][0].value += eles.serPrice * eles.number
                         } else if (eles.type == "寄养") {
@@ -181,7 +181,7 @@ router.get('/', async function (req, res) {
                         } else {
                             seriesDataSer[1][2].value += eles.serPrice * eles.number
                         }
-                    }else if ((splitTrueTime[1] - ele.buyTime.split("/")[1]) == -6) {
+                    }else if ((splitTrueTime[1] - ele.buyTime.split("-")[1]) == -6) {
                         if (eles.type == "洗护") {
                             seriesDataSer[0][0].value += eles.serPrice * eles.number
                         } else if (eles.type == "寄养") {
@@ -191,7 +191,7 @@ router.get('/', async function (req, res) {
                         }
                     }
                 }else if(eles.state == 1){
-                    if ((splitTrueTime[1] - ele.buyTime.split("/")[1]) == -11) {
+                    if ((splitTrueTime[1] - ele.buyTime.split("-")[1]) == -11) {
                         if (eles.type == "狗粮") {
                             seriesDataPro[5][0].value += eles.proPrice * eles.number
                         } else if (eles.type == "猫粮") {
@@ -199,7 +199,7 @@ router.get('/', async function (req, res) {
                         } else {
                             seriesDataPro[5][2].value += eles.proPrice * eles.number
                         }
-                    }else if ((splitTrueTime[1] - ele.buyTime.split("/")[1]) == -10) {
+                    }else if ((splitTrueTime[1] - ele.buyTime.split("-")[1]) == -10) {
                         if (eles.type == "狗粮") {
                             seriesDataPro[4][0].value += eles.proPrice * eles.number
                         } else if (eles.type == "猫粮") {
@@ -207,7 +207,7 @@ router.get('/', async function (req, res) {
                         } else {
                             seriesDataPro[4][2].value += eles.proPrice * eles.number
                         }
-                    }else if ((splitTrueTime[1] - ele.buyTime.split("/")[1]) == -9) {
+                    }else if ((splitTrueTime[1] - ele.buyTime.split("-")[1]) == -9) {
                         if (eles.type == "狗粮") {
                             seriesDataPro[3][0].value += eles.proPrice * eles.number
                         } else if (eles.type == "猫粮") {
@@ -215,7 +215,7 @@ router.get('/', async function (req, res) {
                         } else {
                             seriesDataPro[3][2].value += eles.proPrice * eles.number
                         }
-                    }else if ((splitTrueTime[1] - ele.buyTime.split("/")[1]) == -8) {
+                    }else if ((splitTrueTime[1] - ele.buyTime.split("-")[1]) == -8) {
                         if (eles.type == "狗粮") {
                             seriesDataPro[2][0].value += eles.proPrice * eles.number
                         } else if (eles.type == "猫粮") {
@@ -223,7 +223,7 @@ router.get('/', async function (req, res) {
                         } else {
                             seriesDataPro[2][2].value += eles.proPrice * eles.number
                         }
-                    }else if ((splitTrueTime[1] - ele.buyTime.split("/")[1]) == -7) {
+                    }else if ((splitTrueTime[1] - ele.buyTime.split("-")[1]) == -7) {
                         if (eles.type == "狗粮") {
                             seriesDataPro[1][0].value += eles.proPrice * eles.number
                         } else if (eles.type == "猫粮") {
@@ -231,7 +231,7 @@ router.get('/', async function (req, res) {
                         } else {
                             seriesDataPro[1][2].value += eles.proPrice * eles.number
                         }
-                    }else if ((splitTrueTime[1] - ele.buyTime.split("/")[1]) == -6) {
+                    }else if ((splitTrueTime[1] - ele.buyTime.split("-")[1]) == -6) {
                         if (eles.type == "狗粮") {
                             seriesDataPro[0][0].value += eles.proPrice * eles.number
                         } else if (eles.type == "猫粮") {

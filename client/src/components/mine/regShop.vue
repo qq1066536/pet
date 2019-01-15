@@ -16,7 +16,7 @@
         <el-form-item label="营业执照号码:" prop="business_no">
           <el-input v-model="regForm.business_no" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="营业执照图片"  prop="business_lic">
+        <el-form-item label="营业执照图片" prop="business_lic">
           <el-upload
             class="avatar-uploader"
             action="/upload"
@@ -82,7 +82,7 @@
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="regBtn('regForm')">确定</el-button>
-          <el-button>重置</el-button>
+          <!-- <el-button @click="resetForm('regForm')">重置</el-button> -->
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -95,7 +95,7 @@ const { mapActions, mapState } = createNamespacedHelpers("shopModule");
 export default {
   data() {
     return {
-      account:"正常",
+      account: "正常",
       regForm: {
         name: "",
         business_no: "",
@@ -109,7 +109,7 @@ export default {
         stuff: [],
         business_lic: "",
         img_head: "",
-        location:""
+        location: ""
       },
       dialogVisible: false,
       rules: {
@@ -173,22 +173,25 @@ export default {
     ...mapState(["userId"])
   },
   methods: {
-    getLocation(){
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
+    },
+    getLocation() {
       axios({
         method: "get",
         url: "/shop/addr",
-        params:{
-          addr:this.regForm.addr
+        params: {
+          addr: this.regForm.addr
         }
-      }).then(({data})=>{
-        let lng=`${data.result.location.lng}`
-        let lat=`${data.result.location.lat}`
+      }).then(({ data }) => {
+        let lng = `${data.result.location.lng}`;
+        let lat = `${data.result.location.lat}`;
         // this.location=data.result.location
-        this.regForm.location=lng+","+lat
+        this.regForm.location = lng + "," + lat;
         // console.log(this.regForm.location)
         // console.log(typeof data.result)
         // console.log("定位",data.result.location)
-      })
+      });
     },
     removeItem(item) {
       var index = this.regForm.stuff.indexOf(item);
@@ -204,57 +207,76 @@ export default {
       });
     },
     handleAvatarSuccess(res) {
-      this.regForm.business_lic="/upload/" + res;
+      this.regForm.business_lic = "/upload/" + res;
       // console.log(res, file);
     },
     handleAvatarSuccess1(res) {
-       this.regForm.img_head="/upload/" + res;
+      this.regForm.img_head = "/upload/" + res;
       // console.log(res, file);
     },
     ...mapActions(["getSession"]),
-    regBtn() {
-      // console.log("userId", this.userId);
-      let {
-        name,
-        business_no,
-        addr,
-        city,
-        legal_person,
-        tel,
-        feature,
-        vip,
-        commission_rate,
-        stuff,
-        business_lic,
-        img_head,
-        location
-      } = this.regForm;
-      axios({
-        method: "post",
-        url: "/shop",
-        data: {
-          name: name,
-          business_no: business_no,
-          addr: addr,
-          location: JSON.stringify(location),
-          city: JSON.stringify(city),
-          legal_person: legal_person,
-          tel: tel,
-          feature: feature,
-          vip: vip,
-          commission_rate: commission_rate,
-          stuff: JSON.stringify(stuff),
-          business_lic,
-          img_head,
-          userId: this.userId,
-          status: "待审核",
-          account:this.account,
+    regBtn(formName) {
+      this.$refs[formName].validate(valid => {
+        if (valid) {
+          axios({
+            method: "get",
+            url: "/shop",
+            params: {
+              userId: this.userId
+            }
+          }).then(({ data }) => {
+            if (data.length == 1) {
+              alert("您已经注册过门店了，不能再注册");
+            } else {
+              let {
+                name,
+                business_no,
+                addr,
+                city,
+                legal_person,
+                tel,
+                feature,
+                vip,
+                commission_rate,
+                stuff,
+                business_lic,
+                img_head,
+                location
+              } = this.regForm;
+              axios({
+                method: "post",
+                url: "/shop",
+                data: {
+                  name: name,
+                  business_no: business_no,
+                  addr: addr,
+                  location: JSON.stringify(location),
+                  city: JSON.stringify(city),
+                  legal_person: legal_person,
+                  tel: tel,
+                  feature: feature,
+                  vip: vip,
+                  commission_rate: commission_rate,
+                  stuff: JSON.stringify(stuff),
+                  business_lic,
+                  img_head,
+                  userId: this.userId,
+                  status: "待审核",
+                  account: this.account
+                }
+              }).then(() => {
+                // this.$emit("show")
+                this.dialogVisible = false;
+                // this.$refs.regForm.resetFileds();
+              });
+            }
+          });
+        } else {
+          alert("请将门店信息填写完整");
+          return false;
         }
-      }).then(() => {
-        // this.$emit("show")
-        this.dialogVisible = false;
-        // this.$refs.regForm.resetFileds();
       });
+      // console.log("userId", this.userId);
     }
   }
 };

@@ -27,15 +27,21 @@ router.get("/", async (req, res) => {
     res.send(data)
 })
 router.get("/:id", async (req, res) => {
-    let proid=req.params.id
+    let proid = req.params.id
     let { id } = req.query
-    let data = await client.get(`/sup_products/`+proid, {
+    let data = await client.get(`/sup_products/` + proid, {
         "submitType": "findJoin",
         ref: "supplier",
         "supplier.$id": id,
     })
-    // data = data.rows.filter(item => item.supplier._id == id)
-    // console.log("getProduct",data)
+
+    console.log("getProduct", data)
+    res.send(data)
+})
+router.get("/supplierInfo/:id", async (req,res) => {
+    let id = req.params.id;
+    let data = await client.get('/supplier/' + id)
+    console.log("data123", data)
     res.send(data)
 })
 // 新增产品数据，id为供应商id
@@ -48,7 +54,7 @@ router.post("/:id", async (req, res) => {
             "$id": id
         }
     })
-    // console.log(data);
+    console.log(data);
     res.send(data)
 })
 // 修改产品数据
@@ -75,4 +81,11 @@ router.put("/updateinfo/:id", async (req, res) => {
     delete data._id
     let resdata = await client.put("/supplier/" + id, { ...data, ...reqdata })
 })
+// 用user的id获取供应商信息
+router.get("/info", async (req, res) => {
+    let { id, page, rows } = req.query
+    let data = await client.get('/supplier', { submitType: "findJoin", ref: "user", "user.$id": id })
+    res.send(data)
+})
+
 module.exports = router;

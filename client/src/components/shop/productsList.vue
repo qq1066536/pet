@@ -41,7 +41,7 @@ export default {
       ...mapMutations(["setupdateVisible"]),
       ...mapActions(["setProducts","setProduct","getSession"]),
     delProducts(id) {
-      console.log(id)
+      // console.log(id)
       axios({
         method: "delete",
         url: "/sopPropducts/" + id

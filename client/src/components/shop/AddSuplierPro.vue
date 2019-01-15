@@ -31,7 +31,7 @@
 <script>
 import { createNamespacedHelpers } from "vuex";
 import axios from "axios";
-const { mapState, mapMutations, mapActions } = createNamespacedHelpers(
+const { mapState, mapActions } = createNamespacedHelpers(
   "productsMoudles"
 );
 export default {
@@ -46,8 +46,8 @@ export default {
     ...mapState(["supProducts", "shopId"])
   },
   methods: {
-    handleChange(value) {
-      console.log(value);
+    handleChange() {
+      // console.log(value);
     },
     ...mapActions(["setSupProducts", "setProducts"]),
     postSupPro(id) {
@@ -55,7 +55,7 @@ export default {
         method: "get",
         url: "/supPro/" + id
       }).then(({ data }) => {
-        console.log("gongyingshang商品", data);
+        // console.log("gongyingshang商品", data);
         axios({
           method: "post",
           url: "/sopPropducts",
@@ -65,7 +65,7 @@ export default {
             shopId: this.shopId
           }
         }).then(() => {
-          console.log("添加的", ...data);
+          // console.log("添加的", ...data);
           this.$message({
             showClose: true,
             message: "添加成功",
@@ -77,7 +77,7 @@ export default {
     }
   },
   created() {
-    console.log(1234);
+    // console.log(1234);
     this.setSupProducts();
   }
 };

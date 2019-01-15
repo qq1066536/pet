@@ -5,6 +5,7 @@ import UserManage from "../components/platform/UserManage"
 import PetmasterManage from "../components/platform/PetmasterManage"
 import StoreManage from "../components/platform/StoreManage"
 import Statistics from "../components/platform/Statistics"
+import Producers from "../components/producers"
 import Orders from "../components/Orders"
 import Products from "../components/shop/index.vue"
 import SupProducts from '../components/supplier/products'
@@ -53,6 +54,13 @@ export default new VueRouter({
             {
                 path: "/manage/platform/Statistics",
                 component: Statistics
+            },
+            {
+                path: "/manage/producers",
+                component: Producers
+            },{
+                path:"/manage/supplier/products",
+                component:SupProducts
             }, {
                 path: "/manage/supplier/products",
                 component: SupProducts

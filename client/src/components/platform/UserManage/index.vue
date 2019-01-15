@@ -96,7 +96,12 @@
         <p>供应商地址：{{shopOrsupplier.addr}}</p>
         <p>供应商电话：{{shopOrsupplier.tel}}</p>
         <p>供应商网站：{{shopOrsupplier.website}}</p>
-        <p>供应商营业执照：{{shopOrsupplier.business_lic}}</p>
+        <p>供应商营业执照：
+          <el-upload disabled="false" :show-file-list="false">
+            <img v-if="shopOrsupplier.license" :src="shopOrsupplier.license" class="shoperImg">
+            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+          </el-upload>
+        </p>
         <p>供应商备注：{{shopOrsupplier.desc}}</p>
         <p v-if="shopOrsupplier.status == '待审核'">
           <el-button type="primary" @click="agreeSupplierTwice(shopOrsupplier._id)">通过供应商申请审核</el-button>
@@ -104,9 +109,6 @@
         </p>
       </div>
       <div v-if="shopOrsupplier.status == ''">
-        <p>暂无审核消息。</p>
-      </div>
-      <div v-else>
         <p>暂无审核消息。</p>
       </div>
     </el-dialog>

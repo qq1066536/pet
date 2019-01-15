@@ -56,7 +56,7 @@
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">
-                <el-button @click="setDialogVisible(false)">取 消</el-button>
+                <el-button @click="cancelDialog(false)">取 消</el-button>
                 <el-button type="primary" @click="test(false)">确 定</el-button>
             </div>
         </el-dialog>
@@ -91,6 +91,10 @@ export default {
             "addProduct",
             "setProducts"
         ]),
+        cancelDialog(value) {
+            this.setDialogVisible(value);
+            this.setProduct({});
+        },
         test(value) {
             // console.log(this.title)
             if (value) {

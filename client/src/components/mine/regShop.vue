@@ -82,7 +82,7 @@
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="regBtn('regForm')">确定</el-button>
-          <el-button @click="resetForm('regForm')">重置</el-button>
+          <el-button>重置</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
@@ -185,9 +185,9 @@ export default {
         let lat=`${data.result.location.lat}`
         // this.location=data.result.location
         this.regForm.location=lng+","+lat
-        console.log(this.regForm.location)
-        console.log(typeof data.result)
-        console.log("定位",data.result.location)
+        // console.log(this.regForm.location)
+        // console.log(typeof data.result)
+        // console.log("定位",data.result.location)
       })
     },
     removeItem(item) {
@@ -203,17 +203,17 @@ export default {
         title: ""
       });
     },
-    handleAvatarSuccess(res, file) {
+    handleAvatarSuccess(res) {
       this.regForm.business_lic="/upload/" + res;
-      console.log(res, file);
+      // console.log(res, file);
     },
-    handleAvatarSuccess1(res, file) {
+    handleAvatarSuccess1(res) {
        this.regForm.img_head="/upload/" + res;
-      console.log(res, file);
+      // console.log(res, file);
     },
     ...mapActions(["getSession"]),
-    regBtn(regForm) {
-      console.log("userId", this.userId);
+    regBtn() {
+      // console.log("userId", this.userId);
       let {
         name,
         business_no,
@@ -253,7 +253,7 @@ export default {
       }).then(() => {
         // this.$emit("show")
         this.dialogVisible = false;
-        this.regForm.reset('regForm');
+        // this.$refs.regForm.resetFileds();
       });
     }
   }

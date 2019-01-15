@@ -19,6 +19,7 @@
 <script>
 import { createNamespacedHelpers } from "vuex";
 const {mapState,mapMutations}=createNamespacedHelpers("SupProducts")
+const url="http://"+window.location.host
 
 export default {
     computed:{
@@ -37,7 +38,7 @@ export default {
         // },
         test(res){
             console.log(res)
-            this.adddialogImageUrls("http://127.0.0.1:3000/upload/"+res)
+            this.adddialogImageUrls("/upload/"+res)
         }
     }
 };

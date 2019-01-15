@@ -86,7 +86,8 @@ export default {
             })
         },
         setProducts({ commit, state}, payloda = { page: 1, rows: 5 }) {
-            let id = state.shopId || JSON.parse(window.localStorage.getItem("shopId"));
+            console.log(state.shopId || JSON.parse(window.localStorage.getItem("shopId"))._id)
+            let id = state.shopId || JSON.parse(window.localStorage.getItem("shopId"))._id;
             axios({
                 method: "get",
                 url: "/sopPropducts",

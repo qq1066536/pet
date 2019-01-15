@@ -26,18 +26,18 @@ router.get("/", async (req, res) => {
     // console.log(data)
     res.send(data)
 })
-// router.get("/:id", async (req, res) => {
-//     let proid = req.params.id
-//     let { id } = req.query
-//     let data = await client.get(`/sup_products/` + proid, {
-//         "submitType": "findJoin",
-//         ref: "supplier",
-//         "supplier.$id": id,
-//     })
+router.get("/:id", async (req, res) => {
+    let proid = req.params.id
+    let { id } = req.query
+    let data = await client.get(`/sup_products/` + proid, {
+        "submitType": "findJoin",
+        ref: "supplier",
+        "supplier.$id": id,
+    })
 
-//     console.log("getProduct", data)
-//     res.send(data)
-// })
+    console.log("getProduct", data)
+    res.send(data)
+})
 router.get("/supplierInfo/:id", async (req,res) => {
     let id = req.params.id;
     let data = await client.get('/supplier/' + id)

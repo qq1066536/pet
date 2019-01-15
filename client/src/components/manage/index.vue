@@ -106,10 +106,10 @@
                     <i class="el-icon-menu"></i>
                     <span slot="title">销量统计</span>
                   </el-menu-item>
-                  <el-menu-item index="/manage/report/sales">
+                  <!-- <el-menu-item index="/manage/report/sales">
                     <i class="el-icon-menu"></i>
                     <span slot="title">销售额统计</span>
-                  </el-menu-item>
+                  </el-menu-item> -->
                 </el-menu-item-group>
               </el-submenu>
 

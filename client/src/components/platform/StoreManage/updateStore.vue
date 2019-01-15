@@ -308,7 +308,7 @@ export default {
               vip,
               commission_rate
             }
-          }).then(({}) => {
+          }).then(() => {
             this.setStores();
             this.setUpdateShopVisible(false);
           });

@@ -99,7 +99,7 @@ export default {
             if (this.title.name == "新增") {
                 this.addProduct();
             } else {
-                console.log(this.title);
+                // console.log(this.title);
 
                 this.updateProduct();
             }

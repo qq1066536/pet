@@ -89,7 +89,7 @@ export default {
               status: "待审核",
               account: "正常"
             }
-          }).then(({ data }) => {
+          }).then(() => {
             this.$router.push("login");
           });
         } else {

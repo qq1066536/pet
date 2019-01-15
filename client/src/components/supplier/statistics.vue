@@ -40,7 +40,7 @@ export default {
                     data: this.list.xAxis
                 },
                 yAxis: {
-                    // data: this.list.xAxis
+                    // data: [100,300,1000,2000]
                 },
                 visualMap: {
                     top: 10,
@@ -73,7 +73,12 @@ export default {
                         },
                         {
                             gt: 300,
+                            lte: 600,
                             color: "#7e0023"
+                        },
+                        {
+                            gt: 600,
+                            color: "#5e2"
                         }
                     ],
                     outOfRange: {
@@ -92,27 +97,27 @@ export default {
                     {
                         name: "销量",
                         type: "line",
-                        data: this.list.yAxis,
-                        markLine: {
-                            silent: true,
-                            data: [
-                                {
-                                    yAxis: 50
-                                },
-                                {
-                                    yAxis: 100
-                                },
-                                {
-                                    yAxis: 150
-                                },
-                                {
-                                    yAxis: 200
-                                },
-                                {
-                                    yAxis: 300
-                                }
-                            ]
-                        }
+                        data: this.list.yAxis
+                        // markLine: {
+                        //     silent: true,
+                        //     data: [
+                        //         {
+                        //             yAxis: 50
+                        //         },
+                        //         {
+                        //             yAxis: 100
+                        //         },
+                        //         {
+                        //             yAxis: 150
+                        //         },
+                        //         {
+                        //             yAxis: 200
+                        //         },
+                        //         {
+                        //             yAxis: 300
+                        //         }
+                        //     ]
+                        // }
                     }
                 ]
             };
@@ -162,32 +167,40 @@ export default {
                     url: "/supplierreport/AllorderBySupplier/" + data[0]._id,
                     method: "get"
                 }).then(({ data }) => {
-                    let  arr1 = [];
+                    let arr1 = [];
                     // console.log(Object.keys(data[0])[0]);
                     // console.log(Object.keys(data[data.length - 1])[0]);
                     let allmonth = this.getMonthBetween(
                         Object.keys(data[0])[0],
                         Object.keys(data[data.length - 1])[0]
                     );
-                    // console.log(data);
+                    console.log(data);
                     for (let j in allmonth) {
+                        let hasdata = false;
                         for (let i in data) {
                             if (Object.keys(data[i])[0] == allmonth[j]) {
                                 // console.log(data[i][allmonth[j]]);
+                                console.log(j, i);
 
                                 arr1.push(data[i][allmonth[j]]);
-                                continue
+                                // continue
+                                hasdata = true;
+                                break;
                             }
                         }
-                        arr1.push(0)
+                        if (!hasdata) {
+                            arr1.push(0);
+                        }
                     }
+                    // console.log(arr1)
                     // console.log(that)
                     that.list.xAxis = [].concat(allmonth);
                     that.list.yAxis = [].concat(arr1);
+                    console.log(that.list.yAxis);
                     myChart.setOption(this.echartOption, true);
                 });
             });
-            // console.log(this.list);
+            console.log(this.list);
         }
     }
 };

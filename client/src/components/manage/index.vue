@@ -142,9 +142,9 @@ export default {
   created() {
     this.getSession();
   },
-  computed: {
-    ...mapState(["session"])
-  },
+  // computed: {
+  //   ...mapState(["session"])
+  // },
   methods: {
     ...mapActions(["getSession"]),
     removeSession() {

@@ -21,10 +21,9 @@ router.get("/", async (req, res) => {
 // 根据id获取每月的销量
 router.get("/allorderBySupplier/:id", async (req, res) => {
     let id = req.params.id
-    let orders = await client.get("/order", { submitType: "findJoin", ref: "sop_procducts" })
+    let orders = await client.get("/order")
     // 格式化时间
     let list = _.reduce(orders, function (result, value, key) {
-        console.log(value.buyTime)
         value.buyTime = value.buyTime.split(" ")[0].split("-")
         value.buyTime.pop()
         value.buyTime = value.buyTime.join("")
@@ -33,23 +32,34 @@ router.get("/allorderBySupplier/:id", async (req, res) => {
     }, [])
     // 过滤供应商和订单状态为已完成
     list = _.filter(list, function (item) {
-        return _.isEqual(item.sop_procducts.supplier.$id, id) && _.isEqual(item.state, 3)
+        return _.isEqual(item.state, 3)
     })
-    // 日期按照月份分组
-    list = _.groupBy(list, "buytime")
-    let temp=[]
-    // 循环并统计每项的总和
-    for(let key in list){
-        let tmp={}
-        let count = _.sum(_.map(list[key],"number"))
-        tmp[key]=count
+    let temp = []
+    // 按月汇总指定的数据
+    _.each(list, function (item) {
+        let tmp = {}
+        tmp['month'] = item.buyTime
+        // 过滤掉没有supplier的商品并求和
+        tmp["count"] = _.sum(_.map(item.goods, function (item) {
+            if (item.supplierId == id) {
+                return item.number
+            } else {
+                return 0
+            }
+        }))
         temp.push(tmp)
-        
-    }
-    res.send(temp)
+    })
+    // 过滤掉数据为0 的数据
+    temp = _.filter(temp, item => {
+        return item.count != 0
+    })
+    let result = []
+    // 组合成指定的类型[{"月份": 当月金额},{"月份": 当月金额}]
+    _.each(_.groupBy(temp, "month"), function (item, key) {
+        let tmp = {}
+        tmp[key] = _.sum(_.map(item, "count"))
+        result.push(tmp)
+    })
+    res.send(result)
 })
-// router.get("supplierAllList/:id",async (req,res)=>{
-//     let id=req.params.id
-
-// })
 module.exports = router

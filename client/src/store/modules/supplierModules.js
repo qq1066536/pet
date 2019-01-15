@@ -50,8 +50,10 @@ export default {
             if (!Array.isArray(state.product.img)) {
                 state.product.img = []
                 state.product.img.push({ url: data })
+            }else{
+                state.product.img.push({ url: data })
             }
-            state.product.img.push({ url: data })
+            
         },
         // 移除某张图片
         removedialogImageUrls: function (state, data) {
@@ -59,9 +61,9 @@ export default {
         }
     },
     actions: {
-        setProducts: function ({ commit,rootState }, payload = { page: 1, row: 5 }) {
+        setProducts: function ({ commit, rootState }, payload = { page: 1, row: 5 }) {
             // let id = state.id
-            let id = rootState.session._id||JSON.parse(window.localStorage.getItem("session"))._id;
+            let id = rootState.session._id || JSON.parse(window.localStorage.getItem("session"))._id;
             axios({
                 methods: "get",
                 url: "/supplier",
@@ -69,20 +71,24 @@ export default {
             }).then(({ data }) => {
                 commit('setPagination', data)
                 data = data.rows
-                let imgs = []
                 // 将img数组对象转换成字符串
                 for (let i = 0; i < data.length; i++) {
-                    for (let j = 0; j < data[i].img.length; j++) {
-                        imgs.push(data[i].img[j].url)
+                    let imgs = []
+
+                    if (!!data[i].img) {
+                        for (let j = 0; j < data[i].img.length; j++) {
+                            imgs.push(data[i].img[j].url)
+                        }
                     }
+
                     data[i].img = imgs.join(",")
                 }
                 commit('setProducts', data)
             })
         },
-        getProduct: function ({ commit, state,rootState }) {
+        getProduct: function ({ commit, state, rootState }) {
             // let id = state.id
-            let id = rootState.session._id||JSON.parse(window.localStorage.getItem("session"))._id;
+            let id = rootState.session._id || JSON.parse(window.localStorage.getItem("session"))._id;
             let proid = state.pid
             // console.log("getProduct",proid)
             axios({
@@ -109,9 +115,9 @@ export default {
 
             })
         },
-        addProduct: function ({ state, commit, dispatch,rootState }) {
-            let id = rootState.session._id||JSON.parse(window.localStorage.getItem("session"))._id;
-            // console.log(id)
+        addProduct: function ({ state, commit, dispatch, rootState }) {
+            let id = rootState.session._id || JSON.parse(window.localStorage.getItem("session"))._id;
+            console.log(state.product.img)
             axios({
                 url: "/supplier/" + id,
                 method: "post",

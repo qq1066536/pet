@@ -100,6 +100,7 @@ export default {
             if (value) {
                 this.getProduct();
             }
+            console.log(this.title.name)
             if (this.title.name == "新增") {
                 this.addProduct();
             } else {

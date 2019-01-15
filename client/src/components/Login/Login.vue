@@ -1,4 +1,5 @@
 <template>
+<div class="box">
   <el-card class="box-card">
     <div slot="header" class="clearfix position">
       <span>欢迎登录爱宠邦后台管理系统</span>
@@ -18,6 +19,7 @@
       </el-form-item>
     </el-form>
   </el-card>
+  </div>
 </template>
 <script>
 import axios from "axios";
@@ -68,13 +70,16 @@ export default {
 };
 </script>
 <style scoped>
-#app>div {
+.box {
+  width: 100%;
+  height: 100%;
+  padding-top: 10%;
   background: url("../../assets/1.jpg") no-repeat;
   background-size: cover;
 }
 .box-card {
   width: 500px;
-  margin: 100px auto;
+  margin: 0 auto;
 }
 .position {
   padding-top: 30px;

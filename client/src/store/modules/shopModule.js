@@ -14,20 +14,20 @@ export default {
         },
         setUserId(state, userId) {
             state.userId = userId
-            console.log(userId)
+            // console.log(userId)
         },
         setShopId(state,shopId){
             state.shopId = shopId
         }
     },
     actions: {
-        getSession({ commit, state }) {
+        getSession({ commit}) {
             axios({
                 method: "get",
                 url: "/users/getSession"
             }).then(({ data }) => {
                 commit("setUserId", data._id);
-                console.log("user", data)
+                // console.log("user", data)
                 axios({
                     method: "get",
                     url: "/shop",
@@ -38,7 +38,7 @@ export default {
                     commit("setShopId", data[0]._id);
                     window.localStorage.setItem("shopId",JSON.stringify(data[0]._id))
                     commit("setShop", data[0]);
-                    console.log("shop", data)
+                    // console.log("shop", data)
                 })
             });
         },

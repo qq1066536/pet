@@ -19,7 +19,7 @@ import "echarts/lib/component/tooltip";
 import "echarts/lib/component/title";
 import "echarts/lib/component/legend";
 import axios from "axios";
-import { createNamespacedHelpers, mapMutations } from "vuex";
+import { createNamespacedHelpers } from "vuex";
 const { mapActions, mapState } = createNamespacedHelpers("productsMoudles");
 export default {
   data() {
@@ -40,7 +40,7 @@ export default {
     // console.log('shopId',);
     this.getTime();
     // this.getOrders()
-    console.log();
+    // console.log();
   },
   methods: {
     ...mapActions(["getTime", "getSession"]),
@@ -55,7 +55,7 @@ export default {
             sessionId: JSON.parse(window.localStorage.getItem("session"))._id
           }
         }).then(({ data }) => {
-          console.log("data", data);
+          // console.log("data", data);
           this.salesAxisData = data.axisData;
           this.seriesDataPro = data.seriesDataPro;
           myChart.setOption(this.proOptions, true);
@@ -69,7 +69,7 @@ export default {
             sessionId: JSON.parse(window.localStorage.getItem("session"))._id
           }
         }).then(({ data }) => {
-          console.log("data", data);
+          // console.log("data", data);
           this.salesAxisData = data.axisData;
           this.seriesDataSer = data.seriesDataSer;
           myChart.setOption(this.serOptions, true);
@@ -223,7 +223,7 @@ export default {
 
 <style>
 .total {
-  width: 1200px;
-  height: 600px;
+  width: 100%;
+  height: 500px;
 }
 </style>

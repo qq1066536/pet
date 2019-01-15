@@ -60,8 +60,8 @@ export default {
                 }
             }).then(({ data }) => {
                 commit("setOrders",data)
-                console.log("订单",data)
-                console.log(state.trueTime, state.shopId)
+                // console.log("订单",data)
+                // console.log(state.trueTime, state.shopId)
             })
         }
     }

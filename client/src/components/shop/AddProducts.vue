@@ -55,7 +55,7 @@
         list-type="picture-card"
         :on-success="handleAvatarSuccess"
         :on-preview="handlePictureCardPreview"
-        :on-remove="handleRemove"
+        
       >
         <i class="el-icon-plus"></i>
       </el-upload>
@@ -99,70 +99,84 @@ export default {
     };
   },
   computed: {
-    ...mapState(["shopId"])
+    ...mapState(["shopId", "userId"])
   },
   methods: {
     ...mapMutations(["setShopId"]),
     ...mapActions(["setProducts", "getSession"]),
     addPro() {
-      // console.log(1234);
-      console.log("shopId", this.shopId);
-      let {
-        name,
-        type,
-        makings,
-        spec,
-        suit,
-        weight,
-        taste,
-        effect,
-        addr,
-        pro_date,
-        valid_date,
-        No,
-        desc,
-        price,
-        number
-      } = this.addForm;
+      // console.log("shopId", this.shopId);
       axios({
-        method: "post",
-        url: "/sopPropducts",
-        data: {
-          name: name,
-          type: type,
-          makings: JSON.stringify(makings),
-          spec: JSON.stringify(spec),
-          suit: JSON.stringify(suit),
-          weight: JSON.stringify(weight),
-          taste: JSON.stringify(taste),
-          effect: JSON.stringify(effect),
-          addr: addr,
-          pro_date: pro_date,
-          valid_date: valid_date,
-          No: No,
-          desc: desc,
-          price: price,
-          img: JSON.stringify(this.img),
-          number,
-          shopId: this.shopId
+        method: "get",
+        url: "/shop",
+        params: {
+          userId: this.userId
         }
-      }).then(() => {
-        console.log(123123)
-        this.dialogVisible = false;
-        this.setProducts();
-        // this.$refs.addForm.resetFileds();
+      }).then(({ data }) => {
+        // console.log(data)
+        if (data[0].account == "封禁") {
+          alert("门店已被封，暂时不能添加商品哦");
+        } else {
+          // console.log(1234);
+
+          let {
+            name,
+            type,
+            makings,
+            spec,
+            suit,
+            weight,
+            taste,
+            effect,
+            addr,
+            pro_date,
+            valid_date,
+            No,
+            desc,
+            price,
+            number
+          } = this.addForm;
+          axios({
+            method: "post",
+            url: "/sopPropducts",
+            data: {
+              name: name,
+              type: type,
+              makings: JSON.stringify(makings),
+              spec: JSON.stringify(spec),
+              suit: JSON.stringify(suit),
+              weight: JSON.stringify(weight),
+              taste: JSON.stringify(taste),
+              effect: JSON.stringify(effect),
+              addr: addr,
+              pro_date: pro_date,
+              valid_date: valid_date,
+              No: No,
+              desc: desc,
+              price: price,
+              img: JSON.stringify(this.img),
+              number,
+              shopId: this.shopId
+            }
+          }).then(() => {
+            // console.log(123123);
+            this.dialogVisible = false;
+            this.setProducts();
+            // this.$refs.addForm.resetFileds();
+          });
+        }
       });
     },
-    handleRemove(file, fileList) {
-      console.log(file, fileList);
-    },
+    // handleRemove(file, fileList) {
+    //   // console.log(file, fileList);
+    // },
     handlePictureCardPreview(file) {
       this.dialogImageUrl = file.url;
       this.dialogVisible = true;
     },
-    handleAvatarSuccess(res, file) {
+    handleAvatarSuccess(res) {
       this.img.push("/upload/" + res);
-      console.log(this.img);
+      // console.log(this.img);
     }
   }
 };

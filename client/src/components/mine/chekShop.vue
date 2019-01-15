@@ -21,7 +21,7 @@
 </template>
 <script>
 import { createNamespacedHelpers} from "vuex";
-import axios from "axios";
+// import axios from "axios";
 const { mapActions, mapState,mapMutations } = createNamespacedHelpers("shopModule");
 export default {
   data() {

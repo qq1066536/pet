@@ -84,7 +84,7 @@
               <span>供应商管理</span>
             </template>
             <el-menu-item-group>
-              <el-menu-item index>
+              <el-menu-item index="/manage/producers">
                 <i class="el-icon-menu"></i>
                 <span slot="title">供应商信息</span>
               </el-menu-item>
@@ -106,10 +106,10 @@
                     <i class="el-icon-menu"></i>
                     <span slot="title">销量统计</span>
                   </el-menu-item>
-                  <el-menu-item index="/manage/report/sales">
+                  <!-- <el-menu-item index="/manage/report/sales">
                     <i class="el-icon-menu"></i>
                     <span slot="title">销售额统计</span>
-                  </el-menu-item>
+                  </el-menu-item> -->
                 </el-menu-item-group>
               </el-submenu>
 

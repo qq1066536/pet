@@ -105,7 +105,25 @@ export default {
     ...mapMutations(["setShopId"]),
     ...mapActions(["setProducts", "getSession"]),
     addPro() {
+      // console.log(1234);
       // console.log("shopId", this.shopId);
+      let {
+        name,
+        type,
+        makings,
+        spec,
+        suit,
+        weight,
+        taste,
+        effect,
+        addr,
+        pro_date,
+        valid_date,
+        No,
+        desc,
+        price,
+        number
+      } = this.addForm;
       axios({
         method: "get",
         url: "/shop",
@@ -119,23 +137,23 @@ export default {
         } else {
           // console.log(1234);
 
-          let {
-            name,
-            type,
-            makings,
-            spec,
-            suit,
-            weight,
-            taste,
-            effect,
-            addr,
-            pro_date,
-            valid_date,
-            No,
-            desc,
-            price,
-            number
-          } = this.addForm;
+          // let {
+          //   name,
+          //   type,
+          //   makings,
+          //   spec,
+          //   suit,
+          //   weight,
+          //   taste,
+          //   effect,
+          //   addr,
+          //   pro_date,
+          //   valid_date,
+          //   No,
+          //   desc,
+          //   price,
+          //   number
+          // } = this.addForm;
           axios({
             method: "post",
             url: "/sopPropducts",
@@ -165,11 +183,16 @@ export default {
             // this.$refs.addForm.resetFileds();
           });
         }
+      }).then(() => {
+        // console.log(123123)
+        this.dialogVisible = false;
+        this.setProducts();
+        // this.$refs.addForm.resetFileds();
       });
     },
-    // handleRemove(file, fileList) {
-    //   // console.log(file, fileList);
-    // },
+    handleRemove() {
+      // console.log(file, fileList);
+    },
     handlePictureCardPreview(file) {
       this.dialogImageUrl = file.url;
       this.dialogVisible = true;

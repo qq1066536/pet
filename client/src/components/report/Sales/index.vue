@@ -19,7 +19,7 @@ import "echarts/lib/component/tooltip";
 import "echarts/lib/component/title";
 import "echarts/lib/component/legend";
 import axios from "axios";
-import { createNamespacedHelpers } from "vuex";
+import { createNamespacedHelpers  } from "vuex";
 const { mapActions, mapState } = createNamespacedHelpers("productsMoudles");
 export default {
   data() {

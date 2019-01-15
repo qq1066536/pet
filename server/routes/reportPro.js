@@ -71,8 +71,10 @@ router.get("/", async function (req, res) {
     if (data.length > 1) {
         // console.log(data[0].buyTime)
         time = data[0].buyTime.split("-");
-    } else {
+    } else if(data.length==1){
         time = data.buyTime.split("-");
+    }else{
+        time=new Date(Date.parse("1970/01/01"))
     }
     chooseYear = new Date(Date.parse(chooseYear)).toLocaleDateString().split("-")[0];
     // console.log(chooseYear,time[0])

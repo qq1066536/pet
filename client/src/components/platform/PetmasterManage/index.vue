@@ -70,7 +70,7 @@ export default {
               data: {
                 account: "正常"
               }
-            }).then(({ data }) => {
+            }).then(() => {
               this.setPetmasters();
               this.$message({
                 type: "success",
@@ -104,7 +104,7 @@ export default {
               data: {
                 account: "封禁"
               }
-            }).then(({ data }) => {
+            }).then(() => {
               this.setPetmasters();
               this.$message({
                 type: "success",

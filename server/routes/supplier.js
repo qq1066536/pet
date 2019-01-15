@@ -2,11 +2,28 @@ var express = require('express');
 var router = express.Router();
 const client = require("ykt-http-client");
 client.url("http://127.0.0.1:8080")
-//获取某供应商数据
+// 获取供应商信息
+router.get("/info",async (req,res)=>{
+    let {id}=req.query
+    console.log(id)
+    res.send(await client.get("/supplier",{
+        "submitType": "findJoin",
+        ref: "user",
+        "user.$id": id,
+    }))
+})
+//获取某供应商商品数据
 router.get("/", async (req, res) => {
     let { id, page, rows } = req.query
-    let data = await client.get(`/sup_products`, { submitType: "findJoin", ref: "supplier" })
-    data = data.filter(item => item.supplier._id == id)
+    // let data = await client.get(`/sup_products`, { submitType: "findJoin", ref: "supplier" })
+    let data = await client.get(`/sup_products`, {
+        page,rows,
+        "submitType": "findJoin",
+        ref: "supplier",
+        "supplier.$id": id,
+    })
+    // data = data.filter(item => item.supplier._id == id)
+    // console.log(data)
     res.send(data)
 })
 router.get("/:id", async (req, res) => {
@@ -36,13 +53,15 @@ router.post("/:id", async (req, res) => {
 })
 // 修改产品数据
 router.put("/:id", async (req, res) => {
-    let id = req.params._id
+    let id = req.params.id
+    console.log(id)
     let data = await client.get("/sup_products/" + id)
     let reqdata = req.body
     delete data._id
     data = { ...data, ...reqdata }
     // console.log(data)
-    let resdata = await client.put("/sup_products/" + id, { ...data })
+    let resdata = await client.put("/sup_products/" + id, { ...reqdata })
+    // console.log(resdata)
     res.send(resdata)
 })
 router.delete("/:id", async (req, res) => {

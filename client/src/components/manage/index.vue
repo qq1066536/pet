@@ -2,16 +2,16 @@
   <el-container class="container">
     <el-header class="headerBgc">
       <h1>
-        宠物管理系统
+        爱宠邦后台管理系统
         <span class="el-icon-service user">
-          {{phone}},欢迎你：
-          <span class="el-icon-error" @click="removeSession"></span>
+          {{phone}},欢迎你!
+          <span class="el-icon-error back" @click="removeSession"></span>
         </span>
       </h1>
     </el-header>
     <el-container class="aside">
       <el-aside width="200px" class="aside">
-        <el-menu class="menu" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b" :router="true">
+        <el-menu class="menu" background-color="#35495e" text-color="#fff" active-text-color="#ffd04b" :router="true">
           <el-submenu index="1" v-if="session.private=='管理员'">
             <template slot="title">
               <i class="el-icon-setting"></i>
@@ -55,6 +55,10 @@
                 <i class="el-icon-goods"></i>
                 <span slot="title">服务</span>
               </el-menu-item>
+               <el-menu-item index="/manage/mine">
+                <i class="el-icon-goods"></i>
+                <span slot="title">我的</span>
+              </el-menu-item>
               <el-submenu index="4">
                 <template slot="title">
                   <i class="el-icon-tickets"></i>
@@ -88,10 +92,28 @@
                 <i class="el-icon-printer"></i>
                 <span slot="title">商品信息</span>
               </el-menu-item>
-              <el-menu-item index>
+              <!-- <el-menu-item index>
                 <i class="el-icon-tickets"></i>
-                <span slot="title">统计</span>
-              </el-menu-item>
+                <span slot="title">统计</span> -->
+
+              <el-submenu index="4">
+                <template slot="title">
+                  <i class="el-icon-tickets"></i>
+                  <span>报表展示</span>
+                </template>
+                <el-menu-item-group>
+                  <el-menu-item index="/manage/supplier/salesreport">
+                    <i class="el-icon-menu"></i>
+                    <span slot="title">销量统计</span>
+                  </el-menu-item>
+                  <el-menu-item index="/manage/report/sales">
+                    <i class="el-icon-menu"></i>
+                    <span slot="title">销售额统计</span>
+                  </el-menu-item>
+                </el-menu-item-group>
+              </el-submenu>
+
+              <!-- </el-menu-item> -->
             </el-menu-item-group>
           </el-submenu>
         </el-menu>
@@ -113,6 +135,7 @@ export default {
     };
   },
   computed: {
+    ...mapState(["session"]),
     path() {
       return this.$router.history.current.path;
     }
@@ -123,13 +146,13 @@ export default {
   created() {
     this.getSession();
   },
-  computed: {
-    ...mapState(["session"])
-  },
+  // computed: {
+  //   ...mapState(["session"])
+  // },
   methods: {
     ...mapActions(["getSession"]),
     removeSession() {
-      this.$confirm("是否要退出管理系统?", "提示", {
+      this.$confirm("确定退出系统?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
@@ -175,8 +198,9 @@ export default {
 
 <style scoped>
 .headerBgc {
-  background-color: #545c64;
+  background-color: #35495e;
   color: #fff;
+  height: 84px;
 }
 .container {
   height: 100%;
@@ -187,5 +211,8 @@ export default {
 .user {
   float: right;
   font-size: 16px;
+}
+.back {
+  cursor: pointer;
 }
 </style>

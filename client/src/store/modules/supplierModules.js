@@ -6,7 +6,7 @@ export default {
         dialogVisible: { visible: false },
         products: [],
         product: {},
-        id: "5c32ef8a6c9da2c6832b81fe",
+        id: "5c384fc4d9bd932e34d14957",
         pid: "",
         pagination: {},
         dialogImageUrls: [{
@@ -59,8 +59,9 @@ export default {
         }
     },
     actions: {
-        setProducts: function ({ commit, state }, payload = { page: 1, row: 5 }) {
-            let id = state.id
+        setProducts: function ({ commit,rootState }, payload = { page: 1, row: 5 }) {
+            // let id = state.id
+            let id = rootState.session._id||JSON.parse(window.localStorage.getItem("session"))._id;
             axios({
                 methods: "get",
                 url: "/supplier",
@@ -79,8 +80,9 @@ export default {
                 commit('setProducts', data)
             })
         },
-        getProduct: function ({ commit, state }) {
-            let id = state.id
+        getProduct: function ({ commit, state,rootState }) {
+            // let id = state.id
+            let id = rootState.session._id||JSON.parse(window.localStorage.getItem("session"))._id;
             let proid = state.pid
             // console.log("getProduct",proid)
             axios({
@@ -93,11 +95,12 @@ export default {
             })
         },
         updateProduct: function ({ commit, state, dispatch }) {
-            let id = state.product._id
+            // console.log(state.product)
+            // let id = state.product._id
             delete state.product._id
             delete state.product.supplier
             axios({
-                url: "/supplier/" + id,
+                url: "/supplier/" + state.pid,
                 method: "put",
                 data: { ...state.product }
             }).then(() => {
@@ -106,10 +109,11 @@ export default {
 
             })
         },
-        addProduct: function ({ state, commit, dispatch }) {
-
+        addProduct: function ({ state, commit, dispatch,rootState }) {
+            let id = rootState.session._id||JSON.parse(window.localStorage.getItem("session"))._id;
+            // console.log(id)
             axios({
-                url: "/supplier/" + state.id,
+                url: "/supplier/" + id,
                 method: "post",
                 data: { ...state.product }
             }).then(() => {

@@ -9,7 +9,10 @@ client.url("127.0.0.1:8080");
 }); */
 // 根据门店id查询订单
 router.get("/shop", async function (req, res) {
+    client.url("127.0.0.1:8080");
+
     let { id, page, rows, type, value } = req.query;
+    console.log(id, page, rows)
     let searchObj = {};
     if (type) {
         searchObj = { [type]: value };

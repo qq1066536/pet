@@ -1,6 +1,6 @@
 <template>
   <span class="regCard">
-    <el-button type="info" @click="dialogVisible = true">完善门店信息</el-button>
+    <el-button type="primary" @click="dialogVisible = true">注册门店</el-button>
     <el-dialog title="门店信息" :visible.sync="dialogVisible" width="50%">
       <el-form
         :model="regForm"
@@ -31,13 +31,13 @@
           <el-input v-model="regForm.addr" @blur="getLocation"></el-input>
         </el-form-item>
         <el-form-item label="经纬度:" prop="location">
-          <el-input v-model="regForm.location" disabled="true"></el-input>
+          <el-input v-model="regForm.location" disabled></el-input>
         </el-form-item>
         <!-- <el-form-item label="所在城市:" prop="city">
           <el-input v-model="regForm.city"></el-input>
         </el-form-item>-->
         <el-form-item label="所在城市" prop="city">
-          <!-- <el-input v-model="addForm.city" clearable :disabled="false"></el-input> -->
+          <!-- <el-input v-model="addForm.city" clearable :disabled></el-input> -->
           <el-cascader expand-trigger="hover" :options="citys" v-model="regForm.city"></el-cascader>
         </el-form-item>
         <el-form-item label="法人:" prop="legal_person">
@@ -170,7 +170,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["id"])
+    ...mapState(["userId"])
   },
   methods: {
     getLocation(){
@@ -211,9 +211,9 @@ export default {
        this.regForm.img_head="/upload/" + res;
       console.log(res, file);
     },
-    ...mapActions([""]),
+    ...mapActions(["getSession"]),
     regBtn(regForm) {
-      console.log("id", this.id);
+      console.log("userId", this.userId);
       let {
         name,
         business_no,
@@ -246,7 +246,7 @@ export default {
           stuff: JSON.stringify(stuff),
           business_lic,
           img_head,
-          userId: this.id,
+          userId: this.userId,
           status: "待审核",
           account:this.account,
         }

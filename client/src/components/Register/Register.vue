@@ -89,7 +89,7 @@ export default {
               status: "待审核",
               account: "正常"
             }
-          }).then(({ data }) => {
+          }).then(() => {
             this.$router.push("login");
           });
         } else {
@@ -102,6 +102,11 @@ export default {
 </script>
 
 <style scoped>
+
+#app>div {
+  background: url("../../assets/1.jpg") no-repeat;
+  background-size: cover;
+}
 .box-card {
   width: 500px;
   margin: 100px auto;

@@ -39,7 +39,7 @@ export default {
   },
   methods: {
       ...mapMutations(["setupdateVisible"]),
-      ...mapActions(["setProducts","setProduct"]),
+      ...mapActions(["setProducts","setProduct","getSession"]),
     delProducts(id) {
       console.log(id)
       axios({
@@ -54,6 +54,11 @@ export default {
          this.setupdateVisible(true)
          this.setProduct(id);
     }
+  },
+    created() {
+    this.setProducts();
+    this.getSession()
+    // console.log(123);
   }
 };
 </script>

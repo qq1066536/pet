@@ -73,7 +73,7 @@ export default {
           // 设置最大缩放值
           // bmap.setMaxZoom(15);
           // 缩放结束后的事件
-          bmap.addEventListener("zoomend", e => {
+          bmap.addEventListener("zoomend", () => {
             let zoom = this.zoom;
             this.zoom = bmap.getZoom();
             // 打印出当前缩放值
@@ -89,7 +89,7 @@ export default {
               });
             } else if (zoom > bmap.getZoom() && bmap.getZoom() <= 10) {
               this.shopsData = [];
-              let options = this.mapOptions;
+              // let options = this.mapOptions;
               myChart.setOption(this.mapOptions, false);
             }
           });
@@ -276,7 +276,7 @@ export default {
               }
             },
             tooltip: {
-              formatter: function(params, ticket, callback) {
+              formatter: function(params) {
                 return (
                   "城市：" + params.data[3] + "<br>门店数：" + params.data[2]
                 );
@@ -296,7 +296,7 @@ export default {
               }
             },
             tooltip: {
-              formatter: function(params, ticket, callback) {
+              formatter: function(params) {
                 return (
                   "店铺名称：" + params.data[2] + "<br>地址：" + params.data[3]
                 );

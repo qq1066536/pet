@@ -1,6 +1,6 @@
 <template>
   <el-card class="box-card">
-    <div slot="header" class="clearfix">
+    <div slot="header" class="clearfix position">
       <span>欢迎登录爱宠邦后台管理系统</span>
     </div>
     <el-form :model="lgForm" status-icon :rules="rules" ref="lgForm" label-width="100px">
@@ -31,7 +31,7 @@ export default {
       },
       rules: {
         phone: [
-          { required: true, message: "请输入手机号码" },
+          { required: true, message: "请输入手机号码" }
           // { pattern: /^1\d{10}$/, message: "手机号码格式不正确" }
         ],
         pwd: [{ required: true, message: "请输入密码" }]
@@ -68,11 +68,17 @@ export default {
 };
 </script>
 <style scoped>
+#app>div {
+  background: url("../../assets/1.jpg") no-repeat;
+  background-size: cover;
+}
 .box-card {
   width: 500px;
   margin: 100px auto;
 }
-
+.position {
+  padding-top: 30px;
+}
 .clearfix span {
   font-size: 30px;
 }

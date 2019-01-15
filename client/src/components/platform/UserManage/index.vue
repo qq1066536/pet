@@ -323,7 +323,7 @@ export default {
               data: {
                 status: "已审核"
               }
-            }).then(({ data }) => {
+            }).then(() => {
               this.setUsers();
               this.$message({
                 type: "success",
@@ -357,7 +357,7 @@ export default {
               data: {
                 status: "已拒绝"
               }
-            }).then(({ data }) => {
+            }).then(() => {
               this.setUsers();
               this.$message({
                 type: "success",
@@ -391,7 +391,7 @@ export default {
               data: {
                 account: "封禁"
               }
-            }).then(({ data }) => {
+            }).then(() => {
               this.setUsers();
               this.$message({
                 type: "success",
@@ -425,7 +425,7 @@ export default {
               data: {
                 account: "正常"
               }
-            }).then(({ data }) => {
+            }).then(() => {
               this.setUsers();
               this.$message({
                 type: "success",
@@ -457,7 +457,7 @@ export default {
             data: {
               password
             }
-          }).then(({ data }) => {
+          }).then(() => {
             this.updateDialogVisible = false;
             this.setUsers();
           });
@@ -478,7 +478,7 @@ export default {
             method: "put",
             url: "/platform/putShop/" + id,
             data: { status: "已审核" }
-          }).then(({ data }) => {
+          }).then(() => {
             this.dialogDetailsVisible = false;
             this.$message({
               type: "success",
@@ -505,7 +505,7 @@ export default {
             method: "put",
             url: "/platform/putShop/" + id,
             data: { status: "已拒绝" }
-          }).then(({ data }) => {
+          }).then(() => {
             this.dialogDetailsVisible = false;
             this.$message({
               type: "success",
@@ -532,7 +532,7 @@ export default {
             method: "put",
             url: "/platform/putSupplier/" + id,
             data: { status: "已审核" }
-          }).then(({ data }) => {
+          }).then(() => {
             this.dialogDetailsVisible = false;
             this.$message({
               type: "success",
@@ -559,7 +559,7 @@ export default {
             method: "put",
             url: "/platform/putSupplier/" + id,
             data: { status: "已拒绝" }
-          }).then(({ data }) => {
+          }).then(() => {
             this.dialogDetailsVisible = false;
             this.$message({
               type: "success",

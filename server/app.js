@@ -9,6 +9,7 @@ const session = require("express-session");
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+
 var supplierRouter = require("./routes/supplier")
 var platformRouter = require('./routes/platform.js')
 var ordersRouter = require('./routes/orders');

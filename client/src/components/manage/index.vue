@@ -129,7 +129,7 @@ export default {
   methods: {
     ...mapActions(["getSession"]),
     removeSession() {
-      this.$confirm("此操作将封禁此账号, 是否继续?", "提示", {
+      this.$confirm("是否要退出管理系统?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"

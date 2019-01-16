@@ -22,7 +22,7 @@
         <template slot-scope="scope">
           <el-button size="mini" type="primary" @click="showById(scope.row._id)">修改</el-button>
         </template>
-      </el-table-column>
+      </el-table-column> 
     </el-table>
     <!-- 修改板块 -->
     <el-dialog title="修改供应商信息" :visible.sync="dialogVisible" width="30%">

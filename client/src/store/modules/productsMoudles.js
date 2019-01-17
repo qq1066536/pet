@@ -101,15 +101,14 @@ export default {
                 commit("setPagition", data)
             });
         },
-        setSupProducts({ commit,dispatch}, payloda = { page: 1, rows: 5 }) {
+        setSupProducts({ commit,dispatch}) {
             axios({
                 method: "get",
                 url: "/sopPropducts/productsAll",
-                params: { ...payloda }
             }).then(({ data }) => {
                 // console.log(state.supId)
                 // console.log(data)
-                commit("setSupProducts", data.rows);
+                commit("setSupProducts", data);
                 dispatch("setProducts")
                 commit("setPagition", data)
             });

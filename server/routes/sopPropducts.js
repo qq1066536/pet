@@ -4,7 +4,7 @@ const client = require("ykt-http-client");
 client.url("127.0.0.1:8080");
 //上架
 //关联供应商商品
-router.get('/sup', async function (req, res) {
+/* router.get('/sup', async function (req, res) {
   let { supId, page, rows, type, value } = req.query;//获取页码,每页显示数,搜索类型,搜索框的值
   let searchObj = {};//声明一个对象
   if (type) {
@@ -19,7 +19,7 @@ router.get('/sup', async function (req, res) {
   });
   console.log(data)
   res.send(data);
-});
+}); */
 router.post('/', async function (req, res) {
   console.log(req.body)
   console.log(req.body.shopId)
@@ -69,8 +69,7 @@ router.delete('/:id', async function (req, res) {
 });
 // 查询所有供应商商品
 router.get("/productsAll", async (req, res) => {
-  let { page, rows } = req.query
-  res.send(await client.get("/sup_products", { page, rows }))
+  res.send(await client.get("/sup_products"))
 
 })
 //id查询

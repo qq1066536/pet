@@ -11,6 +11,9 @@
                 <el-form-item label="成分" prop="makings">
                     <el-input autocomplete="off" v-model="product.makings"></el-input>
                 </el-form-item>
+                <el-form-item label="重量" prop="weight">
+                    <el-input autocomplete="off" v-model="product.weight"></el-input>
+                </el-form-item>
                 <el-form-item label="适用" prop="spec">
                     <el-input autocomplete="off" v-model="product.spec"></el-input>
                 </el-form-item>
@@ -100,7 +103,7 @@ export default {
             if (value) {
                 this.getProduct();
             }
-            console.log(this.title.name)
+            console.log(this.title.name);
             if (this.title.name == "新增") {
                 this.addProduct();
             } else {

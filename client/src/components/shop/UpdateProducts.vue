@@ -144,6 +144,7 @@ export default {
         }
       }).then(() => {
         this.setProducts();
+        this.img=[]
         this.setupdateVisible(false);
       });
     },

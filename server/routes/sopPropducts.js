@@ -31,16 +31,18 @@ router.post('/', async function (req, res) {
       shop: { $ref: "shop", $id: shopId }
     })
   } else {
-    let { name, type, makings, spec, suit, weight, taste, effect, addr, pro_date, valid_date, No, desc, price, img, number, shopId } = req.body;
-    makings = makings && JSON.parse(makings);
-    spec = spec && JSON.parse(spec);
-    suit = suit && JSON.parse(suit);
-    weight = weight && JSON.parse(weight);
-    taste = taste && JSON.parse(taste);
-    effect = effect && JSON.parse(effect);
-    img = img && JSON.parse(img);
+    // let { name, type, makings, spec, suit, weight, taste, effect, addr, pro_date, valid_date, No, desc, price, img, number, shopId } = req.body;
+    let {shopId } = req.body;
+    delete req.body.shopId
+    // makings = makings && JSON.parse(makings);
+    // spec = spec && JSON.parse(spec);
+    // suit = suit && JSON.parse(suit);
+    // weight = weight && JSON.parse(weight);
+    // taste = taste && JSON.parse(taste);
+    // effect = effect && JSON.parse(effect);
+    // img = img && JSON.parse(img);
     await client.post('/sop_procducts', {
-      name, type, makings, spec, suit, weight, taste, effect, addr, pro_date, valid_date, No, desc, price, img, number,
+      ...req.body,
       shop: { $ref: "shop", $id: shopId }
     })
   }

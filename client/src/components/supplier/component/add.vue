@@ -14,6 +14,9 @@
                 <el-form-item label="重量" prop="weight">
                     <el-input autocomplete="off" v-model="product.weight"></el-input>
                 </el-form-item>
+                <el-form-item label="产地" prop="addr">
+                    <el-input autocomplete="off" v-model="product.addr"></el-input>
+                </el-form-item>
                 <el-form-item label="适用" prop="spec">
                     <el-input autocomplete="off" v-model="product.spec"></el-input>
                 </el-form-item>

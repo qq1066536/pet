@@ -2,11 +2,11 @@
   <el-table :data="data" style="width: 100%">
     <el-table-column label="订单状态" width="80" prop="state">
       <template slot-scope="scope">
-        <el-tag v-if="scope.row.state == 0">未付款</el-tag>
-        <el-tag v-else-if="scope.row.state == 1" type="danger">已付款</el-tag>
-        <el-tag v-else-if="scope.row.state == 2" type="warning">待发货</el-tag>
-        <el-tag v-else-if="scope.row.state == 3" type="info">已发货</el-tag>
-        <el-tag v-else-if="scope.row.state == 4" type="success">已签收</el-tag>
+        <el-tag v-if="scope.row.state == 0" type="danger">未付款</el-tag>
+        <el-tag v-else-if="scope.row.state == 1" type="warning">待发货</el-tag>
+        <el-tag v-else-if="scope.row.state == 2" type="info">已发货</el-tag>
+        <el-tag v-else-if="scope.row.state == 3" type="success">已签收</el-tag>
+        <el-tag v-else-if="scope.row.state == 4" type="success">完成</el-tag>
       </template>
     </el-table-column>
     <el-table-column label="订单编号" width="220" prop="_id"></el-table-column>
